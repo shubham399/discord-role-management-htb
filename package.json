@@ -1,0 +1,28 @@
+{
+  "name": "discord-role-management-htb",
+  "version": "0.0.1",
+  "description": "A role management app for discord with HTB",
+  "main": "bot.js",
+  "dependencies": {
+    "discord.js": "^11.5.1",
+    "format": "^0.2.2",
+    "http": "0.0.0",
+    "request": "^2.88.0",
+    "winston": "^3.2.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node bot.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shubham399/discord-role-management-htb.git"
+  },
+  "author": "Shubham",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shubham399/discord-role-management-htb/issues"
+  },
+  "homepage": "https://github.com/shubham399/discord-role-management-htb#readme"
+}

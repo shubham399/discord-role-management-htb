@@ -1,0 +1,19 @@
+{
+  "name": "discord-role-bot-htb",
+  "scripts": {},
+  "env": {},
+  "formation": {
+        "web": {
+      "quantity": 0
+    },
+    "worker": {
+      "quantity": 1
+    }
+  },
+  "addons": [
+
+  ],
+  "buildpacks": [{
+    "url": "heroku/nodejs"
+  }]
+}
