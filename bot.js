@@ -18,18 +18,18 @@ client.on("message",(msg)=>{
   try{
     var commandArray = msg.content.split(" ")
     // console.log(type(msg.content))
-  if( commandArray[0] === "!htb"){
+  if( commandArray[0] === "badgers"){
     console.log(commandArray[1]);
     switch(commandArray[1])
     {
       case undefined:
-        msg.channel.send("type `!htb help` to see how to use");
+        msg.channel.send("type `badgers help` to see how to use");
         break;
       case "help":
-        msg.channel.send("type `!htb identify` to Verify yourself.");
+        msg.channel.send("type `badgers identify` to Verify yourself.");
         break;
       case "identify":
-        msg.author.send("Hey Lets Get you verified, Go grab the identification token from HTB from https://hackthebox.eu/home/settings and paste `!htb verify <token>` in "+msg.channel);
+        msg.author.send("Hey Lets Get you verified, Go grab the identification token from HTB from https://hackthebox.eu/home/settings and paste `badgers verify <token>` in "+msg.channel);
         break;
       case "verify":
         verifyUser(msg,commandArray[2])
