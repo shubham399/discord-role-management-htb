@@ -69,7 +69,7 @@ request('https://www.hackthebox.eu/api/users/identifier/'+ token, { json: true }
   }
   var role = member.guild.roles.find(r =>r.name.includes("-"+rank))
   if (role != null)
-  member.addRole(role).then(r=>channel.send("Congratulation! "+author+" you are verified now.")).catch(e => channel.send("Unable to add proper role "+author+" Please try again later."));
+  member.addRole(role).then(r=>channel.send("Congratulation! "+author+" you are verified now :thumbsup: .")).catch(e => channel.send("Unable to add proper role "+author+" Please try again later."));
 });
 
 }
