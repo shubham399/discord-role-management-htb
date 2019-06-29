@@ -1,6 +1,6 @@
 {
   "name": "discord-role-management-htb",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "A role management app for discord with HTB",
   "main": "bot.js",
   "dependencies": {
