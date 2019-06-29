@@ -17,6 +17,7 @@ module.exports.logger = winston.createLogger({
   transports: [
     new winston.transports.Console({
       format: combine(
+        winston.format.colorize(),
         label({ label: 'Bot! ' }),
         timestamp(),
         myFormat
