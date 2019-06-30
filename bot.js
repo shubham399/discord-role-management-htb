@@ -71,7 +71,7 @@ function verifyUser(msg, token) {
           return role.name == defaultRole.name
         });
         }catch(error){
-           msg.send("Send the badger verify in the channel");
+           msg.author.send("Send the badger verify in the channel");
            logger.error("Error:" + error);
         }
         logger.debug("HasRole: " + (hasRole != null ? hasRole.name:null))
