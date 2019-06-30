@@ -77,12 +77,13 @@ function verifyUser(msg, token) {
         logger.debug("HasRole: " + (hasRole != null ? hasRole.name:null))
         if (hasRole == null) {
           // var role = member.guild.roles.find(r => r.name.includes("-" + rank))
-          logger.info(author.username + " htb rank is " + rank + " and giving it role " + defaultRole.name);
-          if (defaultRole != null)
+          if (defaultRole != null){
+           logger.info(author.username + " htb rank is " + rank + " and giving it role " + defaultRole.name);
             member.addRoles([defaultRole]).then(r => {
               htbprofile.send(author + ' HTB Profile: https://www.hackthebox.eu/home/users/profile/' + body.user_id).catch(err => console.error(err))
               channel.send("Congratulation! " + author + " you are verified now :thumbsup: .")
             }).catch(e => channel.send("Unable to add proper role " + author + " Please try again later."));
+        }
         } else {
           logger.info(author.username + " already have the role.");
           channel.send("You are already verified " + author + " :thumbsup: .")
