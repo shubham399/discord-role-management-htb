@@ -64,11 +64,16 @@ function verifyUser(msg, token) {
       }
       if (rank != null) {
         //           var roles = member.guild.roles.filter(r => r.name.includes("HTB-"))
-        const htbprofile = client.guild.channels.find(channel => channel.name === 'htb-profiles')
+        try{
+        const htbprofile = msg.guild.channels.find(channel => channel.name === 'htb-profiles')
         var defaultRole = member.guild.roles.find(r => r.name === assignRole );
         var hasRole = member.roles.find(role => {
           return role.name == defaultRole.name
         });
+        }catch(error){
+           msg.send("Send the badger verify in the channel");
+           logger.error("Error:" + error);
+        }
         logger.debug("HasRole: " + (hasRole != null ? hasRole.name:null))
         if (hasRole == null) {
           // var role = member.guild.roles.find(r => r.name.includes("-" + rank))
