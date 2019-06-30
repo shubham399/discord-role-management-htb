@@ -1,5 +1,6 @@
 const token = process.env.DISCORD_TOKEN;
 const assignRole = process.env.ASSIGN_ROLE;
+const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND;
 const Discord = require("discord.js");
 const request = require("request");
 const client = new Discord.Client();
@@ -12,9 +13,9 @@ client.on("ready", () => {
 client.on("message", (msg) => {
   try {
     var commandArray = msg.content.split(" ")
-    if (commandArray[0] === "badgers") {
+    if (commandArray[0].toLowerCase() === botTriggerCommand) {
       logger.info(msg.author.username + " is executing " + commandArray[1]);
-      switch (commandArray[1]) {
+      switch (commandArray[1].toLowerCase()) {
         case undefined:
           msg.channel.send("type ``badgers help`` to see how to use");
           break;
