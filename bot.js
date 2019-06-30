@@ -14,9 +14,10 @@ client.on("message", (msg) => {
   try {
     var commandArray = msg.content.split(" ")
     if (commandArray[0].toLowerCase() === botTriggerCommand) {
-      logger.info(msg.author.username + " is executing " + commandArray[1]);
-      switch (commandArray[1].toLowerCase()) {
-        case undefined:
+      const subCommand = commandArray[1] == undefined ? "default" : commandArray[1].toLowerCase();
+      logger.info(msg.author.username + " is executing " + subCommand);
+      switch (subCommand) {
+        case "default":
           msg.channel.send("type ``badgers help`` to see how to use");
           break;
         case "help":
