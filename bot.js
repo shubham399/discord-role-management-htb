@@ -82,7 +82,9 @@ function verifyUser(msg, token) {
             member.addRoles([defaultRole]).then(r => {
               htbprofile.send(author + ' HTB Profile: https://www.hackthebox.eu/home/users/profile/' + body.user_id).catch(err => console.error(err))
               channel.send("Congratulation! " + author + " you are verified now :thumbsup: .")
-            }).catch(e => channel.send("Unable to add proper role " + author + " Please try again later."));
+            }).catch((e)=>{
+              logger.error("Error:" +e);
+              channel.send("Unable to add proper role " + author + " Please try again later.")});
         }
         } else {
           logger.info(author.username + " already have the role.");
