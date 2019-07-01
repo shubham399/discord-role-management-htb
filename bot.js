@@ -66,10 +66,10 @@ function verifyUser(msg, token) {
         //           var roles = member.guild.roles.filter(r => r.name.includes("HTB-"))
         try{
         const htbprofile = msg.guild.channels.find(channel => channel.name === 'htb-profiles')
-        var defaultRole = member.guild.roles.find(r => r.name === assignRole ).catch();
+        var defaultRole = member.guild.roles.find(r => r.name === assignRole );
         var hasRole = member.roles.find(role => {
           return role.name == defaultRole.name
-        }).catch();
+        });
         }catch(error){
            msg.author.send("Send the badger verify in the channel");
            logger.error("Error:" + error);
