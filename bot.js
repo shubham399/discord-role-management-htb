@@ -65,7 +65,7 @@ function verifyUser(msg, token) {
       if (rank != null) {
         //           var roles = member.guild.roles.filter(r => r.name.includes("HTB-"))
         try{
-        const htbprofile = msg.guild.channels.find(channel => channel.name === 'htb-profiles').catch()
+        const htbprofile = msg.guild.channels.find(channel => channel.name === 'htb-profiles')
         var defaultRole = member.guild.roles.find(r => r.name === assignRole ).catch();
         var hasRole = member.roles.find(role => {
           return role.name == defaultRole.name
