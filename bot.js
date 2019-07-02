@@ -20,10 +20,10 @@ client.on("message", (msg) => {
         case "default":
           msg.channel.send("type ``badgers help`` to see how to use");
           break;
+//         case "help":
+//           msg.channel.send("type `badgers identify` to Verify yourself.");
+//           break;
         case "help":
-          msg.channel.send("type `badgers identify` to Verify yourself.");
-          break;
-        case "identify":
           msg.author.send("Hey Lets Get you verified, Go grab the identification token from HTB from https://hackthebox.eu/home/settings and paste `badgers verify <token>` in " + msg.channel);
           break;
         case "verify":
