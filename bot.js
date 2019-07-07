@@ -25,7 +25,6 @@ client.on("message", (msg) => {
           break;
         case "verify":
           verifyUser(msg, commandArray[2])
-          msg.delete();
           break;
         default:
           msg.channel.send(constant.unkown)
