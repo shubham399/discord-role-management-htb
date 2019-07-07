@@ -4,6 +4,7 @@
   "description": "A role management app for discord with HTB",
   "main": "bot.js",
   "dependencies": {
+    "asyncawait": "^1.0.8",
     "discord.js": "^11.5.1",
     "format": "^0.2.2",
     "http": "0.0.0",
