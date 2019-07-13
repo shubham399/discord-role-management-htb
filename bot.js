@@ -5,6 +5,8 @@ const client = new Discord.Client();
 const logger = require("./log.js").logger
 const constant = require("./constant.js")
 const verifyUser = require("./commands/userVerify.js").verifyUser
+const ban = require("./commands/ban").ban
+const softban = require("./commands/ban").ban
 
 client.on("ready", () => {
   logger.info(constant.botReady(botTriggerCommand))
@@ -25,6 +27,12 @@ client.on("message", (msg) => {
           break;
         case "verify":
           verifyUser(msg, commandArray[2])
+          break;
+        case "softban":
+          softban(client,msg, commandArray)
+          break;
+        case "ban":
+          ban(client,msg, commandArray)
           break;
         default:
           msg.channel.send(constant.unkown)
