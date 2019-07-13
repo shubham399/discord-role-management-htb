@@ -11,7 +11,7 @@ const assignRole = process.env.ASSIGN_ROLE;
 
 module.exports.sendHelp = async (user,channel) => {
   let welcome = new Discord.RichEmbed()
-  .setTitle(`Welcome! ${user.username}. Lets get you verified`)
+  .setTitle(`Welcome! ${user.username || user.displayName}. Lets get you verified`)
   let step1 = new Discord.RichEmbed()
   .setTitle("Step 1: Log in to your HackTheBox Account")
   .setDescription("Go to  https://hackthebox.eu/home/settings")
