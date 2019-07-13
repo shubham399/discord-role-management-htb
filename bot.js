@@ -21,7 +21,7 @@ client.on("message", (msg) => {
           msg.channel.send(constant.default(botTriggerCommand));
           break;
         case "help":
-          msg.author.send(constant.help(botTriggerCommand, msg.channel));
+          msg.author.send(constant.help(botTriggerCommand, msg.channel),files:["./ai.png"]);
           break;
         case "verify":
           verifyUser(msg, commandArray[2])
@@ -38,7 +38,7 @@ client.on("message", (msg) => {
 // Start and login the bot
 client.on('guildMemberAdd', member => {
      member.send("Welcome to the server!");
-     member.send(constant.help(botTriggerCommand, '#bot-spam'));
+     member.send(constant.help(botTriggerCommand, '#bot-spam'),files:["./ai.png"]);
   
 });
 client.login(token);
