@@ -7,6 +7,7 @@ const constant = require("./constant.js")
 const verifyUser = require("./commands/userVerify.js").verifyUser
 const ban = require("./commands/ban").ban
 const softban = require("./commands/ban").ban
+const sendHelp = require("./commands/help").sendHelp
 
 client.on("ready", () => {
   logger.info(constant.botReady(botTriggerCommand))
@@ -15,6 +16,7 @@ client.on("ready", () => {
 client.on("message", (msg) => {
   try {
     var commandArray = msg.content.split(" ")
+    let args = commandArray.slice(1);
     if (commandArray[0].toLowerCase() === botTriggerCommand) {
       const subCommand = commandArray[1] == undefined ? "default" : commandArray[1].toLowerCase();
       logger.info(msg.author.username + " is executing " + subCommand);
@@ -23,16 +25,16 @@ client.on("message", (msg) => {
           msg.channel.send(constant.default(botTriggerCommand));
           break;
         case "help":
-          msg.author.send(constant.help(botTriggerCommand, msg.channel),{files:["./images/ai.png"]});
+          sendHelp(msg.author,msg.channel)
           break;
         case "verify":
           verifyUser(msg, commandArray[2])
           break;
         case "softban":
-          softban(client,msg, commandArray)
+          softban(client,msg, args)
           break;
         case "ban":
-          ban(client,msg, commandArray)
+          ban(client,msg, args)
           break;
         default:
           msg.channel.send(constant.unkown)
@@ -45,8 +47,11 @@ client.on("message", (msg) => {
 })
 // Start and login the bot
 client.on('guildMemberAdd', member => {
-     member.send("Welcome to the server!");
-     member.send(constant.help(botTriggerCommand, '#bot-spam'),{files:["./images/ai.png"]});
+    member.send("Welcome to the server!");
+    sendHelp(member,client.channels.find("name","bot-spam"))
 
 });
+
+
+
 client.login(token);
