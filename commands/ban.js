@@ -27,6 +27,7 @@ module.exports.ban = async (bot, message, args) => {
    message.channel.send(`**${banMember.user.tag}** has been banned`).then(m => m.delete(5000))
 
     let embed = new Discord.RichEmbed()
+    .setColor("#bc0000")
     .setAuthor(`${message.guild.name} Modlogs`, message.guild.iconURL)
     .addField("Moderation:", "ban")
     .addField("Moderator:", message.author.username)
