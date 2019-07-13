@@ -48,7 +48,7 @@ client.on("message", (msg) => {
 // Start and login the bot
 client.on('guildMemberAdd', member => {
     member.send("Welcome to the server!");
-    sendHelp(member,client.channels.find("name","bot-spam"))
+    sendHelp(member,client.channels.find(channel=> channel.name === "bot-spam"))
 
 });
 
