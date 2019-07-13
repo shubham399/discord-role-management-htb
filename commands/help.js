@@ -11,23 +11,28 @@ const assignRole = process.env.ASSIGN_ROLE;
 
 module.exports.sendHelp = async (user,channel) => {
   let welcome = new Discord.RichEmbed()
+  .setColor("#1a85f0")
   .setTitle(`Welcome! ${user.username || user.displayName}. Lets get you verified`)
   let step1 = new Discord.RichEmbed()
+  .setColor("#1a85f0")
   .setTitle("Step 1: Log in to your HackTheBox Account")
   .setDescription("Go to  https://hackthebox.eu/home/settings")
 
   let step2 = new Discord.RichEmbed()
+  .setColor("#1a85f0")
   .setTitle("Step 2: Locate the identification key")
   .attachFiles(["./images/ai.png"])
   .setImage('attachment://ai.png')
   .setDescription("In the Settings tab, you should be able to identify a field called \"Accont identifier\",click on the green button to copt the string.")
 
   let step3 = new Discord.RichEmbed()
+  .setColor("#1a85f0")
   .setTitle("Step 3: Verify ")
   .setDescription(`Procced to send the bot your account identification string by: \`${botTriggerCommand} verify <string>\` in ${channel}`)
 
   let step4 = new Discord.RichEmbed()
-  .setTitle("Enjoy")
+  .setColor("#1a85f0")
+  .setTitle("Step 4:Enjoy")
   .setDescription("If we are able to verify the token properly we will give you the role :)")
 
   await(user.send(welcome));
