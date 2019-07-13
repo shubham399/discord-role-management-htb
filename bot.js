@@ -6,7 +6,7 @@ const logger = require("./log.js").logger
 const constant = require("./constant.js")
 const verifyUser = require("./commands/userVerify.js").verifyUser
 const ban = require("./commands/ban").ban
-const softban = require("./commands/ban").ban
+const softban = require("./commands/softban").ban
 const sendHelp = require("./commands/help").sendHelp
 
 client.on("ready", () => {
