@@ -33,6 +33,7 @@ module.exports.ban = async (bot, message, args) => {
   message.channel.send(`**${banMember.user.tag}** has been banned`).then(m => m.delete(5000))
 
   let embed = new Discord.RichEmbed()
+    .setColor("#f0d31a")
     .setAuthor(`${message.guild.name} Modlogs`, message.guild.iconURL)
     .addField("Moderation:", "SoftBan")
     .addField("Moderator:", message.author.username)
