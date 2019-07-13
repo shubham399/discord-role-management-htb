@@ -4,7 +4,7 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 const logger = require("./log.js").logger
 const constant = require("./constant.js")
-const verifyUser = require("./userVerify.js").verifyUser
+const verifyUser = require("./commands/userVerify.js").verifyUser
 
 client.on("ready", () => {
   logger.info(constant.botReady(botTriggerCommand))
