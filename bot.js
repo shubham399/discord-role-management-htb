@@ -36,4 +36,9 @@ client.on("message", (msg) => {
   }
 })
 // Start and login the bot
+client.on('guildMemberAdd', member => {
+     member.send("Welcome to the server!");
+     member.send(constant.help(botTriggerCommand, msg.channel));
+  
+});
 client.login(token);
