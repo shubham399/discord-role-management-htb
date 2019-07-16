@@ -31,6 +31,7 @@ module.exports.ban = async (bot, message, args) => {
     .setAuthor(`${message.guild.name} Modlogs`, message.guild.iconURL)
     .addField("Moderation:", "ban")
     .addField("Moderator:", message.author.username)
+    .addField("User: ",banMember.displayName)
     .addField("Reason:", reason)
     .addField("Date:", message.createdAt.toLocaleString())
 
