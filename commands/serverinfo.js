@@ -9,7 +9,7 @@ const profilePostChannel = process.env.PROFILE_CHANNEL;
 const assignRole = process.env.ASSIGN_ROLE;
 
 module.exports.run = async (bot, message, args) => {
-    let sEmbed = new Discord.RichEmbed()
+    let embed = new Discord.RichEmbed()
     .setColor("#5780cd")
     .setTitle("Server Info")
     .setThumbnail(message.guild.iconURL)
@@ -17,9 +17,15 @@ module.exports.run = async (bot, message, args) => {
     .addField("**Guild Name:**", `${message.guild.name}`, true)
     .addField("**Guild Owner:**", `${message.guild.owner}`, true)
     .addField("**Member Count:**", `${message.guild.memberCount}`, true)
+    .addField("**Verified Member Count:**", `${message.guild.members.filter(member =>{
+      let defaultRole = member.guild.roles.find(r => r.name === assignRole);
+      let hasRole = member.roles.find(role => role.name == defaultRole.name);
+      return hasRole
+    }).size}`, true)
+    .addField("**Channels Count:**", `${message.guild.channels.size}`, true)
     .addField("**Role Count:**", `${message.guild.roles.size}`, true)
     .setFooter(`TestBot | Footer`, bot.user.displayAvatarURL);
-    message.channel.send({embed: sEmbed});
+    message.channel.send({embed});
 }
 
 module.exports.config = {
