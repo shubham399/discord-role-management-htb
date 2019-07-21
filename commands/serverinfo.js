@@ -7,6 +7,8 @@ const async = require('asyncawait/async');
 const await = require('asyncawait/await');
 const profilePostChannel = process.env.PROFILE_CHANNEL;
 const assignRole = process.env.ASSIGN_ROLE;
+const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND;
+
 
 module.exports.run = async (bot, message, args) => {
     let embed = new Discord.RichEmbed()
@@ -24,7 +26,7 @@ module.exports.run = async (bot, message, args) => {
     }).size}`, true)
     .addField("**Channels Count:**", `${message.guild.channels.size}`, true)
     .addField("**Role Count:**", `${message.guild.roles.size}`, true)
-    .setFooter(`TestBot | Footer`, bot.user.displayAvatarURL);
+    .setFooter(`{{botTriggerCommand}} | Footer`, bot.user.displayAvatarURL);
     message.channel.send({embed});
 }
 
