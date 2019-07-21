@@ -8,8 +8,8 @@ const profilePostChannel = process.env.PROFILE_CHANNEL;
 const assignRole = process.env.ASSIGN_ROLE;
 
 const getUserData = (token) => {
-  logger.debug(token)
-  logger.debug(constant.htburl + token)
+  logger.verbose(token)
+  logger.verbose(constant.htburl + token)
   return axios.get(constant.htburl + token)
 };
 
@@ -34,9 +34,9 @@ const verifyUser = async (function(msg, token) {
     let htbprofile = msg.guild.channels.find(channel => channel.name === profilePostChannel)
     let defaultRole = member.guild.roles.find(r => r.name === assignRole);
     let hasRole = member.roles.find(role => role.name == defaultRole.name);
-    logger.debug("API Respone: " + JSON.stringify(result));
-    logger.debug("HasRole: " + (hasRole != null ? hasRole.name : null))
-    logger.debug(rank);
+    logger.verbose("API Respone: " + JSON.stringify(result));
+    logger.verbose("HasRole: " + (hasRole != null ? hasRole.name : null))
+    logger.verbose(rank);
     if (!hasRole) {
       logger.info(author.username + " htb rank is " + rank + " and giving it role " + defaultRole.name);
       member.addRoles([defaultRole]).then(r => {
@@ -63,7 +63,12 @@ const verifyUser = async (function(msg, token) {
 });
 
 module.exports.run = async (bot,message,args) =>{
-  verifyUser(message,args[0])
+  let token = args.filter(arg=> arg.length > 20);
+  if( token.length == 0){
+    message.channel.send(constant.invalidToken(message.author));
+  }
+  else
+  verifyUser(message,token[0])
 }
 
 

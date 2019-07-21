@@ -27,12 +27,12 @@ client.on("ready", () => {
 client.on("message", (message) => {
     if(message.author.bot || message.channel.type === "dm") return;
     let messageArray = message.content.split(" ")
-    logger.verbose(messageArray);
     let trigger = messageArray[0].toLowerCase();
+    if(trigger !== botTriggerCommand) return;
+    logger.verbose(messageArray);
     let cmd = messageArray.length > 1 ? messageArray[1].toLowerCase() : null;
     logger.info(message.author.username + " is executing " + cmd);
     let args = messageArray.slice(2);
-    if(trigger !== botTriggerCommand) return;
     if (cmd == null) {
         message.channel.send(constant.default(botTriggerCommand));
         return;
