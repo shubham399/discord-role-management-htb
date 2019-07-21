@@ -24,13 +24,11 @@ module.exports.run = async (bot, message, args) => {
       let hasRole = member.roles.find(role => role.name == defaultRole.name);
       return hasRole
     }).size}`, true)
-    .addField("**Verified Member List:**", `${message.guild.members.map(member =>{
+    .addField("**Verified Member List:**", `${message.guild.members.filter((member,result) =>{
       let defaultRole = member.guild.roles.find(r => r.name === assignRole);
       let hasRole = member.roles.find(role => role.name == defaultRole.name);
-      if(hasRole){
-        return member.user.username
-      }
-    })}`, true)
+      return hasRole
+      }).map(member => member.user.username)}`, true)
     .addField("**Channels Count:**", `${message.guild.channels.size}`, true)
     .addField("**Role Count:**", `${message.guild.roles.size}`, true)
     .addField("**Role List:**", `${message.guild.roles.map(role=>role.name)}`, true)
