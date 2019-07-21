@@ -62,4 +62,12 @@ const verifyUser = async (function(msg, token) {
   }
 });
 
-module.exports.verifyUser = verifyUser;
+module.exports.run = async (bot,message,args) =>{
+  verifyUser(message,args[0])
+}
+
+
+module.exports.config = {
+    name: "verify",
+    description: "Verify a User"
+}

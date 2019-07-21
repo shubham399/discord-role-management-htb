@@ -9,7 +9,11 @@ const profilePostChannel = process.env.PROFILE_CHANNEL;
 const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND;
 const assignRole = process.env.ASSIGN_ROLE;
 
-module.exports.sendHelp = async (user,channel) => {
+module.exports.run = async (bot,message,args) => {
+  help(message.author,bot.channels.find(x => x.name === "bot-spam"))
+}
+
+const help = async (user,channel) => {
   let welcome = new Discord.RichEmbed()
   .setColor("#1a85f0")
   .setTitle(`Welcome! ${user.username || user.displayName}. Lets get you verified`)
@@ -41,3 +45,9 @@ module.exports.sendHelp = async (user,channel) => {
   await(user.send(step3));
   await(user.send(step4));
 }
+
+module.exports.config = {
+    name: "help",
+    description: "Send Help About bot"
+}
+module.exports.sendHelp = help;

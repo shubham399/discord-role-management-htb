@@ -4,46 +4,41 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 const logger = require("./log.js").logger
 const constant = require("./constant.js")
-const verifyUser = require("./commands/userVerify.js").verifyUser
-const ban = require("./commands/ban").ban
-const softban = require("./commands/softban").ban
 const sendHelp = require("./commands/help").sendHelp
+
+const fs = require("fs");
+client.commands = new Discord.Collection();
+fs.readdir("./commands/", (err, files) => {
+    if(err) console.log(err)
+    let jsfile = files.filter(f => f.split(".").pop() === "js")
+    if(jsfile.length <= 0) {
+         return console.log("[LOGS] Couldn't Find Commands!");
+    }
+    jsfile.forEach((f, i) => {
+        let pull = require(`./commands/${f}`);
+        client.commands.set(pull.config.name, pull);
+    });
+});
 
 client.on("ready", () => {
   logger.info(constant.botReady(botTriggerCommand))
 });
 
-client.on("message", (msg) => {
-  try {
-    var commandArray = msg.content.split(" ")
-    let args = commandArray.slice(1);
-    if (commandArray[0].toLowerCase() === botTriggerCommand) {
-      const subCommand = commandArray[1] == undefined ? "default" : commandArray[1].toLowerCase();
-      logger.info(msg.author.username + " is executing " + subCommand);
-      switch (subCommand) {
-        case "default":
-          msg.channel.send(constant.default(botTriggerCommand));
-          break;
-        case "help":
-          sendHelp(msg.author,msg.channel)
-          break;
-        case "verify":
-          verifyUser(msg, commandArray[2])
-          break;
-        case "softban":
-          softban(client,msg, args)
-          break;
-        case "ban":
-          ban(client,msg, args)
-          break;
-        default:
-          msg.channel.send(constant.unkown)
-
-      }
+client.on("message", (message) => {
+    if(message.author.bot || message.channel.type === "dm") return;
+    let messageArray = message.content.split(" ")
+    logger.verbose(messageArray);
+    let trigger = messageArray[0].toLowerCase();
+    let cmd = messageArray.length > 1 ? messageArray[1].toLowerCase() : null;
+    logger.info(message.author.username + " is executing " + cmd);
+    let args = messageArray.slice(2);
+    if(trigger !== botTriggerCommand) return;
+    if (cmd == null) {
+        message.channel.send(constant.default(botTriggerCommand));
+        return;
     }
-  } catch (error) {
-    console.error(error)
-  }
+    let commandFile = client.commands.get(cmd);
+    if(commandFile) commandFile.run(client,message,args);
 })
 // Start and login the bot
 client.on('guildMemberAdd', member => {

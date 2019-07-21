@@ -9,7 +9,7 @@ const profilePostChannel = process.env.PROFILE_CHANNEL;
 const assignRole = process.env.ASSIGN_ROLE;
 
 
-module.exports.ban = async (bot, message, args) => {
+module.exports.run = async (bot, message, args) => {
 
    if(!message.member.hasPermission(["BAN_MEMBERS"])) return message.channel.send("You do not have permission to perform this command!")
 
@@ -38,4 +38,9 @@ module.exports.ban = async (bot, message, args) => {
         let sChannel = message.guild.channels.find(c => c.name === "badgers-mod")
         sChannel.send(embed)
 
+}
+
+module.exports.config = {
+    name: "ban",
+    description: "Bans a user from the guild!"
 }
