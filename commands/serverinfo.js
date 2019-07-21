@@ -26,7 +26,7 @@ module.exports.run = async (bot, message, args) => {
     }).size}`, true)
     .addField("**Channels Count:**", `${message.guild.channels.size}`, true)
     .addField("**Role Count:**", `${message.guild.roles.size}`, true)
-    .setFooter(`{{botTriggerCommand}} | Footer`, bot.user.displayAvatarURL);
+    .setFooter(`${botTriggerCommand} | Footer`, bot.user.displayAvatarURL);
     message.channel.send({embed});
 }
 
