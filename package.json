@@ -11,7 +11,8 @@
     "format": "^0.2.2",
     "http": "0.0.0",
     "ramda": "^0.26.1",
-    "winston": "^3.2.1"
+    "winston": "^3.2.1",
+    "xkcd-api": "^1.0.1"
   },
   "devDependencies": {},
   "scripts": {
