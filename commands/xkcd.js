@@ -14,8 +14,6 @@ module.exports.run = async (bot, message, args) => {
   let msg = await message.channel.send("Generating...")
   let method = args[0];
   var body = null;
-  console.log(typeof method)
-  console.log(method === 'random')
   if (method === 'random') {
     xkcd.random(function(error, response) {
       if (error) {
