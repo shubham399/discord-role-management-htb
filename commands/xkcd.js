@@ -8,25 +8,48 @@ const await = require('asyncawait/await');
 const profilePostChannel = process.env.PROFILE_CHANNEL;
 const assignRole = process.env.ASSIGN_ROLE;
 const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND;
+const xkcd = require('xkcd-api');
 
 module.exports.run = async (bot, message, args) => {
-    let msg = await message.channel.send("Generating...")
+  let msg = await message.channel.send("Generating...")
+  let method = args[0];
+  var body = null;
+  console.log(typeof method)
+  console.log(method === 'random')
+  if (method === 'random') {
+    xkcd.random(function(error, response) {
+      if (error) {
+        logger.error("xkcd Error" + error);
+        message.channel.send("I broke! Try again.")
+      } else {
+        sendxkcd(bot, message, msg, response);
+      }
+    });
+  } else {
+    xkcd.latest(function(error, response) {
+      if (error) {
+        logger.error("xkcd Error" + error);
+        message.channel.send("I broke! Try again.")
+      } else {
+        sendxkcd(bot, message, msg, response);
+      }
+    });
+  }
+}
 
-    let body = await axios.get("https://xkcd.com/info.0.json")
-    if(!body.data) return message.channel.send("I broke! Try again.")
-
-        let mEmbed = new Discord.RichEmbed()
-        .setColor("#1a85f0")
-        .setImage(body.data.img)
-        .setTimestamp()
-
-        message.channel.send({embed: mEmbed})
-
-        msg.delete();
+function sendxkcd(bot, message, msg, body) {
+  let mEmbed = new Discord.RichEmbed()
+    .setColor("#1a85f0")
+    .setImage(body.img)
+    .setTimestamp()
+  message.channel.send({
+    embed: mEmbed
+  })
+  msg.delete();
 }
 
 
 module.exports.config = {
-    name: "xkcd",
-    description: "Send the latest xkcd comic!"
-  }
+  name: "xkcd",
+  description: "Send the latest xkcd comic!"
+}
