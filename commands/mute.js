@@ -66,7 +66,7 @@ let embed = new Discord.RichEmbed()
 .addField("Date:", message.createdAt.toLocaleString())
 
 let sChannel = message.guild.channels.find(c => c.name === actionLog)
-sChannel.send(embed)
+sChannel.send(embed).catch((err) => {console.log(err)});
 }
 
 module.exports.config = {
