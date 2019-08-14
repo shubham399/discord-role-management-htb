@@ -7,7 +7,7 @@ const async = require('asyncawait/async');
 const await = require('asyncawait/await');
 const profilePostChannel = process.env.PROFILE_CHANNEL;
 const assignRole = process.env.ASSIGN_ROLE;
-
+const actionLog = process.env.ACTION_LOG || "action-log";
 
 module.exports.run = async (bot, message, args) => {
 
@@ -35,7 +35,7 @@ module.exports.run = async (bot, message, args) => {
     .addField("Reason:", reason)
     .addField("Date:", message.createdAt.toLocaleString())
 
-        let sChannel = message.guild.channels.find(c => c.name === "badgers-mod")
+        let sChannel = message.guild.channels.find(c => c.name === actionLog)
         sChannel.send(embed)
 
 }
