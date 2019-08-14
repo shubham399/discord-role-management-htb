@@ -6,7 +6,9 @@ const async = require('asyncawait/async');
 const await = require('asyncawait/await');
 const profilePostChannel = process.env.PROFILE_CHANNEL;
 const assignRole = process.env.ASSIGN_ROLE;
-const logger = require("../log.js").logger
+const logger = require("../log.js").logger;
+const actionLog = process.env.ACTION_LOG || "action-log";
+
 
 module.exports.run = async (bot, message, args) => {
 // check if the command caller has permission to use the command
@@ -42,7 +44,7 @@ let embed = new Discord.RichEmbed()
 .addField("Reason:", reason)
 .addField("Date:", message.createdAt.toLocaleString())
 
-let sChannel = message.guild.channels.find(c => c.name === "badgers-mod")
+let sChannel = message.guild.channels.find(c => c.name === actionLog)
 sChannel.send(embed)
 
 }
