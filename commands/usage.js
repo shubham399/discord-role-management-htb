@@ -18,7 +18,7 @@ module.exports.run = async (bot, message, args) => {
     .setColor("#1a85f0")
     for(config of configs)
     {
-      embed.addField(config.name,config.usage,true)
+      embed.addField(config.name,config.usage)
     }
     message.channel.send(embed)
 }
