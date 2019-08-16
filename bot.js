@@ -8,6 +8,7 @@ const sendHelp = require("./commands/help").sendHelp
 
 const fs = require("fs");
 client.commands = new Discord.Collection();
+client.config = new Discord.Collection();
 fs.readdir("./commands/", (err, files) => {
     if(err) console.log(err)
     let jsfile = files.filter(f => f.split(".").pop() === "js")
@@ -17,6 +18,7 @@ fs.readdir("./commands/", (err, files) => {
     jsfile.forEach((f, i) => {
         let pull = require(`./commands/${f}`);
         client.commands.set(pull.config.name, pull);
+        client.config.set(pull.config.name, pull.config);
     });
 });
 
