@@ -6,6 +6,7 @@ const async = require('asyncawait/async');
 const await = require('asyncawait/await');
 const profilePostChannel = process.env.PROFILE_CHANNEL;
 const assignRole = process.env.ASSIGN_ROLE;
+const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND
 
 const getUserData = (token) => {
   logger.verbose(token)
@@ -74,5 +75,6 @@ module.exports.run = async (bot,message,args) =>{
 
 module.exports.config = {
     name: "verify",
-    description: "Verify a User"
+    description: "Verify a User",
+    usage:`${botTriggerCommand} verify <htb token>`
 }

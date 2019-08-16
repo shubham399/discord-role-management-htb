@@ -8,8 +8,7 @@ const profilePostChannel = process.env.PROFILE_CHANNEL;
 const assignRole = process.env.ASSIGN_ROLE;
 const logger = require("../log.js").logger
 const actionLog = process.env.ACTION_LOG || "action-log";
-
-
+const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND
 
 module.exports.run = async (bot, message, args) => {
 // check if the command caller has permission to use the command
@@ -71,5 +70,6 @@ sChannel.send(embed).catch((err) => {console.log(err)});
 
 module.exports.config = {
     name: "mute",
-    description: "Mutes a member in the discord!"
+    description: "Mutes a member in the discord!",
+    usage:`${botTriggerCommand} mute <username> <Reason(options)>`
 }

@@ -48,6 +48,7 @@ const help = async (user,channel) => {
 
 module.exports.config = {
     name: "help",
-    description: "Send Help About bot"
+    description: "Send Help About bot",
+    usage:`${botTriggerCommand} help`
 }
 module.exports.sendHelp = help;

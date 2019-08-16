@@ -8,6 +8,7 @@ const await = require('asyncawait/await');
 const profilePostChannel = process.env.PROFILE_CHANNEL;
 const assignRole = process.env.ASSIGN_ROLE;
 const actionLog = process.env.ACTION_LOG || "action-log";
+const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND;
 
 module.exports.run = async (bot, message, args) => {
 
@@ -42,5 +43,6 @@ module.exports.run = async (bot, message, args) => {
 
 module.exports.config = {
     name: "ban",
-    description: "Bans a user from the guild!"
+    description: "Bans a user from the guild!",
+    usage:`${botTriggerCommand} ban <username> <Reason(options)>`
 }

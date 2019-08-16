@@ -49,5 +49,6 @@ function sendxkcd(bot, message, msg, body) {
 
 module.exports.config = {
   name: "xkcd",
-  description: "Send the latest xkcd comic!"
+  description: "Send the latest xkcd comic!",
+  usage:`${botTriggerCommand} xkcd <random(optional)>`
 }
