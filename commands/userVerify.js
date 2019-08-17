@@ -24,7 +24,6 @@ const verifyUser = async (function(msg, token) {
       result = await (getUserData(token)).data;
     } catch (error) {
       logger.error("Axios Error:" + error);
-      logger.error(error);
       if (R.path(["response", "status"], error) === 404) {
         channel.send(constant.invalidToken(author))
       } else {
