@@ -32,7 +32,7 @@ const help = async (user,channel) => {
   let step3 = new Discord.RichEmbed()
   .setColor("#1a85f0")
   .setTitle("Step 3: Verify ")
-  .setDescription(`Procced to send the bot your account identification string by: \`${botTriggerCommand} verify <string>\` in ${channel}`)
+  .setDescription(`Procced to send the bot your account identification string by: \`${botTriggerCommand} verify <string>\``)
 
   let step4 = new Discord.RichEmbed()
   .setColor("#1a85f0")
