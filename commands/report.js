@@ -17,8 +17,9 @@ module.exports.run = async (bot, message, args) => {
    let hasRole = message.member.roles.find(role => role.name == defaultRole.name);
    if(!hasRole) return message.channel.send("You don't have permission to Report other users.")
    let reportMember = message.mentions.members.first() || message.guild.members.get(args[0])
+
    let reason = args.slice(2).join(" ");
-   if(!reason) reason = "No reason given!"
+   if(!reason) return message.channel.send("You must provide a reason for report.")
    logger.verbose("Report Reason" + reason);
    message.channel.send(`**${reportMember.user.tag}** has been Reported`).then(m => m.delete(5000))
     let embed = new Discord.RichEmbed()
