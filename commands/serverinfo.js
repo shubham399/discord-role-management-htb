@@ -25,25 +25,17 @@ module.exports.run = async (bot, message, args) => {
       let hasRole = member.roles.find(role => role.name == defaultRole.name);
       return hasRole
     }).size}`, true)
+      .addField(`**${listRole} List:**`, `${message.guild.members.filter((member,result) =>{
+    let defaultRole = member.guild.roles.find(r => r.name === listRole);
+    let hasRole = member.roles.find(role => role.name == defaultRole.name);
+    return hasRole
+  }).map(member => member.user.username)}`, true)
       .addField("**Channels Count:**", `${message.guild.channels.size}`, true)
       .addField("**Role Count:**", `${message.guild.roles.size}`, true)
       .addField("**Role List:**", `${message.guild.roles.map(role=>role.name)}`, true)
       .setFooter(`${botTriggerCommand}`, bot.user.displayAvatarURL);
     await (message.channel.send({
       embed
-    }));
-    let verifedMemberList = new Discord.RichEmbed()
-      .setColor("#5780cd")
-      .setTitle(`${listRole} List`)
-      .setThumbnail(message.guild.iconURL)
-      .setAuthor(`${message.guild.name} Info`, message.guild.iconURL)
-      .addField(`**${listRole} List:**`, `${message.guild.members.filter((member,result) =>{
-      let defaultRole = member.guild.roles.find(r => r.name === listRole);
-      let hasRole = member.roles.find(role => role.name == defaultRole.name);
-      return hasRole
-      }).map(member => member.user.username)}`, true)
-    await (message.channel.send({
-      verifedMemberList
     }));
   } catch (err) {
     logger.error(err);
