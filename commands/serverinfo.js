@@ -11,6 +11,7 @@ const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND;
 const listRole = process.env.LIST_ROLE || "STAFF";
 
 module.exports.run = async (bot, message, args) => {
+  try{
   let embed = new Discord.RichEmbed()
     .setColor("#5780cd")
     .setTitle("Server Info")
@@ -44,6 +45,11 @@ module.exports.run = async (bot, message, args) => {
   await (message.channel.send({
     verifedMemberList
   }));
+}
+catch(err)
+{
+  logger.error(err);
+}
 }
 
 module.exports.config = {
