@@ -8,7 +8,7 @@ const await = require('asyncawait/await');
 const profilePostChannel = process.env.PROFILE_CHANNEL;
 const assignRole = process.env.ASSIGN_ROLE;
 const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND;
-
+const listRole = process.env.LIST_ROLE || "STAFF";
 
 module.exports.run = async (bot, message, args) => {
   let embed = new Discord.RichEmbed()
@@ -33,11 +33,11 @@ module.exports.run = async (bot, message, args) => {
   }));
   let verifedMemberList = new Discord.RichEmbed()
     .setColor("#5780cd")
-    .setTitle("Verifed Member List")
+    .setTitle(`${listRole} List`)
     .setThumbnail(message.guild.iconURL)
     .setAuthor(`${message.guild.name} Info`, message.guild.iconURL)
-    .addField("**Verified Member List:**", `${message.guild.members.filter((member,result) =>{
-      let defaultRole = member.guild.roles.find(r => r.name === assignRole);
+    .addField(`**${listRole} List:**`, `${message.guild.members.filter((member,result) =>{
+      let defaultRole = member.guild.roles.find(r => r.name === listRole);
       let hasRole = member.roles.find(role => role.name == defaultRole.name);
       return hasRole
       }).map(member => member.user.username)}`, true)
