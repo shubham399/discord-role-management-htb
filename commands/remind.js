@@ -37,7 +37,7 @@ module.exports.run = async (bot, message, args) => {
       try {
         let shouldRemind = await (redis.get("REMIND_" + member.id));
         if(!shouldRemind){
-        logger.verbose("Sending Reminder to : " + member.displayName);
+        logger.info("Sending Reminder to : " + member.displayName);
         await (member.send("This is a gentle reminder to verify yourself on this server."));
         await (member.send("You can follow these steps to verify yourself."));
         await (sendHelp(member, message.guild.channels.find(channel => channel.name === "bot-spam")))
