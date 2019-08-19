@@ -22,7 +22,7 @@ module.exports.run = async (bot, message, args) => {
    logger.verbose("Report Reason" + reason);
    message.channel.send(`**${reportMember.user.tag}** has been Reported`).then(m => m.delete(5000))
     let embed = new Discord.RichEmbed()
-    .setColor("#f0d31a")
+    .setColor("#bc0000")
     .setAuthor(`${message.guild.name} Modlogs`, message.guild.iconURL)
     .addField("Moderation:", "Report")
     .addField("Moderator:", message.author.username)
