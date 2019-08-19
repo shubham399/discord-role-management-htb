@@ -13,6 +13,7 @@ const sendHelp = require("./help").sendHelp;
 const ignoreList = process.env.REMIND_IGNORE_LIST;
 const guildId = process.env.GUILD_ID;
 const gracePeriod = process.env.GRACE_PERIOD || 30;
+const remindPeriod = process.env.REMIND_INTERVAL || 24;
 const redis = require("../services/redis.js")
 
 module.exports.run = async (bot, message, args) => {
@@ -40,7 +41,7 @@ module.exports.run = async (bot, message, args) => {
         // await (member.send("You can follow these steps to verify yourself."));
         // await (sendHelp(member, message.guild.channels.find(channel => channel.name === "bot-spam")))
         // await (member.send("*Note:* Please verify yourself to not get this message again."));
-        await (redis.setex("REMIND_" + member.id, "REMIND", 86400))
+        await (redis.setex("REMIND_" + member.id, "REMIND", remindPeriod * 3600))
 
       } catch (error) {
         logger.warn(member + " : " + error)
