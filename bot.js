@@ -59,6 +59,20 @@ client.on('guildMemberAdd', member => {
 
 });
 
+client.on('guildMemberRemove', member => {
+    logger.info(member.displayName +" joined the server.")
+    let embed = new Discord.RichEmbed()
+      .setColor("#5780cd")
+      .setTitle("Member Left.")
+      .setDescription(member.displayName + " left the server.")
+      // .setFooter("Date:", message.createdAt.toLocaleString())
+    let sChannel = client.channels.find(c => c.name === actionLog)
+    sChannel.send(embed)
+    member.send("We are sorry to see you.");
+    // sendHelp(member,client.channels.find(channel=> channel.name === "bot-spam"))
+
+});
+
 
 
 client.login(token);
