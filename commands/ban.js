@@ -11,38 +11,34 @@ const actionLog = process.env.ACTION_LOG || "action-log";
 const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND;
 
 module.exports.run = async (bot, message, args) => {
-
-   if(!message.member.hasPermission(["BAN_MEMBERS"])) return message.channel.send("You do not have permission to perform this command!")
-
-   let banMember = message.mentions.members.first() || message.guild.members.get(args[0])
-   if(!banMember) return message.channel.send("Please provide a user to ban!")
-
-   let reason = args.slice(1).join(" ");
-   if(!reason) reason = "No reason given!"
-   logger.verbose("Softban Reason" + reason);
-   if(!message.guild.me.hasPermission(["BAN_MEMBERS"])) return message.channel.send("I dont have permission to perform this command")
-
-   banMember.send(`Hello, you have been banned from ${message.guild.name} for: ${reason}`).then(() =>
-   message.guild.ban(banMember, { days: 1, reason: reason})).catch(err => console.log(err))
-
-   message.channel.send(`**${banMember.user.tag}** has been banned`).then(m => m.delete(5000))
-
-    let embed = new Discord.RichEmbed()
+  message.delete(2000);
+  if (!message.member.hasPermission(["BAN_MEMBERS"])) return message.channel.send("You do not have permission to perform this command!")
+  let banMember = message.mentions.members.first() || message.guild.members.get(args[0])
+  if (!banMember) return message.channel.send("Please provide a user to ban!")
+  let reason = args.slice(1).join(" ");
+  if (!reason) reason = "No reason given!"
+  logger.verbose("Softban Reason" + reason);
+  if (!message.guild.me.hasPermission(["BAN_MEMBERS"])) return message.channel.send("I dont have permission to perform this command")
+  banMember.send(`Hello, you have been banned from ${message.guild.name} for: ${reason}`).then(() =>
+    message.guild.ban(banMember, {
+      days: 1,
+      reason: reason
+    })).catch(err => console.log(err))
+  message.channel.send(`**${banMember.user.tag}** has been banned`).then(m => m.delete(5000))
+  let embed = new Discord.RichEmbed()
     .setColor("#bc0000")
     .setAuthor(`${message.guild.name} Modlogs`, message.guild.iconURL)
     .addField("Moderation:", "ban")
     .addField("Moderator:", message.author.username)
-    .addField("User: ",banMember.displayName)
+    .addField("User: ", banMember.displayName)
     .addField("Reason:", reason)
     .addField("Date:", message.createdAt.toLocaleString())
-
-        let sChannel = message.guild.channels.find(c => c.name === actionLog)
-        sChannel.send(embed)
-
+  let sChannel = message.guild.channels.find(c => c.name === actionLog)
+  sChannel.send(embed)
 }
 
 module.exports.config = {
-    name: "ban",
-    description: "Bans a user from the guild!",
-    usage:`${botTriggerCommand} ban <username> <Reason(options)>`
+  name: "ban",
+  description: "Bans a user from the guild!",
+  usage: `${botTriggerCommand} ban <username> <Reason(options)>`
 }

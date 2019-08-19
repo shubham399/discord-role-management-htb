@@ -11,6 +11,7 @@ const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND;
 const listRole = process.env.LIST_ROLE || "STAFF";
 
 module.exports.run = async (bot, message, args) => {
+  message.delete(2000);
   try {
     let embed = new Discord.RichEmbed()
       .setColor("#5780cd")

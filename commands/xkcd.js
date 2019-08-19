@@ -11,6 +11,7 @@ const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND;
 const xkcd = require('xkcd-api');
 
 module.exports.run = async (bot, message, args) => {
+  message.delete(2000);
   let msg = await message.channel.send("Generating...")
   let method = args[0];
   var body = null;
@@ -50,5 +51,5 @@ function sendxkcd(bot, message, msg, body) {
 module.exports.config = {
   name: "xkcd",
   description: "Send the latest xkcd comic!",
-  usage:`${botTriggerCommand} xkcd <random(optional)>`
+  usage: `${botTriggerCommand} xkcd <random(optional)>`
 }

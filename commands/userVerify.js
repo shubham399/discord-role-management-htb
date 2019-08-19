@@ -64,12 +64,6 @@ const verifyUser = async (function(msg, token) {
   } catch (error) {
     logger.error("adding verify:" + error);
     msg.author.send(constant.dmFailure("#bot-spam"));
-  } finally {
-    try {
-      await (msg.delete());
-    } catch (error) {
-      logger.error("Message Delete:" + error);
-    }
   }
 });
 
@@ -98,6 +92,7 @@ const newVerifyUser = async (function(msg, guild, token) {
 
 
 module.exports.run = async (bot, message, args) => {
+  message.delete(2000);
   let token = args.filter(arg => arg.length > 20);
   if (token.length == 0) {
     message.channel.send(constant.invalidToken(message.author));

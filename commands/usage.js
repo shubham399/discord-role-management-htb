@@ -11,20 +11,20 @@ const actionLog = process.env.ACTION_LOG || "action-log";
 const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND;
 
 module.exports.run = async (bot, message, args) => {
-    let configs = bot.config.array();
-    // console.log(config)
-    let embed = new Discord.RichEmbed()
+  message.delete(2000);
+  let configs = bot.config.array();
+  // console.log(config)
+  let embed = new Discord.RichEmbed()
     .setTitle(`Usage for ${botTriggerCommand} `)
     .setColor("#1a85f0")
-    for(config of configs)
-    {
-      embed.addField(config.name,config.usage)
-    }
-    message.channel.send(embed)
+  for (config of configs) {
+    embed.addField(config.name, config.usage)
+  }
+  message.channel.send(embed)
 }
 
 module.exports.config = {
-    name: "usage",
-    description: "Get Usage for the bot",
-    usage:`${botTriggerCommand} usage`
+  name: "usage",
+  description: "Get Usage for the bot",
+  usage: `${botTriggerCommand} usage`
 }
