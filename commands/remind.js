@@ -13,20 +13,23 @@ const sendHelp = require("./help").sendHelp
 
 module.exports.run = async (bot, message, args) => {
   message.delete(2000);
-  if(!message.member.hasPermission(["BAN_MEMBERS"])) return message.channel.send("You do not have permission to perform this command!")
-  try{
-  let unVerifedMembers = message.guild.members.filter(member => !member.user.bot).filter((member, result) => {
-    let defaultRole = member.guild.roles.find(r => r.name === assignRole);
-    let hasRole = member.roles.find(role => role.name == defaultRole.name);
-    return !hasRole
-  }).map(member => {
-    logger.verbose("Reminding: "+ member.displayName);
-    member.send("This is a gentle reminder to verify yourself on this server.");
-    member.send("You can follow these steps to verify yourself.");
-    sendHelp(member, message.guild.channels.find(channel => channel.name === "bot-spam"))
-    })
-  }catch(error)
-  {
+  if (!message.member.hasPermission(["BAN_MEMBERS"])) return message.channel.send("You do not have permission to perform this command!")
+  try {
+    let unVerifedMembers = message.guild.members.filter(member => !member.user.bot).filter((member, result) => {
+      let defaultRole = member.guild.roles.find(r => r.name === assignRole);
+      let hasRole = member.roles.find(role => role.name == defaultRole.name);
+      return !hasRole
+    }).map(async (member => {
+      try {
+        logger.verbose("Reminding: " + member.displayName);
+        await (member.send("This is a gentle reminder to verify yourself on this server."));
+        await (member.send("You can follow these steps to verify yourself."));
+        await (sendHelp(member, message.guild.channels.find(channel => channel.name === "bot-spam")))
+      } catch (error) {
+        logger.warn(member + " : " + error)
+      }
+    }))
+  } catch (error) {
     logger.error(error)
   }
 }
