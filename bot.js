@@ -5,6 +5,7 @@ const client = new Discord.Client();
 const logger = require("./log.js").logger
 const constant = require("./constant.js")
 const sendHelp = require("./commands/help").sendHelp
+const actionLog = process.env.ACTION_LOG || "action-log";
 
 const fs = require("fs");
 client.commands = new Discord.Collection();
@@ -45,6 +46,14 @@ client.on("message", (message) => {
 })
 // Start and login the bot
 client.on('guildMemberAdd', member => {
+    logger.info(member.displayName +" joined the server.")
+    let embed = new Discord.RichEmbed()
+      .setColor("#5780cd")
+      .setTitle('Some title')
+      .setDescription(member.displayName + "joined the server.")
+      .setFooter("Date:", message.createdAt.toLocaleString())
+    let sChannel = message.guild.channels.find(c => c.name === actionLog)
+    sChannel.send(embed)
     member.send("Welcome to the server!");
     sendHelp(member,client.channels.find(channel=> channel.name === "bot-spam"))
 
