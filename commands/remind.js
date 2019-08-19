@@ -12,22 +12,28 @@ const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND;
 const sendHelp = require("./help").sendHelp;
 const ignoreList = process.env.REMIND_IGNORE_LIST;
 const guildId = process.env.GUILD_ID;
+const gracePeriod = process.env.GRACE_PERIOD || 30;
 const redis = require("../services/redis.js")
 
 module.exports.run = async (bot, message, args) => {
-  redis.get("REMIND", async(function(err, inCooldown) {
+  redis.get("REMIND", async (function(err, inCooldown) {
     message.delete(2000);
-    // if (inCooldown) return message.channel.send("This command is in cooldown.").then(m => m.delete())
+    const date = new Date();
+    date.setDate(date.getDate() - gracePeriod) // get 30 days old date.
+    if (inCooldown) return message.channel.send("This command is in cooldown.").then(m => m.delete())
     await (redis.setex("REMIND", "REMIND", 604800))
     if (!message.member.hasPermission(["ADMINISTRATOR"])) return message.channel.send("You do not have permission to perform this command!").then(m => m.delete())
     try {
       let ignoreListArray = ignoreList.trim().split(",")
       let guild = await (bot.guilds.array().find(x => x.id === guildId).fetchMembers())
-      let unVerifedMembers = guild.members.filter(member => !member.user.bot).filter(member => !ignoreListArray.includes(member.user.username)).filter((member, result) => {
-        let hasRole = member.roles.map(role => role.name)
-        console.log(hasRole)
-        return (hasRole.length === 1)
-      })
+      let unVerifedMembers = guild.members.filter(member => !member.user.bot)
+      .filter(function(member) {
+          return member.joinedAt < date
+        })
+      .filter(member => !ignoreListArray.includes(member.user.username)).filter((member, result) => {
+          let hasRole = member.roles.map(role => role.name)
+          return (hasRole.length === 1)
+        })
       logger.info("Sending Reminders to: " + unVerifedMembers.size + " members")
       unVerifedMembers.map(async (member => {
         try {
