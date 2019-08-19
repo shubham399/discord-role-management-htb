@@ -13,6 +13,7 @@ const sendHelp = require("./help").sendHelp
 
 module.exports.run = async (bot, message, args) => {
   message.delete(2000);
+  if(!message.member.hasPermission(["BAN_MEMBERS"])) return message.channel.send("You do not have permission to perform this command!")
   try{
   let unVerifedMembers = message.guild.members.filter(member => !member.user.bot).filter((member, result) => {
     let defaultRole = member.guild.roles.find(r => r.name === assignRole);
