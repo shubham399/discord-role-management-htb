@@ -36,13 +36,17 @@ module.exports.run = async (bot, message, args) => {
     unVerifedMembers.map(async (member => {
       try {
         let shouldRemind = await (redis.get("REMIND_" + member.id));
+        if(!shouldRemind){
         logger.verbose("Reminding: " + member.displayName);
         // await (member.send("This is a gentle reminder to verify yourself on this server."));
         // await (member.send("You can follow these steps to verify yourself."));
         // await (sendHelp(member, message.guild.channels.find(channel => channel.name === "bot-spam")))
         // await (member.send("*Note:* Please verify yourself to not get this message again."));
         await (redis.setex("REMIND_" + member.id, "REMIND", remindPeriod * 3600))
-
+      }
+      else {
+          logger.verbose("Skipping: " + member.displayName);
+      }
       } catch (error) {
         logger.warn(member + " : " + error)
       }
