@@ -29,7 +29,7 @@ module.exports.run = async (bot, message, args) => {
     let defaultRole = member.guild.roles.find(r => r.name === listRole);
     let hasRole = member.roles.find(role => role.name == defaultRole.name);
     return hasRole
-  }).map(member => member.user.username)}`, true)
+  }).map(member => member.displayName)}`, true)
       .addField("**Channels Count:**", `${message.guild.channels.size}`, true)
       .addField("**Role Count:**", `${message.guild.roles.size}`, true)
       .addField("**Role List:**", `${message.guild.roles.map(role=>role.name)}`, true)
