@@ -9,8 +9,8 @@ const actionLog = process.env.ACTION_LOG || "action-log";
 const fs = require("fs");
 
 const Sentry = require('@sentry/node');
-Sentry.init({ dsn: process.env.SENTRY_DNS});
-
+Sentry.init({ dsn: process.env.SENTRY_DSN});
+wat();
 client.commands = new Discord.Collection();
 client.config = new Discord.Collection();
 fs.readdir("./commands/", (err, files) => {
