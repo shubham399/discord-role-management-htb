@@ -51,7 +51,7 @@ client.on('guildMemberAdd', member => {
       .setColor("#5780cd")
       .setTitle('Some title')
       .setDescription(member.displayName + "joined the server.")
-      .setFooter("Date:", message.createdAt.toLocaleString())
+      // .setFooter("Date:", message.createdAt.toLocaleString())
     let sChannel = message.guild.channels.find(c => c.name === actionLog)
     sChannel.send(embed)
     member.send("Welcome to the server!");
