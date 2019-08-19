@@ -1,5 +1,7 @@
 const redisURL = process.env.REDIS_URL;
-var redis = require("redis");
+const redis = require("redis");
+const bluebird = require("bluebird");
+bluebird.promisifyAll(redis);
 const client = redis.createClient(redisURL);
 
 const set = function(key, value) {
@@ -8,11 +10,11 @@ const set = function(key, value) {
 const setex = function (key,value,ttl){
 return client.set(key, value, 'EX', ttl);
 }
-const get = function(key, cb) {
-  client.get(key, cb);
+const get = function(key) {
+  return client.getAsync(key);
 }
 const clean = () =>{
-  client.end(true);
+  return client.end(true);
 }
 
 exports.redis = client;
