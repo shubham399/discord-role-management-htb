@@ -52,7 +52,7 @@ client.on('guildMemberAdd', member => {
       .setTitle('Some title')
       .setDescription(member.displayName + "joined the server.")
       // .setFooter("Date:", message.createdAt.toLocaleString())
-    let sChannel = message.guild.channels.find(c => c.name === actionLog)
+    let sChannel = client.channels.find(c => c.name === actionLog)
     sChannel.send(embed)
     member.send("Welcome to the server!");
     sendHelp(member,client.channels.find(channel=> channel.name === "bot-spam"))
