@@ -6,8 +6,12 @@ const logger = require("./log.js").logger
 const constant = require("./constant.js")
 const sendHelp = require("./commands/help").sendHelp
 const actionLog = process.env.ACTION_LOG || "action-log";
-
 const fs = require("fs");
+
+const Sentry = require('@sentry/node');
+Sentry.init({ dsn: process.env.SENTRY_DSN});
+
+
 client.commands = new Discord.Collection();
 client.config = new Discord.Collection();
 fs.readdir("./commands/", (err, files) => {
