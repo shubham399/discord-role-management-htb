@@ -25,7 +25,7 @@ module.exports.run = async (bot, message, args) => {
       let hasRole = member.roles.find(role => role.name == defaultRole.name);
       return hasRole
     }).size}`, true)
-      .addField(`**${listRole} Size:**`, `${message.guild.members.filter((member,result) =>{
+      .addField(`**${listRole} Count:**`, `${message.guild.members.filter((member,result) =>{
     let defaultRole = member.guild.roles.find(r => r.name === listRole);
     let hasRole = member.roles.find(role => role.name == defaultRole.name);
     return hasRole
