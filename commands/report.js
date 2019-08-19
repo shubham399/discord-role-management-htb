@@ -18,7 +18,7 @@ module.exports.run = async (bot, message, args) => {
    if(!hasRole) return message.channel.send("You don't have permission to Report other users.").then(m => m.delete(5000))
    let reportMember = message.mentions.members.first() || message.guild.members.get(args[0])
    if(message.author.username == reportMember.displayName) return message.channel.send("You cannot report yourself.").then(m => m.delete(5000))
-   let reason = args.slice(2).join(" ");
+   let reason = args.slice(1).join(" ");
    if(!reason) return message.channel.send("You must provide a reason for report.").then(m => m.delete(5000))
    logger.verbose("Report Reason" + reason);
    message.channel.send(`**${reportMember.user.tag}** has been Reported`).then(m => m.delete(5000))

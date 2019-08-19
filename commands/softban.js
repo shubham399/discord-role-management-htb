@@ -19,7 +19,7 @@ module.exports.run = async (bot, message, args) => {
   let banMember = message.mentions.members.first() || message.guild.members.get(args[0])
   if (!banMember) return message.channel.send("Please provide a user to ban!")
 
-  let reason = args.slice(2).join(" ");
+  let reason = args.slice(1).join(" ");
   if (!reason) reason = "No reason given!"
   logger.verbose("Softban Reason" + reason);
   if (!message.guild.me.hasPermission(["BAN_MEMBERS"])) return message.channel.send("I dont have permission to perform this command")
