@@ -9,7 +9,9 @@ const actionLog = process.env.ACTION_LOG || "action-log";
 const fs = require("fs");
 
 const Sentry = require('@sentry/node');
-Sentry.init({ dsn: process.env.SENTRY_DSN});
+Sentry.init({
+  dsn: process.env.SENTRY_DSN
+});
 
 client.commands = new Discord.Collection();
 client.config = new Discord.Collection();
@@ -41,11 +43,17 @@ client.on("message", (message) => {
   if ((message.author.bot || message.channel.type === "dm") && cmd !== "verify") return;
   let args = messageArray.slice(2);
   if (cmd == null) {
-    message.channel.send(constant.default(botTriggerCommand));
+    message.channel.send(constant.default(botTriggerCommand)).then(m=>m.delete(2000));
     return;
   }
   let commandFile = client.commands.get(cmd);
-  if (commandFile) commandFile.run(client, message, args);
+  let config = client.config.get(cmd);
+  if (args.length < config.minargs) {
+    message.delete(2000)
+    message.channel.send("Usage: ```"+config.usage+"```").then(m=>m.delete(2000))
+  } else {
+    if (commandFile) commandFile.run(client, message, args);
+  }
 })
 // Start and login the bot
 client.on('guildMemberAdd', member => {
