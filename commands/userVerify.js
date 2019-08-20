@@ -71,6 +71,7 @@ const verifyUser = async (function(msg, token) {
 const newVerifyUser = async (function(msg, guild, token) {
   try {
     let author = msg.author;
+    await(guild.fetchMembers()))
     let member = guild.members.find(x => x.user.id == author.id)
     let channel = msg.channel;
     let result = await (getHTBRankDetails(channel, author, token));
@@ -92,7 +93,6 @@ const newVerifyUser = async (function(msg, guild, token) {
 
 
 module.exports.run = async (bot, message, args) => {
-  message.delete(2000);
   let token = args.filter(arg => arg.length > 20);
   if (token.length == 0) {
     message.channel.send(constant.invalidToken(message.author));
@@ -100,6 +100,7 @@ module.exports.run = async (bot, message, args) => {
   if (message.channel.type === "dm") {
     newVerifyUser(message, bot.guilds.array().find(x => x.id === guildId), token[0])
   } else {
+    message.delete(2000);
     verifyUser(message, token[0])
   }
 }
