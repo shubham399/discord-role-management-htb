@@ -53,14 +53,19 @@ module.exports.run = async (bot, message, args) => {
         let hasRole = member.roles.map(role => role.name)
         return (hasRole.length === 1)
       })
-    logger.info("Sending Reminders to: " + unVerifedMembers.size + " members")
-    unVerifedMembers.map(async (member => {
+    logger.info("Cleaning account: " + unVerifedMembers.size + " members")
+    for(member of unVerifedMembers)
+    {
       try {
-        member.addRole(deadRole.id)
+        await(member.addRole(deadRole.id))
       } catch (error) {
         logger.warn(member + " : " + error)
       }
-    }))
+    }
+
+    // unVerifedMembers.map(async (member => {
+    //
+    // }))
   } catch (error) {
     logger.error(error)
   }
