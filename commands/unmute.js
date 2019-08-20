@@ -27,7 +27,6 @@ module.exports.run = async (bot, message, args) => {
       return message.channel.send("There is no mute role to remove!")
   }
   //remove role to the mentioned user and also send the user a dm explaing where and why they were unmuted
-  console.log(muterole.name)
   mutee.removeRole(muterole.id).then(() => {
     if(muterole.name === "VerifedMuted")
     {
