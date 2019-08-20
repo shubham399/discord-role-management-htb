@@ -37,5 +37,6 @@ module.exports.run = async (bot, message, args) => {
 module.exports.config = {
   name: "report",
   description: "Report a user to guild staffs.",
-  usage: `${botTriggerCommand} report <username> <Reason>`
+  usage: `${botTriggerCommand} report <username> <Reason>`,
+  minargs: 2
 }

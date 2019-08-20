@@ -45,5 +45,6 @@ module.exports.run = async (bot, message, args) => {
 module.exports.config = {
   name: "unmute",
   description: "Unmutes a member in the discord!",
-  usage: `${botTriggerCommand} unmute <username> <Reason(options)>`
+  usage: `${botTriggerCommand} unmute <username> <Reason(options)>`,
+  minargs: 1
 }

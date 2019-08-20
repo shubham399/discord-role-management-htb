@@ -40,5 +40,6 @@ module.exports.run = async (bot, message, args) => {
 module.exports.config = {
   name: "ban",
   description: "Bans a user from the guild!",
-  usage: `${botTriggerCommand} ban <username> <Reason(options)>`
+  usage: `${botTriggerCommand} ban <username> <Reason(options)>`,
+  minargs: 1
 }

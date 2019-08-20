@@ -26,5 +26,6 @@ module.exports.run = async (bot, message, args) => {
 module.exports.config = {
   name: "usage",
   description: "Get Usage for the bot",
-  usage: `${botTriggerCommand} usage`
+  usage: `${botTriggerCommand} usage`,
+  minargs: 0
 }

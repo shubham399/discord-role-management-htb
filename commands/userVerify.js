@@ -71,7 +71,7 @@ const verifyUser = async (function(msg, token) {
 const newVerifyUser = async (function(msg, guild, token) {
   try {
     let author = msg.author;
-    await(guild.fetchMembers()))
+    await(guild.fetchMembers())
     let member = guild.members.find(x => x.user.id == author.id)
     let channel = msg.channel;
     let result = await (getHTBRankDetails(channel, author, token));
@@ -109,5 +109,6 @@ module.exports.run = async (bot, message, args) => {
 module.exports.config = {
   name: "verify",
   description: "Verify a User",
-  usage: `${botTriggerCommand} verify <htb token>`
+  usage: `${botTriggerCommand} verify <htb token>`,
+  minargs: 1
 }

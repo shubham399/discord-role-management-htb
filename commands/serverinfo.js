@@ -51,5 +51,6 @@ module.exports.run = async (bot, message, args) => {
 module.exports.config = {
   name: "serverinfo",
   description: "Get Server Info.",
-  usage: `${botTriggerCommand} serverinfo`
+  usage: `${botTriggerCommand} serverinfo`,
+  minargs: 0
 }

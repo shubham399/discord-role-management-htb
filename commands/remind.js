@@ -59,5 +59,6 @@ module.exports.run = async (bot, message, args) => {
 module.exports.config = {
   name: "remind",
   description: "Remind users to Verify!",
-  usage: `${botTriggerCommand} remind`
+  usage: `${botTriggerCommand} remind`,
+  minargs: 0
 }

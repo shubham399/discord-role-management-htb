@@ -43,5 +43,6 @@ module.exports.run = async (bot, message, args) => {
 module.exports.config = {
   name: "softban",
   description: "SoftBans a user from the guild!",
-  usage: `${botTriggerCommand} softban <username> <Reason(options)>`
+  usage: `${botTriggerCommand} softban <username> <Reason(options)>`,
+  minargs: 1
 }
