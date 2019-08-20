@@ -18,6 +18,10 @@ const getUserData = (token) => {
 
 const giveRole = function(member, author, channel, hasRole, defaultRole, result, rank, htbprofile) {
   if (!hasRole) {
+    let deadRole = member.roles.find(r => r.name === "DeadAccount")
+    if (deadRole) {
+      await (member.removeRole(deadRole.id))
+    }
     logger.info(author.username + " htb rank is " + rank + " and giving it role " + defaultRole.name);
     member.addRoles([defaultRole]).then(r => {
       htbprofile.send(constant.profile(author, result.user_id)).catch(err => console.error(err))
@@ -71,7 +75,7 @@ const verifyUser = async (function(msg, token) {
 const newVerifyUser = async (function(msg, guild, token) {
   try {
     let author = msg.author;
-    await(guild.fetchMembers())
+    await (guild.fetchMembers())
     let member = guild.members.find(x => x.user.id == author.id)
     let channel = msg.channel;
     let result = await (getHTBRankDetails(channel, author, token));
