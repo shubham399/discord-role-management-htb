@@ -26,6 +26,11 @@ module.exports.run = async (bot, message, args) => {
       let hasRole = member.roles.find(role => role.name == defaultRole.name);
       return hasRole
     }).size}`, true)
+      .addField("**Dead Account Member Count:**", `${message.guild.members.filter(member =>{
+      let defaultRole = member.guild.roles.find(r => r.name === assignRole);
+      let hasRole = member.roles.find(role => role.name == "DeadAccount");
+      return hasRole
+    }).size}`, true)
       .addField(`**${listRole} Count:**`, `${message.guild.members.filter((member,result) =>{
     let defaultRole = member.guild.roles.find(r => r.name === listRole);
     let hasRole = member.roles.find(role => role.name == defaultRole.name);
