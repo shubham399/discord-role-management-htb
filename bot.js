@@ -43,16 +43,20 @@ client.on("message", (message) => {
   if ((message.author.bot || message.channel.type === "dm") && cmd !== "verify") return;
   let args = messageArray.slice(2);
   if (cmd == null) {
-    message.channel.send(constant.default(botTriggerCommand)).then(m=>m.delete(2000));
+    message.channel.send(constant.default(botTriggerCommand)).then(m => m.delete(2000));
     return;
   }
   let commandFile = client.commands.get(cmd);
-  let config = client.config.get(cmd);
-  if (args.length < config.minargs) {
-    message.delete(2000)
-    message.channel.send("Usage: ```"+config.usage+"```").then(m=>m.delete(2000))
+  if (commandFile) {
+    let config = client.config.get(cmd);
+    if (args.length < config.minargs) {
+      message.delete(2000)
+      message.channel.send("Usage: ```" + config.usage + "```").then(m => m.delete(2000))
+    } else {
+      commandFile.run(client, message, args);
+    }
   } else {
-    if (commandFile) commandFile.run(client, message, args);
+    message.channel.send("Invalid command.").then(m => m.delete(2000))
   }
 })
 // Start and login the bot
