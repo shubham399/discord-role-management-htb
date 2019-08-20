@@ -20,10 +20,19 @@ module.exports.run = async (bot, message, args) => {
   let reason = args.slice(1).join(" ");
   if (!reason) reason = "No reason given"
   //define mute role and if the mute role doesnt exist then send a message
-  let muterole = message.guild.roles.find(r => r.name === "Muted")
-  if (!muterole) return message.channel.send("There is no mute role to remove!")
+  let muterole = message.guild.roles.find(r => r.name === "VerifedMuted")
+  if (!muterole) {
+    muterole = message.guild.roles.find(r => r.name === "Muted")
+    if (!muterole)
+      return message.channel.send("There is no mute role to remove!")
+  }
   //remove role to the mentioned user and also send the user a dm explaing where and why they were unmuted
   mutee.removeRole(muterole.id).then(() => {
+    if(muterole.name === "VerifedMuted")
+    {
+      let defaultRole = message.guild.roles.find(r => r.name === assignRole)
+      mutee.addRole(defaultRole.id)
+    }
     mutee.send(`Hello, you have been unmuted in ${message.guild.name} for: ${reason}`).catch(err => console.log(err))
     message.channel.send(`${mutee.user.username} was unmuted!`)
   })

@@ -24,13 +24,18 @@ module.exports.run = async (bot, message, args) => {
   let reason = args.slice(1).join(" ");
   logger.verbose("Mute Reason" + reason);
   if (!reason) reason = "No reason given"
-
+  let muteRoleName = "Muted";
+  let muteVRole = mutee.roles.find(r => r.name === assignRole)
+  if(muteVRole)
+  {
+    muteRoleName = "VerifedMuted";
+  }
   //define mute role and if the mute role doesnt exist then create one
-  let muterole = message.guild.roles.find(r => r.name === "Muted")
+  let muterole = message.guild.roles.find(r => r.name === muteRoleName)
   if (!muterole) {
     try {
       muterole = await message.guild.createRole({
-        name: "Muted",
+        name: muteRoleName,
         color: "#514f48",
         permissions: []
       })
@@ -50,6 +55,9 @@ module.exports.run = async (bot, message, args) => {
 
   //add role to the mentioned user and also send the user a dm explaing where and why they were muted
   mutee.addRole(muterole.id).then(() => {
+    if(muteRoleName === "VerifedMuted"){
+      mutee.removeRole(muteVRole.id)
+    }
     mutee.send(`Hello, you have been muted in ${message.guild.name} for: ${reason}`).catch(err => console.log(err))
     message.channel.send(`${mutee.user.username} was successfully muted.`)
   })
