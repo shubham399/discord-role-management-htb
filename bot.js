@@ -16,10 +16,10 @@ Sentry.init({
 client.commands = new Discord.Collection();
 client.config = new Discord.Collection();
 fs.readdir("./commands/", (err, files) => {
-  if (err) console.log(err)
+  if (err)   logger.error(err)
   let jsfile = files.filter(f => f.split(".").pop() === "js")
   if (jsfile.length <= 0) {
-    return console.log("[LOGS] Couldn't Find Commands!");
+    return logger.warn("[LOGS] Couldn't Find Commands!");
   }
   jsfile.forEach((f, i) => {
     let pull = require(`./commands/${f}`);
@@ -40,7 +40,7 @@ client.on("message", (message) => {
   logger.verbose(messageArray);
   let cmd = messageArray.length > 1 ? messageArray[1].toLowerCase() : null;
   logger.info(message.author.username + " is executing " + cmd);
-  if ((message.author.bot || message.channel.type === "dm") && cmd !== "verify") return;
+  if ((message.author.bot || message.channel.type === "dm") && !(cmd === "verify" || cmd === "non-htb")) return;
   let args = messageArray.slice(2);
   if (cmd == null) {
     message.channel.send(constant.default(botTriggerCommand)).then(m => m.delete(2000));
