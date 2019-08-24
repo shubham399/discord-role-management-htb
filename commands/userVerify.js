@@ -22,8 +22,9 @@ const giveRole = function(member, author, channel, hasRole, defaultRole, result,
     if (deadRole) {
       await (member.removeRole(deadRole.id))
     }
+    let htbrole = member.guild.find(role => role.name.toLowerCase().includes(rank.toLowerCase()))
     logger.info(author.username + " htb rank is " + rank + " and giving it role " + defaultRole.name);
-    member.addRoles([defaultRole]).then(r => {
+    member.addRoles([defaultRole,htbrole]).then(r => {
       htbprofile.send(constant.profile(author, result.user_id)).catch(err => console.error(err))
       channel.send(constant.success(author))
     }).catch((e) => {
