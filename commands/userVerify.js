@@ -17,24 +17,24 @@ const getUserData = (token) => {
 
 
 const giveRole = function(member, author, channel, hasRole, defaultRole, result, rank, htbprofile) {
-  if (!hasRole) {
-    let deadRole = member.roles.find(r => r.name === "DeadAccount")
-    if (deadRole) {
-      await (member.removeRole(deadRole.id))
-    }
-    let htbrole = member.guild.roles.find(role => role.name.toLowerCase().includes(rank.toLowerCase().replace(/\s/gi,"")))
-    logger.info(author.username + " htb rank is " + rank + " and giving it role " + defaultRole.name);
-    member.addRoles([defaultRole,htbrole]).then(r => {
+  let deadRole = member.roles.find(r => r.name === "DeadAccount")
+  if (deadRole) {
+    await (member.removeRole(deadRole.id))
+  }
+  let htbrole = member.guild.roles.find(role => role.name.toLowerCase().includes(rank.toLowerCase().replace(/\s/gi, "")))
+  logger.info(author.username + " htb rank is " + rank + " and giving it role " + defaultRole.name);
+  member.addRoles([defaultRole, htbrole]).then(r => {
+    if (!hasRole) {
       htbprofile.send(constant.profile(author, result.user_id)).catch(err => console.error(err))
       channel.send(constant.success(author))
-    }).catch((e) => {
-      logger.error("Error:" + e);
-      channel.send(constant.unableToaddRole(author))
-    });
-  } else {
-    logger.verbose(author.username + " already have the role.");
-    await (channel.send(constant.alreadyVerified(author)));
-  }
+    } else {
+      logger.verbose(author.username + " already have the role.");
+      await (channel.send(constant.alreadyVerified(author)));
+    }
+  }).catch((e) => {
+    logger.error("Error:" + e);
+    channel.send(constant.unableToaddRole(author))
+  });
 }
 
 const getHTBRankDetails = async (function(channel, author, token) {
