@@ -23,9 +23,11 @@ const giveRole = async (function(member, author, channel, hasDefaultRole, defaul
   }
   let htbrole = member.guild.roles.find(role => role.name.toLowerCase().includes(rank.toLowerCase().replace(/\s/gi, "")))
   logger.info(author.username + " htb rank is " + rank + " and giving it role " + defaultRole.name);
-  let hasHTBRole = member.roles.find(role => htbrole.name == role.name);
-  if (hasHTBRole)
-    await (member.removeRoles([htbrole]))
+  if (!htbrole) {
+    let hasHTBRole = member.roles.find(role => htbrole.name == role.name);
+    if (hasHTBRole)
+      await (member.removeRoles([htbrole]))
+  }
   if (hasDefaultRole)
     await (member.removeRoles([defaultRole]))
   try {
