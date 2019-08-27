@@ -7,14 +7,30 @@ const constant = require("./constant.js")
 const sendHelp = require("./commands/help").sendHelp
 const actionLog = process.env.ACTION_LOG || "action-log";
 const fs = require("fs");
-var cleanup = require('./cleanup').Cleanup(myCleanup);
 
+process.stdin.resume(); //so the program will not close instantly
 
-function myCleanup()
-{
-  client.user.setActivity(`Good Bye`,{ type: 'Playing' })
+function exitHandler(options, exitCode) {
+  logger.info("Cleaning and Exiting");
   client.user.setStatus("offline")
+  client.user.setActivity(`${botTriggerCommand} is not present`, {
+    type: 'Playing'
+  }).then(e => process.exit()).catch(e => process.exit())
 }
+
+//do something when app is closing
+process.on('exit', exitHandler);
+process.on('SIGTERM', exitHandler);
+process.on('SIGTERM', exitHandler);
+process.on('SIGTERM', exitHandler);
+
+//catches ctrl+c event
+process.on('SIGINT', exitHandler);
+
+//catches uncaught exceptions
+process.on('uncaughtException',exitHandler);
+
+
 
 const Sentry = require('@sentry/node');
 Sentry.init({
@@ -24,7 +40,7 @@ Sentry.init({
 client.commands = new Discord.Collection();
 client.config = new Discord.Collection();
 fs.readdir("./commands/", (err, files) => {
-  if (err)   logger.error(err)
+  if (err) logger.error(err)
   let jsfile = files.filter(f => f.split(".").pop() === "js")
   if (jsfile.length <= 0) {
     return logger.warn("[LOGS] Couldn't Find Commands!");
@@ -38,7 +54,9 @@ fs.readdir("./commands/", (err, files) => {
 
 client.on("ready", () => {
   client.user.setStatus("online")
-  client.user.setActivity(`${botTriggerCommand} usage`,{ type: 'Playing' })
+  client.user.setActivity(`${botTriggerCommand} usage`, {
+    type: 'Playing'
+  })
   logger.info(constant.botReady(botTriggerCommand))
 });
 
