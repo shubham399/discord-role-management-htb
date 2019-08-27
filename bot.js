@@ -11,11 +11,18 @@ const fs = require("fs");
 
 
 function exitHandler(options) {
+  // const nclient = new Discord.Client();
+  // nclient.login(token);
   logger.info("Cleaning and Exiting");
-  client.user.setStatus("offline")
-  client.user.setActivity(`${botTriggerCommand} is not present`, {
-    type: 'Playing'
-  }).then(e => process.exit()).catch(e => process.exit())
+    client.user.setActivity(`${botTriggerCommand} is unavailable`, {
+      type: 'Playing'
+    })
+    client.user.setStatus("offline").then(res => {
+      logger.info("Status Changed", res)
+      process.exit();
+    }).catch(err => {
+      logger.error("Cleanup Error", err)
+    })
 }
 
 //do something when app is closing
@@ -26,7 +33,7 @@ process.on('SIGTERM', exitHandler);
 process.on('SIGINT', exitHandler);
 
 //catches uncaught exceptions
-process.on('uncaughtException',exitHandler);
+process.on('uncaughtException', exitHandler);
 
 
 
