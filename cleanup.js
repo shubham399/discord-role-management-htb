@@ -18,6 +18,11 @@ exports.Cleanup = function Cleanup(callback) {
     console.log('Ctrl-C...');
     process.exit(2);
   });
+  process.on('SIGTERM', function () {
+    console.log('Ctrl-C...');
+    process.emit('cleanup');
+    process.exit(2);
+  });
 
   //catch uncaught exceptions, trace, then exit normally
   process.on('uncaughtException', function(e) {
