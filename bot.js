@@ -8,8 +8,6 @@ const sendHelp = require("./commands/help").sendHelp
 const actionLog = process.env.ACTION_LOG || "action-log";
 const fs = require("fs");
 
-process.stdin.resume(); //so the program will not close instantly
-
 function exitHandler(options, exitCode) {
   logger.info("Cleaning and Exiting");
   client.user.setStatus("offline")
