@@ -29,6 +29,7 @@ fs.readdir("./commands/", (err, files) => {
 });
 
 client.on("ready", () => {
+  client.user.setActivity(`${botTriggerCommand} usage`,{ type: 'Playing' })
   logger.info(constant.botReady(botTriggerCommand))
 });
 
@@ -83,7 +84,5 @@ client.on('guildMemberRemove', member => {
   sChannel.send(embed)
 
 });
-
-
 
 client.login(token);
