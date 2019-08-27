@@ -36,6 +36,7 @@ module.exports.run = async (bot, message, args) => {
     unVerifedMembers.map(async (member => {
       try {
         let shouldRemind = await (redis.get("REMIND_" + member.id));
+        logger.verbose("Should Remind" + member.displayName + " is "+shouldRemind);
         if(!shouldRemind){
         logger.info("Sending Reminder to : " + member.displayName);
         await (member.send("This is a gentle reminder to verify yourself on this server."));
