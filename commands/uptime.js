@@ -14,8 +14,8 @@ module.exports.run = async (bot, message, args) => {
   message.delete(2000);
   let uptime = bot.uptime;
   let epoch = (new Date).getTime();
-  var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
-  d.setUTCSeconds(epoch - uptime);
+  let d = new Date(0); // The 0 there is the key, which sets the date to the epoch
+  d.setMilliseconds(epoch - uptime);
   message.channel.send(`${botTriggerCommand} is up since `+d.toUTCString()).then(m=> m.delete(10000))
 }
 
