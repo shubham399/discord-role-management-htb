@@ -8,7 +8,9 @@ const sendHelp = require("./commands/help").sendHelp
 const actionLog = process.env.ACTION_LOG || "action-log";
 const fs = require("fs");
 
-function exitHandler(options, exitCode) {
+
+
+function exitHandler(options) {
   logger.info("Cleaning and Exiting");
   client.user.setStatus("offline")
   client.user.setActivity(`${botTriggerCommand} is not present`, {
@@ -17,11 +19,9 @@ function exitHandler(options, exitCode) {
 }
 
 //do something when app is closing
-process.on('exit', exitHandler);
+// process.on('exit', exitHandler);
+process.stdin.resume();
 process.on('SIGTERM', exitHandler);
-process.on('SIGTERM', exitHandler);
-process.on('SIGTERM', exitHandler);
-
 //catches ctrl+c event
 process.on('SIGINT', exitHandler);
 
