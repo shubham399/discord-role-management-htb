@@ -46,7 +46,7 @@ module.exports.run = async (bot, message, args) => {
         await (redis.setex("REMIND_" + member.id, "REMIND", remindPeriod * 3600))
       }
       else {
-          logger.verbose("Skipping: " + member.displayName);
+          logger.info("Skipping: " + member.displayName);
       }
       } catch (error) {
         logger.warn(member + " : " + error)
