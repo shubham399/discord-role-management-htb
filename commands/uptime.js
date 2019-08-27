@@ -16,7 +16,7 @@ module.exports.run = async (bot, message, args) => {
   let epoch = (new Date).getTime();
   var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
   d.setUTCSeconds(epoch - uptime);
-  message.channel.send(`${botTriggerCommand} is up since `+d.toUTCString())
+  message.channel.send(`${botTriggerCommand} is up since `+d.toUTCString()).then(m=> m.delete(10000))
 }
 
 module.exports.config = {
