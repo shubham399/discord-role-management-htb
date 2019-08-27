@@ -7,6 +7,14 @@ const constant = require("./constant.js")
 const sendHelp = require("./commands/help").sendHelp
 const actionLog = process.env.ACTION_LOG || "action-log";
 const fs = require("fs");
+var cleanup = require('./cleanup').Cleanup(myCleanup);
+
+
+function myCleanup()
+{
+  client.user.setActivity(`Good Bye`,{ type: 'Playing' })
+  client.user.setStatus("offline")
+}
 
 const Sentry = require('@sentry/node');
 Sentry.init({
@@ -29,6 +37,7 @@ fs.readdir("./commands/", (err, files) => {
 });
 
 client.on("ready", () => {
+  client.user.setStatus("online")
   client.user.setActivity(`${botTriggerCommand} usage`,{ type: 'Playing' })
   logger.info(constant.botReady(botTriggerCommand))
 });
