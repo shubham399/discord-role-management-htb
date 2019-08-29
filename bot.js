@@ -109,7 +109,7 @@ client.on('guildMemberAdd', member => {
 client.on('guildMemberRemove', member => {
   logger.info(member.displayName + " joined the server.")
   let embed = new Discord.RichEmbed()
-    .setColor("#5780cd")
+    .setColor("#F14517")
     .setTitle("Member Left.")
     .setDescription(member.displayName + " left the server.")
   let sChannel = client.channels.find(c => c.name === actionLog)
