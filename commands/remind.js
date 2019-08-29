@@ -43,7 +43,8 @@ module.exports.run = async (bot, message, args) => {
         await (member.send("You can follow these steps to verify yourself."));
         await (sendHelp(member, message.guild.channels.find(channel => channel.name === "bot-spam")))
         await (member.send("*Note:* Please verify yourself to not get this message again."));
-        await (redis.setex("REMIND_" + member.id, "REMIND", remindPeriod * 3600))
+        let redisSet = await (redis.setex("REMIND_" + member.id, "REMIND", remindPeriod * 3600))
+        logger.info("RedisSet" + redisSet);
       }
       else {
           logger.verbose("Skipping: " + member.displayName);
