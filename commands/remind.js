@@ -39,11 +39,10 @@ module.exports.run = async (bot, message, args) => {
         logger.verbose("Should Remind" + member.displayName + " is "+shouldRemind);
         if(!shouldRemind){
         logger.info("Sending Reminder to : " + member.displayName);
-        //await (member.send("This is a gentle reminder to verify yourself on this server."));
-        //await (member.send("You can follow these steps to verify yourself."));
-        //await (sendHelp(member, message.guild.channels.find(channel => channel.name === "bot-spam")))
+        await (member.send("This is a gentle reminder to verify yourself on this server."));
+        await (member.send(`Please type ${botTriggerCommand} help to get the steps to verify.`));
         logger.info("send sent");
-        //await (member.send("*Note:* Please verify yourself to not get this message again."));
+        await (member.send("*Note:* Please verify yourself to not get this message again."));
         logger.info("MessageSent");
         let redisSet = await (redis.setex("REMIND_" + member.id, "REMIND", remindPeriod * 3600))
         logger.info("RedisSet" + redisSet);
