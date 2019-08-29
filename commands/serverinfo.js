@@ -3,6 +3,7 @@ const axios = require("axios");
 const R = require('ramda');
 const Discord = require("discord.js");
 const constant = require("../constant.js");
+const uptime = require("./uptime.js");
 const async = require('asyncawait/async');
 const await = require('asyncawait/await');
 const profilePostChannel = process.env.PROFILE_CHANNEL;
@@ -48,6 +49,7 @@ module.exports.run = async (bot, message, args) => {
     await (message.channel.send({
       embed
     }));
+    await (uptime.run(bot, message, args));
   } catch (err) {
     logger.error(err);
   }
