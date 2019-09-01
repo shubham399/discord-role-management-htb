@@ -17,7 +17,7 @@ module.exports.run = async (bot, message, args) => {
   let banMember = message.mentions.members.first() || message.guild.members.get(args[0])
   if (!banMember) return message.channel.send("Please provide a user to ban!")
   if (banMember.id === message.author.id) return message.channel.send('You can\'t ban yourself').then(m => m.delete(5000)); // Check if the user mention or the entered userID is the message author himsmelf
-  if (!message.guild.member(banMember).bannable) return message.reply('You can\'t ban this user because you the bot has not sufficient permissions!').then(m => m.delete(5000)); // Check if the user is bannable with the bot's permissions
+  if (!message.guild.member(banMember).bannable) return message.reply(`You can\'t ban this user. because ${botTriggerCommand} doesnot have sufficient permissions!`).then(m => m.delete(5000)); // Check if the user is bannable with the bot's permissions
   let reason = args.slice(1).join(" ");
   if (!reason) reason = "No reason given!"
   logger.verbose("Softban Reason" + reason);
