@@ -19,13 +19,7 @@ module.exports.run = async (bot, message, args) => {
   if (!reason) reason = "No reason given!"
   logger.verbose("Softban Reason" + reason);
   if (!message.guild.me.hasPermission(["BAN_MEMBERS"])) return message.channel.send("I dont have permission to perform this command")
-  banMember.send(`Hello, you have been banned from ${message.guild.name} for: ${reason}`).then(() =>
-    message.guild.ban(banMember, {
-      days: 1,
-      reason: reason
-    })).catch(err => console.log(err))
-  message.channel.send(`**${banMember.user.tag}** has been banned`).then(m => m.delete(5000))
-  let embed = new Discord.RichEmbed()
+    let embed = new Discord.RichEmbed()
     .setColor("#bc0000")
     .setAuthor(`${message.guild.name} Modlogs`, message.guild.iconURL)
     .addField("Moderation:", "ban")
@@ -34,7 +28,17 @@ module.exports.run = async (bot, message, args) => {
     .addField("Reason:", reason)
     .addField("Date:", message.createdAt.toLocaleString())
   let sChannel = message.guild.channels.find(c => c.name === actionLog)
-  sChannel.send(embed)
+  banMember.send(`Hello, you have been banned from ${message.guild.name} for: ${reason}`).then(() =>
+    message.guild.ban(banMember, {
+      days: 1,
+      reason: reason
+    })).then(msg =>{
+      message.channel.send(`**${banMember.user.tag}** has been banned`).then(m => m.delete(5000))
+      sChannel.send(embed)
+  }).catch(err =>{ 
+    logger.error(err)
+      message.channel.send(`Unable to ban **${banMember.user.tag}**`).then(m => m.delete(5000))
+  })
 }
 
 module.exports.config = {
