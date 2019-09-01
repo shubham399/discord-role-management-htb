@@ -107,7 +107,7 @@ client.on('guildMemberAdd', member => {
 });
 
 client.on('guildMemberRemove', member => {
-  logger.info(member.displayName + " joined the server.")
+  logger.info(member.displayName + " left the server.")
   let embed = new Discord.RichEmbed()
     .setColor("#F14517")
     .setTitle("Member Left.")
