@@ -14,6 +14,7 @@ const listRole = process.env.LIST_ROLE || "STAFF";
 module.exports.run = async (bot, message, args) => {
   message.delete(2000);
   try {
+    let banNumbers = await message.guild.fetchBans()
     let embed = new Discord.RichEmbed()
       .setColor("#5780cd")
       .setTitle("Server Info")
@@ -47,6 +48,7 @@ module.exports.run = async (bot, message, args) => {
       .addField("**Channels Count:**", `${message.guild.channels.size}`, true)
       .addField("**Role Count:**", `${message.guild.roles.size}`, true)
       .addField("**Role List:**", `${message.guild.roles.map(role=>role.name)}`, true)
+      .addField("**Ban Members Size**", `banNumbers.size`, true)
       .setFooter(`${botTriggerCommand}`, bot.user.displayAvatarURL);
     await (message.channel.send({
       embed
