@@ -22,6 +22,7 @@ module.exports.run = async (bot, message, args) => {
       .addField("**Guild Name:**", `${message.guild.name}`, true)
       .addField("**Guild Owner:**", `${message.guild.owner}`, true)
       .addField("**Guild Region:**", `${message.guild.region}`, true)
+      .addField("**Guild Verified:**", `${message.guild.verified}`, true)
       .addField("**Member Count:**", `${message.guild.memberCount}`, true)
       .addField("**Verified Member Count:**", `${message.guild.members.filter(member =>{
       let defaultRole = member.guild.roles.find(r => r.name === assignRole);
