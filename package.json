@@ -9,7 +9,6 @@
     "axios": "^0.19.0",
     "bluebird": "^3.5.5",
     "discord.js": "^11.5.1",
-    "dotenv": "^8.0.0",
     "format": "^0.2.2",
     "http": "0.0.0",
     "ramda": "^0.26.1",
@@ -17,10 +16,13 @@
     "winston": "^3.2.1",
     "xkcd-api": "^1.0.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "dotenv": "^8.1.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node -r dotenv/config bot.js"
+    "start": "node bot.js",
+    "dev": "node -r dotenv/config bot.js"
   },
   "repository": {
     "type": "git",
