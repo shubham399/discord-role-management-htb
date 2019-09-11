@@ -25,6 +25,9 @@ function exitHandler(options) {
       logger.error("Cleanup Error", err)
     })
   }
+  else {
+    process.exit();
+  }
 }
 //do something when app is closing
 // process.on('exit', exitHandler);
@@ -59,13 +62,13 @@ fs.readdir("./commands/", (err, files) => {
 });
 
 client.on("ready", () => {
+    logger.info(constant.botReady(botTriggerCommand))
   if (process.env.NODE_ENV == "production") {
     client.user.setStatus("online")
     client.user.setActivity(`${botTriggerCommand} usage`, {
       type: 'Playing'
     })
   }
-  logger.info(constant.botReady(botTriggerCommand))
 });
 
 client.on("message", (message) => {
