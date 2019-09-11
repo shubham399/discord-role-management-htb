@@ -5,7 +5,7 @@ const client = new Discord.Client();
 const logger = require("./log.js").logger
 const constant = require("./constant.js")
 const sendHelp = require("./commands/help").sendHelp
-const actionLog = process.env.ACTION_LOG || "action-log";
+const sendActionLog = require('./helper/actionLog.js').sendActionLog
 const fs = require("fs");
 
 
@@ -105,8 +105,7 @@ client.on('guildMemberAdd', member => {
     .setColor("#5780cd")
     .setTitle("New User Joined.")
     .setDescription(member.displayName + " joined the server.")
-  let sChannel = client.channels.find(c => c.name === actionLog)
-  sChannel.send(embed)
+  sendActionLog(client,embed)
   member.send("Welcome to the server!");
   sendHelp(member, client.channels.find(channel => channel.name === "bot-spam"))
 
@@ -118,8 +117,7 @@ client.on('guildMemberRemove', member => {
     .setColor("#F14517")
     .setTitle("Member Left.")
     .setDescription(member.displayName + " left the server.")
-  let sChannel = client.channels.find(c => c.name === actionLog)
-  sChannel.send(embed)
+  sendActionLog(client,embed)
 
 });
 
