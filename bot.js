@@ -14,6 +14,7 @@ function exitHandler(options) {
   // const nclient = new Discord.Client();
   // nclient.login(token);
   logger.info("Cleaning and Exiting");
+  if (process.env.NODE_ENV == "production") {
     client.user.setActivity(`${botTriggerCommand} is unavailable`, {
       type: 'Playing'
     })
@@ -23,8 +24,8 @@ function exitHandler(options) {
     }).catch(err => {
       logger.error("Cleanup Error", err)
     })
+  }
 }
-
 //do something when app is closing
 // process.on('exit', exitHandler);
 process.stdin.resume();
@@ -58,10 +59,12 @@ fs.readdir("./commands/", (err, files) => {
 });
 
 client.on("ready", () => {
-  client.user.setStatus("online")
-  client.user.setActivity(`${botTriggerCommand} usage`, {
-    type: 'Playing'
-  })
+  if (process.env.NODE_ENV == "production") {
+    client.user.setStatus("online")
+    client.user.setActivity(`${botTriggerCommand} usage`, {
+      type: 'Playing'
+    })
+  }
   logger.info(constant.botReady(botTriggerCommand))
 });
 
