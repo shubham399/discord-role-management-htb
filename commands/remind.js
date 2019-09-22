@@ -21,42 +21,54 @@ module.exports.run = async (bot, message, args) => {
   const date = new Date();
   date.setDate(date.getDate() - gracePeriod) // get 30 days old date.
   if (!message.member.hasPermission(["ADMINISTRATOR"])) return message.channel.send("You do not have permission to perform this command!").then(m => m.delete())
-  try {
-    let ignoreListArray = ignoreList.trim().split(",")
-    let guild = await (bot.guilds.array().find(x => x.id === guildId).fetchMembers())
-    let unVerifedMembers = guild.members.filter(member => !member.user.bot)
-      .filter(function(member) {
-        return member.joinedAt < date
-      })
-      .filter(member => !ignoreListArray.includes(member.user.username)).filter((member, result) => {
-        let hasRole = member.roles.map(role => role.name)
-        return (hasRole.length === 1)
-      })
-    logger.info("Sending Reminders to: " + unVerifedMembers.size + " members")
-    unVerifedMembers.map(async (member => {
-      try {
-        let shouldRemind = await (redis.get("REMIND_" + member.id));
-        logger.verbose("Should Remind" + member.displayName + " is "+shouldRemind);
-        if(!shouldRemind){
-         let redisSet = await (redis.setex("REMIND_" + member.id, "REMIND", remindPeriod * 3600))
+  let remindMember = message.mentions.members.first() || message.guild.members.get(args[0]);
+  if (!remindMember) {
+    try {
+      let ignoreListArray = ignoreList.trim().split(",")
+      let guild = await (bot.guilds.array().find(x => x.id === guildId).fetchMembers())
+      let unVerifedMembers = guild.members.filter(member => !member.user.bot)
+        .filter(function(member) {
+          return member.joinedAt < date
+        })
+        .filter(member => !ignoreListArray.includes(member.user.username)).filter((member, result) => {
+          let hasRole = member.roles.map(role => role.name)
+          return (hasRole.length === 1)
+        });
+      remindMembers(message, unVerifedMembers);
+    } catch (error) {
+      logger.error(error)
+    }
+  } else {
+    try {
+      remindMembers(message, [remindMember]);
+    } catch (error) {
+      logger.error(error)
+    }
+  }
+}
+
+function remindMembers(message, unVerifedMembers) {
+  unVerifedMembers.map(async (member => {
+    try {
+      let shouldRemind = await (redis.get("REMIND_" + member.id));
+      logger.verbose("Should Remind" + member.displayName + " is " + shouldRemind);
+      if (!shouldRemind) {
+        let redisSet = await (redis.setex("REMIND_" + member.id, "REMIND", remindPeriod * 3600))
         logger.info("Sending Reminder to : " + member.displayName);
         await (member.send("This is a gentle reminder to verify yourself on this server."));
         await (member.send("You can follow these steps to verify yourself."));
         await (sendHelp(member, message.guild.channels.find(channel => channel.name === "bot-spam")))
         await (member.send("*Note:* Please verify yourself to not get this message again."));
-    
+
+      } else {
+        logger.verbose("Skipping: " + member.displayName);
       }
-      else {
-          logger.verbose("Skipping: " + member.displayName);
-      }
-      } catch (error) {
-        logger.warn(member + " : " + error)
-      }
-    }))
-  } catch (error) {
-    logger.error(error)
-  }
+    } catch (error) {
+      logger.warn(member + " : " + error)
+    }
+  }));
 }
+
 
 module.exports.config = {
   name: "remind",
