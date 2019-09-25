@@ -34,6 +34,7 @@ module.exports.run = async (bot, message, args) => {
           let hasRole = member.roles.map(role => role.name)
           retusrn (hasRole.length === 1)
         });
+      if(unVerifedMembers.length >0)
       remindMembers(message, unVerifedMembers,false);
     } catch (error) {
       logger.error(error)
