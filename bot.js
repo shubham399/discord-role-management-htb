@@ -104,7 +104,7 @@ client.on('guildMemberAdd', member => {
   let embed = new Discord.RichEmbed()
     .setColor("#5780cd")
     .setTitle("New User Joined.")
-    .setDescription(member.displayName + " joined the server.")
+    .setDescription(`${member} joined the server`)
   sendActionLog(client,embed)
   member.send("Welcome to the server!");
   sendHelp(member, client.channels.find(channel => channel.name === "bot-spam"))
@@ -116,7 +116,7 @@ client.on('guildMemberRemove', member => {
   let embed = new Discord.RichEmbed()
     .setColor("#F14517")
     .setTitle("Member Left.")
-    .setDescription(member.displayName + " left the server.")
+    .setDescription(`${member} left the server.`)
   sendActionLog(client,embed)
 
 });
