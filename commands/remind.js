@@ -32,22 +32,22 @@ module.exports.run = async (bot, message, args) => {
         })
         .filter(member => !ignoreListArray.includes(member.user.username)).filter((member, result) => {
           let hasRole = member.roles.map(role => role.name)
-          return (hasRole.length === 1)
+          retusrn (hasRole.length === 1)
         });
-      remindMembers(message, unVerifedMembers);
+      remindMembers(message, unVerifedMembers,false);
     } catch (error) {
       logger.error(error)
     }
   } else {
     try {
-      remindMembers(message, [remindMember]);
+      remindMembers(message, [remindMember],true);
     } catch (error) {
       logger.error(error)
     }
   }
 }
 
-function remindMembers(message, unVerifedMembers) {
+function remindMembers(message, unVerifedMembers,status) {
   unVerifedMembers.map(async (member => {
     try {
       let shouldRemind = await (redis.get("REMIND_" + member.id));
@@ -59,9 +59,15 @@ function remindMembers(message, unVerifedMembers) {
         await (member.send("You can follow these steps to verify yourself."));
         await (sendHelp(member, message.guild.channels.find(channel => channel.name === "bot-spam")))
         await (member.send("*Note:* Please verify yourself to not get this message again."));
+        if(status){
+          message.channel.send("Successfully reminded " + member.displayName).then(m=>m.delete(2000)).catch(errr=>{})
+        }
 
       } else {
         logger.verbose("Skipping: " + member.displayName);
+        if(status){
+          message.channel.send("Skipping reminder to " + member.displayName).then(m=>m.delete(2000)).catch(errr=>{})
+        }
       }
     } catch (error) {
       logger.warn(member + " : " + error)
