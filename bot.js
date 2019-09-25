@@ -103,7 +103,7 @@ client.on('guildMemberAdd', member => {
   logger.info(member.displayName + " joined the server.")
   let embed = new Discord.RichEmbed()
     .setColor("#5780cd")
-    .setTitle("New User Joined.")
+    .setTitle("Member Joined.")
     .setDescription(`${member} joined the server`)
   sendActionLog(client,embed)
   member.send("Welcome to the server!");
