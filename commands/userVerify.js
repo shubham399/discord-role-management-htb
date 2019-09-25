@@ -35,7 +35,7 @@ const giveRole = async (function(bot,member, author, channel, hasDefaultRole, de
   try {
     let embed = new Discord.RichEmbed()
       .setColor("#00E500")
-      .setTitle("User Verified:")
+      .setTitle("Member Verified:")
       .setDescription(`${member} has verified with ${rank} htb rank.`)
       sendActionLog(bot,embed)
     await (member.addRoles([defaultRole, htbrole]))
