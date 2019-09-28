@@ -13,6 +13,7 @@ const fs = require("fs");
 function exitHandler(options) {
   // const nclient = new Discord.Client();
   // nclient.login(token);
+  try{
   logger.info("Cleaning and Exiting");
   if (process.env.NODE_ENV == "production") {
     client.user.setActivity(`${botTriggerCommand} is unavailable`, {
@@ -28,6 +29,11 @@ function exitHandler(options) {
   else {
     process.exit();
   }
+}
+catch(e){
+  logger.error(e);
+  process.exit();
+}
 }
 //do something when app is closing
 // process.on('exit', exitHandler);
