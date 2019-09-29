@@ -73,7 +73,7 @@ const newVerifyUser = async (function(msg, guild) {
 
 
 module.exports.run = async (bot, message, args) => {
-  console.log("Executing");
+  logger.verbose("Executing non-htb");
   if (message.channel.type === "dm") {
     newVerifyUser(message, bot.guilds.array().find(x => x.id === guildId))
   } else {
