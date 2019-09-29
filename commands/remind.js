@@ -34,7 +34,7 @@ module.exports.run = async (bot, message, args) => {
         })
         .filter(member => !ignoreListArray.includes(member.user.username)).filter((member, result) => {
           let hasRole = member.roles.map(role => role.name)
-          retusrn (hasRole.length === 1)
+          return (hasRole.length === 1)
         });
       logger.verbose(unVerifedMembers);
       if(unVerifedMembers.length >0)
