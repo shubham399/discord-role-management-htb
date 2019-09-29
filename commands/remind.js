@@ -25,7 +25,9 @@ module.exports.run = async (bot, message, args) => {
   if (!remindMember) {
     try {
       let ignoreListArray = ignoreList.trim().split(",")
+      logger.verbose(ignoreListArray);
       let guild = await (bot.guilds.array().find(x => x.id === guildId).fetchMembers())
+      logger.verbose(guild);
       let unVerifedMembers = guild.members.filter(member => !member.user.bot)
         .filter(function(member) {
           return member.joinedAt < date
@@ -34,16 +36,17 @@ module.exports.run = async (bot, message, args) => {
           let hasRole = member.roles.map(role => role.name)
           retusrn (hasRole.length === 1)
         });
+      logger.verbose(unVerifedMembers);
       if(unVerifedMembers.length >0)
       remindMembers(message, unVerifedMembers,false);
     } catch (error) {
-      logger.error(error)
+      logger.error("unVerifed: "+error)
     }
   } else {
     try {
       remindMembers(message, [remindMember],true);
     } catch (error) {
-      logger.error(error)
+      logger.error("remindMember: "+error)
     }
   }
 }
