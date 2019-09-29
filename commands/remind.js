@@ -37,7 +37,6 @@ module.exports.run = async (bot, message, args) => {
           return (hasRole.length === 1)
         });
       logger.verbose(unVerifedMembers);
-      if(unVerifedMembers.length >0)
       remindMembers(message, unVerifedMembers,false);
     } catch (error) {
       logger.error("unVerifed: "+error)
