@@ -78,6 +78,7 @@ module.exports.run = async (bot, message, args) => {
     newVerifyUser(message, bot.guilds.array().find(x => x.id === guildId))
   } else {
     message.delete(2000);
+    message.channel.send("Please verify from bot dm").then(m => m.delete(2000)).catch(e => logger.error(e));
     // verifyUser(message, token[0])
   }
 }
