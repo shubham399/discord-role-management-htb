@@ -42,7 +42,7 @@ const help = async (user, channel) => {
   let step5 = new Discord.RichEmbed()
     .setColor("#1a85f0")
     .setTitle("If your not an HTB Member.")
-    .setDescription(`Even if your not an HTB Member, You can enjoy in our server, just type \`${{botTriggerCommand}} non-htb\` but... If you decided to be Non-HTB, You don't have access to HTB Discussion or Hints, Anyways you can directly be HTB-Verified When ever you want, All you need to do is, Just follow above Steps`)
+    .setDescription(`Even if your not an HTB Member, You can enjoy in our server, just type \`${botTriggerCommand} non-htb\` but... If you decided to be Non-HTB, You don't have access to HTB Discussion or Hints, Anyways you can directly be HTB-Verified When ever you want, All you need to do is, Just follow above Steps`)
 
 
   await (user.send(welcome));
