@@ -63,8 +63,15 @@ const newVerifyUser = async (function(msg, guild) {
       }
     }
     let hasRole = member.roles.find(role => role.name == nonHTBRole);
+    let htbVerified = member.roles.find(role => role.name == assignRole);
     logger.verbose("HasRole: " + (hasRole != null ? hasRole.name : null))
-    giveRole(member, author, channel, hasRole, nonHTBRoleObj);
+    logger.verbose("htbVerified: " + (htbVerified != null ? htbVerified.name : null))
+    if (!htbVerified) {
+      giveRole(member, author, channel, hasRole, nonHTBRoleObj);
+    }
+    else{
+        await (channel.send(constant.notUpdatedNonHTB(author)));
+    }
   } catch (err) {
     logger.error("New Verify Error:" + err);
   }

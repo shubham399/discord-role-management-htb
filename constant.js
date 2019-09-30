@@ -9,3 +9,4 @@ exports.profile = (author,userid) => `${author} HTB Profile: https://www.hackthe
 exports.success = (author) => `Congratulation! ${author} you are verified now :thumbsup: .`
 exports.unableToaddRole = (author) => `Unable to add role ${author}. Please try again later.`
 exports.alreadyVerified = (author) => `Roles Updated for ${author} :thumbsup:.`
+exports.notUpdatedNonHTB = (author) => `You are already Verified with HTB ${author} :thumbsup:.`
