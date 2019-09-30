@@ -39,11 +39,18 @@ const help = async (user, channel) => {
     .setTitle("Step 4:Enjoy")
     .setDescription("If we are able to verify the token properly we will give you the role :)")
 
+  let step5 = new Discord.RichEmbed()
+    .setColor("#1a85f0")
+    .setTitle("If your not an HTB Member.")
+    .setDescription("Even if your not an HTB Member, You can enjoy in our server, just type ``badgers non-htb`` but... If you decided to be Non-HTB, You don't have access to HTB Discussion or Hints, Anyways you can directly be HTB-Verified When ever you want, All you need to do is, Just follow above Steps   ")
+  
+  
   await (user.send(welcome));
   await (user.send(step1));
   await (user.send(step2));
   await (user.send(step3));
   await (user.send(step4));
+  await (user.send(step5));
 }
 
 module.exports.config = {
