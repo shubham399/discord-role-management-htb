@@ -39,5 +39,6 @@ module.exports.config = {
   name: "report",
   description: "Report a user to guild staffs.",
   usage: `${botTriggerCommand} report <username> <Reason>`,
-  minargs: 2
+  minargs: 2,
+  minPermission: "SEND_MESSAGES"
 }

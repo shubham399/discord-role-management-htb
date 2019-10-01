@@ -46,5 +46,6 @@ module.exports.config = {
   name: "softban",
   description: "SoftBans a user from the guild!",
   usage: `${botTriggerCommand} softban <username> <Reason(options)>`,
-  minargs: 1
+  minargs: 1,
+  minPermission: "BAN_MEMBERS"
 }

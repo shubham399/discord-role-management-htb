@@ -68,9 +68,8 @@ const newVerifyUser = async (function(msg, guild) {
     logger.verbose("htbVerified: " + (htbVerified != null ? htbVerified.name : null))
     if (!htbVerified) {
       giveRole(member, author, channel, hasRole, nonHTBRoleObj);
-    }
-    else{
-        await (channel.send(constant.notUpdatedNonHTB(author)));
+    } else {
+      await (channel.send(constant.notUpdatedNonHTB(author)));
     }
   } catch (err) {
     logger.error("New Verify Error:" + err);
@@ -95,5 +94,6 @@ module.exports.config = {
   name: "non-htb",
   description: "Verify a non-htb member User",
   usage: `${botTriggerCommand} non-htb`,
-  minargs: 0
+  minargs: 0,
+  minPermission: "SEND_MESSAGES"
 }

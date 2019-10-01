@@ -47,5 +47,6 @@ module.exports.config = {
   name: "ban",
   description: "Bans a user from the guild!",
   usage: `${botTriggerCommand} ban <username> <Reason(options)>`,
-  minargs: 1
+  minargs: 1,
+  minPermission: "BAN_MEMBERS"
 }

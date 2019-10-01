@@ -26,8 +26,7 @@ module.exports.run = async (bot, message, args) => {
   if (!reason) reason = "No reason given"
   let muteRoleName = "Muted";
   let muteVRole = mutee.roles.find(r => r.name === assignRole)
-  if(muteVRole)
-  {
+  if (muteVRole) {
     muteRoleName = "VerifedMuted";
   }
   //define mute role and if the mute role doesnt exist then create one
@@ -55,7 +54,7 @@ module.exports.run = async (bot, message, args) => {
 
   //add role to the mentioned user and also send the user a dm explaing where and why they were muted
   mutee.addRole(muterole.id).then(() => {
-    if(muteRoleName === "VerifedMuted"){
+    if (muteRoleName === "VerifedMuted") {
       mutee.removeRole(muteVRole.id)
     }
     mutee.send(`Hello, you have been muted in ${message.guild.name} for: ${reason}`).catch(err => console.log(err))
@@ -82,5 +81,6 @@ module.exports.config = {
   name: "mute",
   description: "Mutes a member in the discord!",
   usage: `${botTriggerCommand} mute <username> <Reason(options)>`,
-  minargs: 1
+  minargs: 1,
+  minPermission: "MANAGE_ROLES"
 }

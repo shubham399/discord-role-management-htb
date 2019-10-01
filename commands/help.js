@@ -57,6 +57,7 @@ module.exports.config = {
   name: "help",
   description: "Send Help About bot",
   usage: `${botTriggerCommand} help`,
-  minargs: 0
+  minargs: 0,
+  minPermission: "SEND_MESSAGES"
 }
 module.exports.sendHelp = help;

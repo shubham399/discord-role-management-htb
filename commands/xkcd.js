@@ -52,5 +52,6 @@ module.exports.config = {
   name: "xkcd",
   description: "Send the latest xkcd comic!",
   usage: `${botTriggerCommand} xkcd <random(optional)>`,
-  minargs: 0
+  minargs: 0,
+  minPermission: "SEND_MESSAGES"
 }
