@@ -10,11 +10,12 @@ const assignRole = process.env.ASSIGN_ROLE;
 const actionLog = process.env.ACTION_LOG || "action-log";
 const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND;
 const reportChannel = process.env.REPORT_CHANNEL;
+const nonHTBRole = process.env.NON_HTB_ROLE || "Non-HTB Verified"
 
 module.exports.run = async (bot, message, args) => {
   message.delete(2000);
   let defaultRole = message.member.guild.roles.find(r => r.name === assignRole);
-  let hasRole = message.member.roles.find(role => role.name == defaultRole.name);
+  let hasRole = message.member.roles.find(role => role.name == defaultRole.name || role.name == nonHTBRole);
   if (!hasRole) return message.channel.send("You don't have permission to Report other users.").then(m => m.delete(5000))
   let reportMember = message.mentions.members.first() || message.guild.members.get(args[0])
   if (message.author.username == reportMember.displayName) return message.channel.send("You cannot report yourself.").then(m => m.delete(5000))
