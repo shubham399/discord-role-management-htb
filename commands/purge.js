@@ -11,7 +11,12 @@ const actionLog = process.env.ACTION_LOG || "action-log";
 const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND
 
 module.exports.run = async (bot, message, args) => {
-  
+  if (!message.member.hasPermission("MANAGE_ROLES") || !message.guild.owner)
+    return message.channel.send("You dont have permission to use this command.");
+  let count = parseInt(args[0]) || 1
+  return message.channel.bulkDelete(count + 1)
+  .then(messages => logger.info(`Bulk deleted ${messages.size} messages`))
+  .catch(logger.error);
 }
 
 
