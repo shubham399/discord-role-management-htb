@@ -28,8 +28,7 @@ module.exports.run = async (bot, message, args) => {
   }
   //remove role to the mentioned user and also send the user a dm explaing where and why they were unmuted
   mutee.removeRole(muterole.id).then(() => {
-    if(muterole.name === "VerifedMuted")
-    {
+    if (muterole.name === "VerifedMuted") {
       let defaultRole = message.guild.roles.find(r => r.name === assignRole)
       mutee.addRole(defaultRole.id)
     }
@@ -55,5 +54,6 @@ module.exports.config = {
   name: "unmute",
   description: "Unmutes a member in the discord!",
   usage: `${botTriggerCommand} unmute <username> <Reason(options)>`,
-  minargs: 1
+  minargs: 1,
+  minPermission: "MANAGE_ROLES"
 }

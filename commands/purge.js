@@ -14,18 +14,18 @@ module.exports.run = async (bot, message, args) => {
   if (!message.member.hasPermission("MANAGE_ROLES") || !message.guild.owner)
     return message.channel.send("You dont have permission to use this command.");
   let count = parseInt(args[0]) || 1
-  if(count > 99)   return message.channel.send("You can only delete 99 messages at a time.").then(m => m.delete(2000));
+  if (count > 99) return message.channel.send("You can only delete 99 messages at a time.").then(m => m.delete(2000));
   return message.channel.bulkDelete(count + 1)
-  .then(messages => {
-    let embed = new Discord.RichEmbed()
-      .setColor("#006ce5")
-      .setTitle("Channel Purged")
-      .setDescription(`${message.author} purged  ${messages.size} messages from ${message.channel.name}`)
-     sendActionLog(bot,embed)
-     logger.info(`Bulk deleted ${messages.size} messages`);
-   })
+    .then(messages => {
+      let embed = new Discord.RichEmbed()
+        .setColor("#006ce5")
+        .setTitle("Channel Purged")
+        .setDescription(`${message.author} purged  ${messages.size} messages from ${message.channel.name}`)
+      sendActionLog(bot, embed)
+      logger.info(`Bulk deleted ${messages.size} messages`);
+    })
 
-  .catch(logger.error);
+    .catch(logger.error);
 }
 
 
@@ -33,5 +33,6 @@ module.exports.config = {
   name: "purge",
   description: "Purge a channel with number of messages",
   usage: `${botTriggerCommand} purge <count>`,
-  minargs: 1
+  minargs: 1,
+  minPermission: "MANAGE_ROLES"
 }

@@ -64,5 +64,6 @@ module.exports.config = {
   name: "serverinfo",
   description: "Get Server Info.",
   usage: `${botTriggerCommand} serverinfo`,
-  minargs: 0
+  minargs: 0,
+  minPermission: "SEND_MESSAGES"
 }

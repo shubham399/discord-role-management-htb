@@ -12,8 +12,9 @@ const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND;
 
 module.exports.run = async (bot, message, args) => {
   message.delete(2000);
+  let highestRole = message.member.highestRole;
   let configs = bot.config.array();
-  // console.log(config)
+  configs = configs.filter(x => highestRole.hasPermission([x.minPermission]))
   let embed = new Discord.RichEmbed()
     .setTitle(`Usage for ${botTriggerCommand} `)
     .setColor("#1a85f0")
@@ -27,5 +28,6 @@ module.exports.config = {
   name: "usage",
   description: "Get Usage for the bot",
   usage: `${botTriggerCommand} usage`,
-  minargs: 0
+  minargs: 0,
+  minPermission: "SEND_MESSAGES"
 }

@@ -54,10 +54,9 @@ module.exports.run = async (bot, message, args) => {
         return (hasRole.length === 1)
       })
     logger.info("Cleaning account: " + unVerifedMembers.size + " members")
-    for(member of unVerifedMembers)
-    {
+    for (member of unVerifedMembers) {
       try {
-        await(member.addRole(deadRole.id))
+        await (member.addRole(deadRole.id))
       } catch (error) {
         logger.warn(member + " : " + error)
       }
@@ -75,5 +74,6 @@ module.exports.config = {
   name: "clean",
   description: "Add DeadAaccount role for account not verifed in 60 days.",
   usage: `${botTriggerCommand} clean`,
-  minargs: 0
+  minargs: 0,
+  minPermission: "ADMINISTRATOR"
 }

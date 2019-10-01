@@ -18,7 +18,7 @@ const getUserData = (token) => {
 };
 
 
-const giveRole = async (function(bot,member, author, channel, hasDefaultRole, defaultRole, result, rank, htbprofile) {
+const giveRole = async (function(bot, member, author, channel, hasDefaultRole, defaultRole, result, rank, htbprofile) {
   let deadRole = member.roles.find(r => r.name === "DeadAccount")
   if (deadRole) {
     await (member.removeRole(deadRole.id))
@@ -37,7 +37,7 @@ const giveRole = async (function(bot,member, author, channel, hasDefaultRole, de
       .setColor("#00E500")
       .setTitle("Member Verified:")
       .setDescription(`${member} has verified with ${rank} htb rank.`)
-      sendActionLog(bot,embed)
+    sendActionLog(bot, embed)
     await (member.addRoles([defaultRole, htbrole]))
     if (!hasDefaultRole) {
       htbprofile.send(constant.profile(author, result.user_id)).catch(err => console.error(err))
@@ -65,7 +65,7 @@ const getHTBRankDetails = async (function(channel, author, token) {
   }
 });
 
-const verifyUser = async (function(bot,msg, token) {
+const verifyUser = async (function(bot, msg, token) {
   try {
     let author = msg.author;
     let member = msg.member;
@@ -79,7 +79,7 @@ const verifyUser = async (function(bot,msg, token) {
       logger.verbose("API Respone: " + JSON.stringify(result));
       logger.verbose("HasRole: " + (hasRole != null ? hasRole.name : null))
       logger.verbose(rank);
-      giveRole(bot,member, author, channel, hasRole, defaultRole, result, rank, htbprofile)
+      giveRole(bot, member, author, channel, hasRole, defaultRole, result, rank, htbprofile)
     }
   } catch (error) {
     logger.error("adding verify:" + error);
@@ -88,7 +88,7 @@ const verifyUser = async (function(bot,msg, token) {
 });
 
 
-const newVerifyUser = async (function(bot,msg, guild, token) {
+const newVerifyUser = async (function(bot, msg, guild, token) {
   try {
     let author = msg.author;
     await (guild.fetchMembers())
@@ -103,7 +103,7 @@ const newVerifyUser = async (function(bot,msg, guild, token) {
       logger.verbose("API Respone: " + JSON.stringify(result));
       logger.verbose("HasRole: " + (hasRole != null ? hasRole.name : null))
       logger.verbose(rank);
-      await (giveRole(bot,member, author, channel, hasRole, defaultRole, result, rank, htbprofile));
+      await (giveRole(bot, member, author, channel, hasRole, defaultRole, result, rank, htbprofile));
     }
   } catch (err) {
     logger.error("New Verify Error:" + err);
@@ -118,10 +118,10 @@ module.exports.run = async (bot, message, args) => {
     message.channel.send(constant.invalidToken(message.author));
   }
   if (message.channel.type === "dm") {
-    newVerifyUser(bot,message, bot.guilds.array().find(x => x.id === guildId), token[0])
+    newVerifyUser(bot, message, bot.guilds.array().find(x => x.id === guildId), token[0])
   } else {
     message.delete(2000);
-    verifyUser(bot,message, token[0])
+    verifyUser(bot, message, token[0])
   }
 }
 
@@ -130,5 +130,6 @@ module.exports.config = {
   name: "verify",
   description: "Verify a User",
   usage: `${botTriggerCommand} verify <htb token>`,
-  minargs: 1
+  minargs: 1,
+  minPermission: "SEND_MESSAGES"
 }
