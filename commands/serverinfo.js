@@ -9,6 +9,7 @@ const await = require('asyncawait/await');
 const profilePostChannel = process.env.PROFILE_CHANNEL;
 const assignRole = process.env.ASSIGN_ROLE;
 const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND;
+const nonHTBRole = process.env.NON_HTB_ROLE || "Non-HTB Verified"
 const listRole = process.env.LIST_ROLE || "STAFF";
 
 module.exports.run = async (bot, message, args) => {
@@ -25,24 +26,24 @@ module.exports.run = async (bot, message, args) => {
       .addField("**Guild Region:**", `${message.guild.region}`, true)
       .addField("**Guild Verified:**", `${message.guild.verified}`, true)
       .addField("**Member Count:**", `${message.guild.memberCount}`, true)
-      .addField("**Verified Member Count:**", `${message.guild.members.filter(member =>{
-      let defaultRole = member.guild.roles.find(r => r.name === assignRole);
-      let hasRole = member.roles.find(role => role.name == defaultRole.name);
+      .addField(`**${assignRole} Count:**`, `${message.guild.members.filter(member =>{
+      let hasRole = member.roles.find(role => role.name == assignRole);
+      return hasRole
+    }).size}`, true)
+      .addField(`**${nonHTBRole} Member Count:**`, `${message.guild.members.filter(member =>{
+      let hasRole = member.roles.find(role => role.name == nonHTBRole);
       return hasRole
     }).size}`, true)
       .addField("**Dead Account Member Count:**", `${message.guild.members.filter(member =>{
-      let defaultRole = member.guild.roles.find(r => r.name === assignRole);
       let hasRole = member.roles.find(role => role.name == "DeadAccount");
       return hasRole
     }).size}`, true)
       .addField(`**${listRole} Count:**`, `${message.guild.members.filter((member,result) =>{
-    let defaultRole = member.guild.roles.find(r => r.name === listRole);
-    let hasRole = member.roles.find(role => role.name == defaultRole.name);
+    let hasRole = member.roles.find(role => role.name == listRole);
     return hasRole
   }).size}`, true)
       .addField(`**${listRole} List:**`, `${message.guild.members.filter((member,result) =>{
-    let defaultRole = member.guild.roles.find(r => r.name === listRole);
-    let hasRole = member.roles.find(role => role.name == defaultRole.name);
+    let hasRole = member.roles.find(role => role.name == listRole);
     return hasRole
   }).map(member => member.displayName)}`, true)
       .addField("**Channels Count:**", `${message.guild.channels.size}`, true)
