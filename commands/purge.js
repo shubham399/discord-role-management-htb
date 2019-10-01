@@ -14,6 +14,7 @@ module.exports.run = async (bot, message, args) => {
   if (!message.member.hasPermission("MANAGE_ROLES") || !message.guild.owner)
     return message.channel.send("You dont have permission to use this command.");
   let count = parseInt(args[0]) || 1
+  if(count > 99)   return message.channel.send("You can only delete 99 messages at a time.").then(m => m.delete(2000));
   return message.channel.bulkDelete(count + 1)
   .then(messages => {
     let embed = new Discord.RichEmbed()
