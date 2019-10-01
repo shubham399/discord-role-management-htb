@@ -7,7 +7,7 @@ const await = require('asyncawait/await');
 const profilePostChannel = process.env.PROFILE_CHANNEL;
 const assignRole = process.env.ASSIGN_ROLE;
 const logger = require("../log.js").logger
-const actionLog = process.env.ACTION_LOG || "action-log";
+const sendActionLog = require('../helper/actionLog.js').sendActionLog
 const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND
 
 module.exports.run = async (bot, message, args) => {
@@ -15,7 +15,11 @@ module.exports.run = async (bot, message, args) => {
     return message.channel.send("You dont have permission to use this command.");
   let count = parseInt(args[0]) || 1
   return message.channel.bulkDelete(count + 1)
-  .then(messages => logger.info(`Bulk deleted ${messages.size} messages`))
+  .then(messages => {
+     sendActionLog(bot,`${message.author} purged  ${messages.size} messages from ${message.channel.name}`)
+     logger.info(`Bulk deleted ${messages.size} messages`);
+   })
+
   .catch(logger.error);
 }
 
