@@ -7,9 +7,9 @@ const constant = require("./constant.js")
 const sendHelp = require("./commands/help").sendHelp
 const sendActionLog = require('./helper/actionLog.js').sendActionLog
 const fs = require("fs");
-
-
-
+const swearjar = require('swearjar');
+const R = require('ramda');
+const alexID = process.env.ALEX_ID;
 function exitHandler(options) {
   // const nclient = new Discord.Client();
   // nclient.login(token);
@@ -78,6 +78,13 @@ client.on("ready", () => {
 });
 
 client.on("message", (message) => {
+  logger.verbose(message.content);
+  let isAlex = R.path(["member","id"],message) === alexID
+  if(swearjar.profane(message.content) && isAlex){
+    message.channel.send(`${message.member} Language`).then(m=>m.delete(3000));
+    message.channel.send(message.member+" said "+ swearjar.censor(message.content))
+    message.delete();
+  }
   let messageArray = message.content.split(" ").filter(x => x !== "");
   if (messageArray.length == 0) return;
   let trigger = messageArray[0].toLowerCase();
