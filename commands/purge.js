@@ -16,7 +16,11 @@ module.exports.run = async (bot, message, args) => {
   let count = parseInt(args[0]) || 1
   return message.channel.bulkDelete(count + 1)
   .then(messages => {
-     sendActionLog(bot,`${message.author} purged  ${messages.size} messages from ${message.channel.name}`)
+    let embed = new Discord.RichEmbed()
+      .setColor("#006ce5")
+      .setTitle("Channel Purged")
+      .setDescription(`${message.author} purged  ${messages.size} messages from ${message.channel.name}`)
+     sendActionLog(bot,embed)
      logger.info(`Bulk deleted ${messages.size} messages`);
    })
 
