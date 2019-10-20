@@ -19,7 +19,11 @@ const getUserData = (token) => {
 
 const giveRole = function(member, author, channel, hasRole, defaultRole) {
   if (!hasRole) {
-    let deadRole = member.roles.find(r => r.name === "DeadAccount")
+    let memberRole = member.roles.find(r => r.name === "Member");
+    if (memberRole) {
+      await (member.removeRole(memberRole.id))
+    }
+    let deadRole = member.roles.find(r => r.name === "DeadAccount");
     if (deadRole) {
       await (member.removeRole(deadRole.id))
     }
