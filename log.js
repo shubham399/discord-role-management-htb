@@ -1,12 +1,13 @@
-const winston = require('winston');
-const level = process.env.LOG_LEVEL || "verbose";
-const os = require("os")
+'use strict'
+const winston = require('winston')
+const level = process.env.LOG_LEVEL || 'verbose'
+const os = require('os')
 const {
   combine,
   timestamp,
   label,
   printf
-} = winston.format;
+} = winston.format
 
 const myFormat = printf(({
   level,
@@ -14,10 +15,9 @@ const myFormat = printf(({
   label,
   timestamp
 }) => {
-  if (typeof message)
-    message = JSON.stringify(message);
-  return `${timestamp} ${label} ${level}: ${message}`;
-});
+  if (typeof message === 'object') { message = JSON.stringify(message) }
+  return `${timestamp} ${label} ${level}: ${message}`
+})
 module.exports.logger = winston.createLogger({
   level: level,
   format: combine(
@@ -39,4 +39,4 @@ module.exports.logger = winston.createLogger({
       )
     })
   ]
-});
+})
