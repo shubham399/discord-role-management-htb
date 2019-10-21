@@ -1,33 +1,25 @@
-const logger = require("../log.js").logger
-const axios = require("axios");
-const R = require('ramda');
-const Discord = require("discord.js");
-const constant = require("../constant.js");
-const async = require('asyncawait/async');
-const await = require('asyncawait/await');
-const profilePostChannel = process.env.PROFILE_CHANNEL;
-const assignRole = process.env.ASSIGN_ROLE;
-const actionLog = process.env.ACTION_LOG || "action-log";
-const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND;
+'use strict'
+const Discord = require('discord.js')
+const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND
 
 module.exports.run = async (bot, message, args) => {
-  message.delete(2000);
-  let highestRole = message.member.highestRole;
-  let configs = bot.config.array();
+  message.delete(2000)
+  const highestRole = message.member.highestRole
+  let configs = bot.config.array()
   configs = configs.filter(x => highestRole.hasPermission([x.minPermission]))
-  let embed = new Discord.RichEmbed()
+  const embed = new Discord.RichEmbed()
     .setTitle(`Usage for ${botTriggerCommand} `)
-    .setColor("#1a85f0")
-  for (config of configs) {
+    .setColor('#1a85f0')
+  for (const config of configs) {
     embed.addField(config.name, config.usage)
   }
   message.channel.send(embed)
 }
 
 module.exports.config = {
-  name: "usage",
-  description: "Get Usage for the bot",
+  name: 'usage',
+  description: 'Get Usage for the bot',
   usage: `${botTriggerCommand} usage`,
   minargs: 0,
-  minPermission: "SEND_MESSAGES"
+  minPermission: 'SEND_MESSAGES'
 }
