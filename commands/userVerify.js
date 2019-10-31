@@ -107,7 +107,9 @@ const newVerifyUser = async function (bot, msg, guild, token) {
 }
 
 module.exports.run = async (bot, message, args) => {
+  logger.verbose("Reaching here");
   const token = args.filter(arg => arg.length > 20)
+  logger.verbose("Token: "+token);
   if (token.length === 0) {
     message.channel.send(constant.invalidToken(message.author))
   }
