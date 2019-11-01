@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "A role management app for discord with HTB",
   "main": "bot.js",
+  "engines":{
+    "node":"10.15.2",
+    "npm":"6.x"
+  },
   "dependencies": {
     "@sentry/node": "^5.6.1",
     "asyncawait": "^1.0.8",
