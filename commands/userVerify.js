@@ -51,7 +51,9 @@ const giveRole = async function (bot, member, author, channel, hasDefaultRole, d
 
 const getHTBRankDetails = async function (channel, author, token) {
   try {
-    return await (getUserData(token)).data
+    let response = await (getUserData(token))
+    logger.verbose(response.data);
+    return response.data;
   } catch (error) {
     logger.error('Axios Error:' + error)
     if (R.path(['response', 'status'], error) === 404) {
@@ -67,7 +69,7 @@ const verifyUser = async function (bot, msg, token) {
     const author = msg.author
     const member = msg.member
     const channel = msg.channel
-    const result = await (getHTBRankDetails(channel, author, token))
+    const result = await (getHTBRankDetails(channel, author, token));
     if (result != null) {
       const rank = result.rank
       const htbprofile = msg.guild.channels.find(channel => channel.name === profilePostChannel)
