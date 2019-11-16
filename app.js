@@ -17,11 +17,13 @@ const constant         = require('./config/constant.js')
 const sendHelp         = require('./commands/help').sendHelp
 const sendActionLog    = require('./helper/actionLog.js').sendActionLog
 const handleMessage    = require('./handlers/message.js')
+const guildMemberHandler    = require('./handlers/guildMember.js')
 const exitHandler    = require('./handlers/exit.js')
 
 const client = new Discord.Client()
 Sentry.init({dsn: SENTRY_DSN})
 
+// Initialize and add all the commands to the client
 function init(client) {
   client.commands = new Discord.Collection()
   client.config = new Discord.Collection()
@@ -38,26 +40,6 @@ function init(client) {
     })
   })
 }
-// Start and login the bot
-client.on('guildMemberAdd', member => {
-  logger.info(member.displayName + ' joined the server.')
-  const embed = new Discord.RichEmbed()
-    .setColor('#5780cd')
-    .setTitle('Member Joined.')
-    .setDescription(`${member} joined the server`)
-  sendActionLog(client, embed)
-  member.send('Welcome to the server!')
-  sendHelp(member, client.channels.find(channel => channel.name === 'bot-spam'))
-})
-
-client.on('guildMemberRemove', member => {
-  logger.info(member.displayName + ' left the server.')
-  const embed = new Discord.RichEmbed()
-    .setColor('#F14517')
-    .setTitle('Member Left.')
-    .setDescription(`${member} left the server.`)
-  sendActionLog(client, embed)
-})
 
 client.login(token);
 
@@ -73,4 +55,5 @@ client.on('ready', () => {
 
 init(client);
 handleMessage(client);
+guildMemberHandler(client);
 exitHandler(client);
