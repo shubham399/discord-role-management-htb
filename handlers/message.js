@@ -7,7 +7,6 @@ const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND
 const logger = require('../log.js').logger;
 
 const handleMessage = (client) => {
-  console.log(":")
   client.on('message', (message) => {
     logger.verbose(message.content)
     const isAlex = R.path(['member', 'id'], message) === alexID
