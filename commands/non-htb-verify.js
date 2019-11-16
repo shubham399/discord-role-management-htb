@@ -1,6 +1,6 @@
 'use strict'
 const logger = require('../log.js').logger
-const constant = require('../constant.js')
+const constant = require('../config/constant.js')
 const assignRole = process.env.ASSIGN_ROLE
 const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND
 const guildId = process.env.GUILD_ID

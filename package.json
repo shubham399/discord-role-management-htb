@@ -27,8 +27,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node bot.js",
-    "dev": "node -r dotenv/config bot.js"
+    "start": "node app.js",
+    "dev": "node -r dotenv/config app.js"
   },
   "repository": {
     "type": "git",

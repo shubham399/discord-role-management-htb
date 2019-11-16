@@ -2,7 +2,7 @@
 const logger = require('../log.js').logger
 const axios = require('axios')
 const R = require('ramda')
-const constant = require('../constant.js')
+const constant = require('../config/constant.js')
 
 const Discord = require('discord.js')
 const sendActionLog = require('../helper/actionLog.js').sendActionLog
