@@ -7,7 +7,7 @@ function handle(client) {
   return function exitHandler(options) {
     try {
       logger.info('Cleaning and Exiting')
-      if (process.env.NODE_ENV === 'uat') {
+      if (process.env.NODE_ENV === 'production') {
         client.user.setActivity(`${botTriggerCommand} is unavailable`, {
           type: 'Playing'
         })
