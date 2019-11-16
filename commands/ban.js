@@ -1,5 +1,5 @@
 'use strict'
-const logger = require('../log').logger
+const log = require('../log')
 const Discord = require('discord.js')
 const actionLog = process.env.ACTION_LOG || 'action-log'
 const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND
@@ -11,7 +11,7 @@ module.exports.run = async (bot, message, args) => {
   if (!banMember) return message.channel.send('Please provide a user to ban!')
   let reason = args.slice(1).join(' ')
   if (!reason) reason = 'No reason given!'
-  logger.verbose('Ban Reason' + reason)
+  log.verbose('Ban Reason' + reason)
   if (banMember.id === message.author.id) return message.channel.send('You can\'t ban yourself').then(m => m.delete(5000)) // Check if the user mention or the entered userID is the message author himsmelf
   if (!message.guild.member(banMember).bannable) return message.reply(`You can't ban this user. because ${botTriggerCommand} doesnot have sufficient permissions!`).then(m => m.delete(5000)) // Check if the user is bannable with the bot's permissions
   if (!message.guild.me.hasPermission(['BAN_MEMBERS'])) return message.channel.send('I dont have permission to perform this command').then(m => m.delete(5000))
@@ -32,7 +32,7 @@ module.exports.run = async (bot, message, args) => {
     message.channel.send(`**${banMember.user.tag}** has been banned`).then(m => m.delete(5000))
     sChannel.send(embed)
   }).catch(err => {
-    logger.error(err)
+    log.error(err)
     message.channel.send(`Unable to ban **${banMember.user.tag}**`).then(m => m.delete(5000))
   })
 }

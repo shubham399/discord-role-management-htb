@@ -1,5 +1,5 @@
 'use strict'
-const logger = require('../log').logger
+const log = require('../log')
 const Discord = require('discord.js')
 const uptime = require('./uptime')
 const assignRole = process.env.ASSIGN_ROLE
@@ -51,7 +51,7 @@ module.exports.run = async (bot, message, args) => {
     }))
     await (uptime.run(bot, message, args))
   } catch (err) {
-    logger.error(err)
+    log.error(err)
   }
 }
 

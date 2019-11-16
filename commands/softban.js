@@ -1,12 +1,12 @@
 'use strict'
-const logger = require('../log').logger
+const log = require('../log')
 const Discord = require('discord.js')
 const actionLog = process.env.ACTION_LOG || 'action-log'
 const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND
 
 module.exports.run = async (bot, message, args) => {
   message.delete(2000)
-  logger.verbose(message.member.hasPermission(['BAN_MEMBERS']))
+  log.verbose(message.member.hasPermission(['BAN_MEMBERS']))
   if (!message.member.hasPermission(['BAN_MEMBERS'])) return message.channel.send('You do not have permission to perform this command!')
   const banMember = message.mentions.members.first() || message.guild.members.get(args[0])
   if (!banMember) return message.channel.send('Please provide a user to ban!')
@@ -14,7 +14,7 @@ module.exports.run = async (bot, message, args) => {
   if (!message.guild.member(banMember).bannable) return message.reply(`You can't ban this user. because ${botTriggerCommand} doesnot have sufficient permissions!`).then(m => m.delete(5000)) // Check if the user is bannable with the bot's permissions
   let reason = args.slice(1).join(' ')
   if (!reason) reason = 'No reason given!'
-  logger.verbose('Softban Reason' + reason)
+  log.verbose('Softban Reason' + reason)
   if (!message.guild.me.hasPermission(['BAN_MEMBERS'])) return message.channel.send('I dont have permission to perform this command')
   banMember.send(`Hello, you have been banned from ${message.guild.name} for: ${reason}`).then(() =>
     message.guild.ban(banMember, {

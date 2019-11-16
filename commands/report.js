@@ -1,5 +1,5 @@
 'use strict'
-const logger = require('../log').logger
+const log = require('../log')
 const Discord = require('discord.js')
 const assignRole = process.env.ASSIGN_ROLE
 const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND
@@ -15,7 +15,7 @@ module.exports.run = async (bot, message, args) => {
   if (message.author.username === reportMember.displayName) return message.channel.send('You cannot report yourself.').then(m => m.delete(5000))
   const reason = args.slice(1).join(' ')
   if (!reason) return message.channel.send('You must provide a reason for report.').then(m => m.delete(5000))
-  logger.verbose('Report Reason' + reason)
+  log.verbose('Report Reason' + reason)
   message.channel.send(`**${reportMember.user.tag}** has been Reported`).then(m => m.delete(5000))
   const embed = new Discord.RichEmbed()
     .setColor('#bc0000')

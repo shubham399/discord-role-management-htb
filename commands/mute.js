@@ -1,7 +1,7 @@
 'use strict'
 const Discord = require('discord.js')
 const assignRole = process.env.ASSIGN_ROLE
-const logger = require('../log').logger
+const log = require('../log')
 const actionLog = process.env.ACTION_LOG || 'action-log'
 const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND
 
@@ -17,7 +17,7 @@ module.exports.run = async (bot, message, args) => {
   if (!mutee) return message.channel.send('Please supply a user to be muted!')
 
   let reason = args.slice(1).join(' ')
-  logger.verbose('Mute Reason' + reason)
+  log.verbose('Mute Reason' + reason)
   if (!reason) reason = 'No reason given'
   let muteRoleName = 'Muted'
   const muteVRole = mutee.roles.find(r => r.name === assignRole)

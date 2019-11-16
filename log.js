@@ -18,7 +18,7 @@ const myFormat = printf(({
   if (typeof message === 'object') { message = JSON.stringify(message) }
   return `${timestamp} ${label} ${level}: ${message}`
 })
-module.exports.logger = winston.createLogger({
+module.exports = winston.createLogger({
   level: level,
   format: combine(
     label({

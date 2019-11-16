@@ -1,5 +1,5 @@
 'use strict'
-const logger = require('../log').logger
+const log = require('../log')
 const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND
 const sendHelp = require('./help').sendHelp
 const ignoreList = process.env.REMIND_IGNORE_LIST
@@ -17,9 +17,9 @@ module.exports.run = async (bot, message, args) => {
   if (!remindMember) {
     try {
       const ignoreListArray = ignoreList.trim().split(',')
-      logger.verbose(ignoreListArray)
+      log.verbose(ignoreListArray)
       const guild = await (bot.guilds.array().find(x => x.id === guildId).fetchMembers())
-      logger.verbose(guild)
+      log.verbose(guild)
       const unVerifedMembers = guild.members.filter(member => !member.user.bot)
         .filter(function (member) {
           return member.joinedAt < date
@@ -28,16 +28,16 @@ module.exports.run = async (bot, message, args) => {
           const hasRole = member.roles.map(role => role.name)
           return (hasRole.length === 1)
         })
-      logger.verbose(unVerifedMembers)
+      log.verbose(unVerifedMembers)
       remindMembers(message, unVerifedMembers, false)
     } catch (error) {
-      logger.error('unVerifed: ' + error)
+      log.error('unVerifed: ' + error)
     }
   } else {
     try {
       remindMembers(message, [remindMember], true)
     } catch (error) {
-      logger.error('remindMember: ' + error)
+      log.error('remindMember: ' + error)
     }
   }
 }
@@ -46,10 +46,10 @@ function remindMembers (message, unVerifedMembers, status) {
   unVerifedMembers.map(async (member) => {
     try {
       const shouldRemind = await (redis.get('REMIND_' + member.id))
-      logger.verbose('Should Remind' + member.displayName + ' is ' + shouldRemind)
+      log.verbose('Should Remind' + member.displayName + ' is ' + shouldRemind)
       if (!shouldRemind) {
         await (redis.setex('REMIND_' + member.id, 'REMIND', remindPeriod * 3600))
-        logger.info('Sending Reminder to : ' + member.displayName)
+        log.info('Sending Reminder to : ' + member.displayName)
         await (member.send('This is a gentle reminder to verify yourself on this server.'))
         await (member.send('You can follow these steps to verify yourself.'))
         await (sendHelp(member, message.guild.channels.find(channel => channel.name === 'bot-spam')))
@@ -58,13 +58,13 @@ function remindMembers (message, unVerifedMembers, status) {
           message.channel.send('Successfully reminded ' + member.displayName).then(m => m.delete(2000)).catch(errr => {})
         }
       } else {
-        logger.verbose('Skipping: ' + member.displayName)
+        log.verbose('Skipping: ' + member.displayName)
         if (status) {
           message.channel.send('Skipping reminder to ' + member.displayName).then(m => m.delete(2000)).catch(errr => {})
         }
       }
     } catch (error) {
-      logger.warn(member + ' : ' + error)
+      log.warn(member + ' : ' + error)
     }
   })
 }

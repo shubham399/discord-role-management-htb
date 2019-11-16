@@ -1,5 +1,5 @@
 'use strict'
-const logger = require('../log').logger
+const log = require('../log')
 const axios = require('axios')
 const R = require('ramda')
 const constant = require('../config/constant')
@@ -12,8 +12,8 @@ const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND
 const guildId = process.env.GUILD_ID
 
 const getUserData = (token) => {
-  logger.verbose(token)
-  logger.verbose(constant.htburl + token)
+  log.verbose(token)
+  log.verbose(constant.htburl + token)
   return axios.get(constant.htburl + token)
 }
 
@@ -23,7 +23,7 @@ const giveRole = async function (bot, member, author, channel, hasDefaultRole, d
     await (member.removeRole(deadRole.id))
   }
   const htbrole = member.guild.roles.find(role => role.name.toLowerCase().includes(rank.toLowerCase().replace(/\s/gi, '')))
-  logger.info(author.username + ' htb rank is ' + rank + ' and giving it role ' + defaultRole.name)
+  log.info(author.username + ' htb rank is ' + rank + ' and giving it role ' + defaultRole.name)
   if (htbrole) {
     const hasHTBRole = member.roles.find(role => htbrole.name === role.name)
     if (hasHTBRole) { await (member.removeRoles([htbrole])) }
@@ -40,11 +40,11 @@ const giveRole = async function (bot, member, author, channel, hasDefaultRole, d
       htbprofile.send(constant.profile(author, result.user_id)).catch(err => console.error(err))
       channel.send(constant.success(author))
     } else {
-      logger.verbose(author.username + ' already have the role.')
+      log.verbose(author.username + ' already have the role.')
       await (channel.send(constant.alreadyVerified(author)))
     }
   } catch (e) {
-    logger.error('Error:' + e)
+    log.error('Error:' + e)
     channel.send(constant.unableToaddRole(author))
   }
 }
@@ -52,10 +52,10 @@ const giveRole = async function (bot, member, author, channel, hasDefaultRole, d
 const getHTBRankDetails = async function (channel, author, token) {
   try {
     let response = await (getUserData(token))
-    logger.verbose(response.data);
+    log.verbose(response.data);
     return response.data;
   } catch (error) {
-    logger.error('Axios Error:' + error)
+    log.error('Axios Error:' + error)
     if (R.path(['response', 'status'], error) === 404) {
       channel.send(constant.invalidToken(author))
     } else {
@@ -75,13 +75,13 @@ const verifyUser = async function (bot, msg, token) {
       const htbprofile = msg.guild.channels.find(channel => channel.name === profilePostChannel)
       const defaultRole = member.guild.roles.find(r => r.name === assignRole)
       const hasRole = member.roles.find(role => role.name === defaultRole.name)
-      logger.verbose('API Respone: ' + JSON.stringify(result))
-      logger.verbose('HasRole: ' + (hasRole != null ? hasRole.name : null))
-      logger.verbose(rank)
+      log.verbose('API Respone: ' + JSON.stringify(result))
+      log.verbose('HasRole: ' + (hasRole != null ? hasRole.name : null))
+      log.verbose(rank)
       giveRole(bot, member, author, channel, hasRole, defaultRole, result, rank, htbprofile)
     }
   } catch (error) {
-    logger.error('adding verify:' + error)
+    log.error('adding verify:' + error)
     msg.author.send(constant.dmFailure('#bot-spam'))
   }
 }
@@ -98,20 +98,20 @@ const newVerifyUser = async function (bot, msg, guild, token) {
       const htbprofile = guild.channels.find(channel => channel.name === profilePostChannel)
       const defaultRole = guild.roles.find(r => r.name === assignRole)
       const hasRole = member.roles.find(role => role.name === defaultRole.name)
-      logger.verbose('API Respone: ' + JSON.stringify(result))
-      logger.verbose('HasRole: ' + (hasRole != null ? hasRole.name : null))
-      logger.verbose(rank)
+      log.verbose('API Respone: ' + JSON.stringify(result))
+      log.verbose('HasRole: ' + (hasRole != null ? hasRole.name : null))
+      log.verbose(rank)
       await (giveRole(bot, member, author, channel, hasRole, defaultRole, result, rank, htbprofile))
     }
   } catch (err) {
-    logger.error('New Verify Error:' + err)
+    log.error('New Verify Error:' + err)
   }
 }
 
 module.exports.run = async (bot, message, args) => {
-  logger.verbose("Reaching here");
+  log.verbose("Reaching here");
   const token = args.filter(arg => arg.length > 20)
-  logger.verbose("Token: "+token);
+  log.verbose("Token: "+token);
   if (token.length === 0) {
     message.channel.send(constant.invalidToken(message.author))
   }

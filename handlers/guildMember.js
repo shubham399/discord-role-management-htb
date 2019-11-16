@@ -1,11 +1,11 @@
 
-const logger           = require('../log').logger
+const log           = require('../log')
 const sendActionLog    = require('../helper/actionLog').sendActionLog
 
 module.exports = function (client){
   // Start and login the bot
   client.on('guildMemberAdd', member => {
-    logger.info(member.displayName + ' joined the server.')
+    log.info(member.displayName + ' joined the server.')
     const embed = new Discord.RichEmbed()
       .setColor('#5780cd')
       .setTitle('Member Joined.')
@@ -16,7 +16,7 @@ module.exports = function (client){
   })
 
   client.on('guildMemberRemove', member => {
-    logger.info(member.displayName + ' left the server.')
+    log.info(member.displayName + ' left the server.')
     const embed = new Discord.RichEmbed()
       .setColor('#F14517')
       .setTitle('Member Left.')

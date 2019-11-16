@@ -4,11 +4,11 @@ const R = require('ramda');
 const alexID = process.env.ALEX_ID
 const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND
 
-const logger = require('../log').logger;
+const log = require('../log');
 
 const handleMessage = (client) => {
   client.on('message', (message) => {
-    logger.verbose(message.content)
+    log.verbose(message.content)
     const isAlex = R.path(['member', 'id'], message) === alexID
     if (swearjar.profane(message.content) && isAlex) {
       message.channel.send(`${message.member} Language`).then(m => m.delete(3000))
@@ -19,9 +19,9 @@ const handleMessage = (client) => {
     if (messageArray.length === 0) return
     const trigger = messageArray[0].toLowerCase()
     if (trigger !== botTriggerCommand) return
-    logger.verbose(messageArray)
+    log.verbose(messageArray)
     const cmd = messageArray.length > 1 ? messageArray[1].toLowerCase() : null
-    logger.info(message.author.username + ' is executing ' + cmd)
+    log.info(message.author.username + ' is executing ' + cmd)
     if ((message.author.bot || message.channel.type === 'dm') && !(cmd === 'verify' || cmd === 'non-htb')) return
     const args = messageArray.slice(2)
     if (cmd === null) {

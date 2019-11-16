@@ -1,6 +1,6 @@
 'use strict'
 const Discord = require('discord.js')
-const logger = require('../log').logger
+const log = require('../log')
 const sendActionLog = require('../helper/actionLog').sendActionLog
 const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND
 
@@ -15,10 +15,10 @@ module.exports.run = async (bot, message, args) => {
         .setTitle('Channel Purged')
         .setDescription(`${message.author} purged  ${messages.size} messages from ${message.channel.name}`)
       sendActionLog(bot, embed)
-      logger.info(`Bulk deleted ${messages.size} messages`)
+      log.info(`Bulk deleted ${messages.size} messages`)
     })
 
-    .catch(logger.error)
+    .catch(log.error)
 }
 
 module.exports.config = {

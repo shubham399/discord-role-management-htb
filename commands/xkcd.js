@@ -1,5 +1,5 @@
 'use strict'
-const logger = require('../log').logger
+const log = require('../log')
 const Discord = require('discord.js')
 const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND
 const xkcd = require('xkcd-api')
@@ -11,7 +11,7 @@ module.exports.run = async (bot, message, args) => {
   if (method === 'random') {
     xkcd.random(function (error, response) {
       if (error) {
-        logger.error('xkcd Error' + error)
+        log.error('xkcd Error' + error)
         message.channel.send('I broke! Try again.')
       } else {
         sendxkcd(bot, message, msg, response)
@@ -20,7 +20,7 @@ module.exports.run = async (bot, message, args) => {
   } else {
     xkcd.latest(function (error, response) {
       if (error) {
-        logger.error('xkcd Error' + error)
+        log.error('xkcd Error' + error)
         message.channel.send('I broke! Try again.')
       } else {
         sendxkcd(bot, message, msg, response)

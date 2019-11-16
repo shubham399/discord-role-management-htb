@@ -12,7 +12,7 @@ const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND
 const SENTRY_DSN        = process.env.SENTRY_DSN
 const alexID            = process.env.ALEX_ID
 
-const logger           = require('./log').logger
+const log           = require('./log')
 const constant         = require('./config/constant')
 const sendHelp         = require('./commands/help').sendHelp
 const sendActionLog    = require('./helper/actionLog').sendActionLog
@@ -28,10 +28,10 @@ function init(client) {
   client.commands = new Discord.Collection()
   client.config = new Discord.Collection()
   fs.readdir('./commands/', (err, files) => {
-    if (err) logger.error(err)
+    if (err) log.error(err)
     const jsfile = files.filter(f => f.split('.').pop() === 'js')
     if (jsfile.length <= 0) {
-      return logger.warn("[LOGS] Couldn't Find Commands!")
+      return log.warn("[LOGS] Couldn't Find Commands!")
     }
     jsfile.forEach((f, i) => {
       const pull = require(`./commands/${f}`)
@@ -44,7 +44,7 @@ function init(client) {
 client.login(token);
 
 client.on('ready', () => {
-  logger.info(constant.botReady(botTriggerCommand))
+  log.info(constant.botReady(botTriggerCommand))
   if (process.env.NODE_ENV === 'production') {
     client.user.setStatus('online')
     client.user.setActivity(`${botTriggerCommand} usage`, {

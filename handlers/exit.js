@@ -1,27 +1,27 @@
 'use strict'
 const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND
 
-const logger = require('../log').logger
+const log = require('../log')
 
 function handle(client) {
   return function exitHandler(options) {
     try {
-      logger.info('Cleaning and Exiting')
+      log.info('Cleaning and Exiting')
       if (process.env.NODE_ENV === 'production') {
         client.user.setActivity(`${botTriggerCommand} is unavailable`, {
           type: 'Playing'
         })
         client.user.setStatus('offline').then(res => {
-          logger.info('Status Changed', res)
+          log.info('Status Changed', res)
           process.exit()
         }).catch(err => {
-          logger.error('Cleanup Error', err)
+          log.error('Cleanup Error', err)
         })
       } else {
         process.exit()
       }
     } catch (e) {
-      logger.error(e)
+      log.error(e)
       process.exit()
     }
   }

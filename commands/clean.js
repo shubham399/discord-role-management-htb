@@ -1,5 +1,5 @@
 'use strict'
-const logger = require('../log').logger
+const log = require('../log')
 const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND
 const ignoreList = process.env.REMIND_IGNORE_LIST
 const guildId = process.env.GUILD_ID
@@ -42,12 +42,12 @@ module.exports.run = async (bot, message, args) => {
         const hasRole = member.roles.map(role => role.name)
         return (hasRole.length === 1)
       })
-    logger.info('Cleaning account: ' + unVerifedMembers.size + ' members')
+    log.info('Cleaning account: ' + unVerifedMembers.size + ' members')
     for (const member of unVerifedMembers) {
       try {
         await (member.addRole(deadRole.id))
       } catch (error) {
-        logger.warn(member + ' : ' + error)
+        log.warn(member + ' : ' + error)
       }
     }
 
@@ -55,7 +55,7 @@ module.exports.run = async (bot, message, args) => {
     //
     // }))
   } catch (error) {
-    logger.error(error)
+    log.error(error)
   }
 }
 
