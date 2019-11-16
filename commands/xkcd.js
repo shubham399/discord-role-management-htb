@@ -1,8 +1,9 @@
 'use strict'
-const log = require('../log')
-const Discord = require('discord.js')
-const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND
 const xkcd = require('xkcd-api')
+const Discord = require('discord.js')
+const log = require('../log')
+const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND
+const COLORS = require('../config/colors')
 
 module.exports.run = async (bot, message, args) => {
   message.delete(2000)
@@ -31,7 +32,7 @@ module.exports.run = async (bot, message, args) => {
 
 function sendxkcd (bot, message, msg, body) {
   const mEmbed = new Discord.RichEmbed()
-    .setColor('#1a85f0')
+    .setColor(COLORS.VIVID_BLUE)
     .setImage(body.img)
     .setTimestamp()
   message.channel.send({

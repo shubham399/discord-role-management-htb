@@ -3,7 +3,7 @@ const log = require('../log')
 const axios = require('axios')
 const R = require('ramda')
 const constant = require('../config/constant')
-
+const COLORS = require('../config/colors')
 const Discord = require('discord.js')
 const sendActionLog = require('../helper/actionLog').sendActionLog
 const profilePostChannel = process.env.PROFILE_CHANNEL
@@ -31,7 +31,7 @@ const giveRole = async function (bot, member, author, channel, hasDefaultRole, d
   if (hasDefaultRole) { await (member.removeRoles([defaultRole])) }
   try {
     const embed = new Discord.RichEmbed()
-      .setColor('#00E500')
+      .setColor(COLORS.LIME)
       .setTitle('Member Verified:')
       .setDescription(`${member} has verified with ${rank} htb rank.`)
     sendActionLog(bot, embed)
@@ -51,9 +51,9 @@ const giveRole = async function (bot, member, author, channel, hasDefaultRole, d
 
 const getHTBRankDetails = async function (channel, author, token) {
   try {
-    let response = await (getUserData(token))
-    log.verbose(response.data);
-    return response.data;
+    const response = await (getUserData(token))
+    log.verbose(response.data)
+    return response.data
   } catch (error) {
     log.error('Axios Error:' + error)
     if (R.path(['response', 'status'], error) === 404) {
@@ -69,7 +69,7 @@ const verifyUser = async function (bot, msg, token) {
     const author = msg.author
     const member = msg.member
     const channel = msg.channel
-    const result = await (getHTBRankDetails(channel, author, token));
+    const result = await (getHTBRankDetails(channel, author, token))
     if (result != null) {
       const rank = result.rank
       const htbprofile = msg.guild.channels.find(channel => channel.name === profilePostChannel)
@@ -109,9 +109,8 @@ const newVerifyUser = async function (bot, msg, guild, token) {
 }
 
 module.exports.run = async (bot, message, args) => {
-  log.verbose("Reaching here");
   const token = args.filter(arg => arg.length > 20)
-  log.verbose("Token: "+token);
+  log.verbose('Token: ' + token)
   if (token.length === 0) {
     message.channel.send(constant.invalidToken(message.author))
   }

@@ -5,7 +5,7 @@ const assignRole = process.env.ASSIGN_ROLE
 const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND
 const reportChannel = process.env.REPORT_CHANNEL
 const nonHTBRole = process.env.NON_HTB_ROLE || 'Non-HTB Verified'
-
+const COLORS = require('../config/colors')
 module.exports.run = async (bot, message, args) => {
   message.delete(2000)
   const defaultRole = message.member.guild.roles.find(r => r.name === assignRole)
@@ -18,7 +18,7 @@ module.exports.run = async (bot, message, args) => {
   log.verbose('Report Reason' + reason)
   message.channel.send(`**${reportMember.user.tag}** has been Reported`).then(m => m.delete(5000))
   const embed = new Discord.RichEmbed()
-    .setColor('#bc0000')
+    .setColor(COLORS.DARK_RED)
     .setAuthor(`${message.guild.name}`, message.guild.iconURL)
     .addField('Reported By:', message.author.username)
     .addField('User: ', reportMember.displayName)

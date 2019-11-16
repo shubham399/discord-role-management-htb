@@ -1,8 +1,9 @@
 'use strict'
-const log = require('../log')
 const Discord = require('discord.js')
 const actionLog = process.env.ACTION_LOG || 'action-log'
 const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND
+const COLORS = require('../config/colors')
+const log = require('../log')
 
 module.exports.run = async (bot, message, args) => {
   message.delete(2000)
@@ -16,7 +17,7 @@ module.exports.run = async (bot, message, args) => {
   if (!message.guild.member(banMember).bannable) return message.reply(`You can't ban this user. because ${botTriggerCommand} doesnot have sufficient permissions!`).then(m => m.delete(5000)) // Check if the user is bannable with the bot's permissions
   if (!message.guild.me.hasPermission(['BAN_MEMBERS'])) return message.channel.send('I dont have permission to perform this command').then(m => m.delete(5000))
   const embed = new Discord.RichEmbed()
-    .setColor('#bc0000')
+    .setColor(COLORS.DARK_RED)
     .setAuthor(`${message.guild.name} Modlogs`, message.guild.iconURL)
     .addField('Moderation:', 'ban')
     .addField('Moderator:', message.author.username)

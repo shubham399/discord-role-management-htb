@@ -4,6 +4,7 @@ const assignRole = process.env.ASSIGN_ROLE
 const log = require('../log')
 const actionLog = process.env.ACTION_LOG || 'action-log'
 const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND
+const COLORS = require('../config/colors')
 
 module.exports.run = async (bot, message, args) => {
   message.delete(2000)
@@ -30,7 +31,7 @@ module.exports.run = async (bot, message, args) => {
     try {
       muterole = await message.guild.createRole({
         name: muteRoleName,
-        color: '#514f48',
+        color: COLORS.DUNE,
         permissions: []
       })
       message.guild.channels.forEach(async (channel, id) => {

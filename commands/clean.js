@@ -1,9 +1,11 @@
 'use strict'
-const log = require('../log')
 const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND
 const ignoreList = process.env.REMIND_IGNORE_LIST
 const guildId = process.env.GUILD_ID
 const gracePeriod = process.env.DEAD_ACCOUNT_GRACE_PERIOD || 90
+
+const log = require('../log')
+const COLORS = require('../config/colors')
 
 module.exports.run = async (bot, message, args) => {
   message.delete(2000)
@@ -14,7 +16,7 @@ module.exports.run = async (bot, message, args) => {
     try {
       deadRole = await message.guild.createRole({
         name: 'DeadAccount',
-        color: '#514f48',
+        color: COLORS.DUNE,
         permissions: []
       })
       message.guild.channels.forEach(async (channel, id) => {

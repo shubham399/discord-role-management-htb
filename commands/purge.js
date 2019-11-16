@@ -3,7 +3,7 @@ const Discord = require('discord.js')
 const log = require('../log')
 const sendActionLog = require('../helper/actionLog').sendActionLog
 const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND
-
+const COLORS = require('../config/colors')
 module.exports.run = async (bot, message, args) => {
   if (!message.member.hasPermission('MANAGE_ROLES') || !message.guild.owner) { return message.channel.send('You dont have permission to use this command.') }
   const count = parseInt(args[0]) || 1
@@ -11,7 +11,7 @@ module.exports.run = async (bot, message, args) => {
   return message.channel.bulkDelete(count + 1)
     .then(messages => {
       const embed = new Discord.RichEmbed()
-        .setColor('#006ce5')
+        .setColor(COLORS.CYAN_BLUE)
         .setTitle('Channel Purged')
         .setDescription(`${message.author} purged  ${messages.size} messages from ${message.channel.name}`)
       sendActionLog(bot, embed)

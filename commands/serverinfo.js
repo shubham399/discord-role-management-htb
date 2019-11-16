@@ -6,13 +6,13 @@ const assignRole = process.env.ASSIGN_ROLE
 const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND
 const nonHTBRole = process.env.NON_HTB_ROLE || 'Non-HTB Verified'
 const listRole = process.env.LIST_ROLE || 'STAFF'
-
+const COLORS = require('../config/colors')
 module.exports.run = async (bot, message, args) => {
   message.delete(2000)
   try {
     const banNumbers = await message.guild.fetchBans()
     const embed = new Discord.RichEmbed()
-      .setColor('#5780cd')
+      .setColor(COLORS.LIGHT_BLUE)
       .setTitle('Server Info')
       .setThumbnail(message.guild.iconURL)
       .setAuthor(`${message.guild.name} Info`, message.guild.iconURL)

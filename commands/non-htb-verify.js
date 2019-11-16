@@ -1,10 +1,12 @@
 'use strict'
-const log = require('../log')
-const constant = require('../config/constant')
 const assignRole = process.env.ASSIGN_ROLE
 const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND
 const guildId = process.env.GUILD_ID
 const nonHTBRole = process.env.NON_HTB_ROLE || 'Non-HTB Verified'
+
+const COLORS = require('../config/colors')
+const log = require('../log')
+const constant = require('../config/constant')
 
 const giveRole = async function (member, author, channel, hasRole, defaultRole) {
   if (!hasRole) {
@@ -39,7 +41,7 @@ const newVerifyUser = async function (msg, guild) {
       try {
         nonHTBRoleObj = await (guild.createRole({
           name: nonHTBRole,
-          color: '#514f48',
+          color: COLORS.DUNE,
           permissions: []
         }))
         guild.channels.forEach(async (channel, id) => {

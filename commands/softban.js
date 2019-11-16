@@ -3,7 +3,7 @@ const log = require('../log')
 const Discord = require('discord.js')
 const actionLog = process.env.ACTION_LOG || 'action-log'
 const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND
-
+const COLORS = require('../config/colors')
 module.exports.run = async (bot, message, args) => {
   message.delete(2000)
   log.verbose(message.member.hasPermission(['BAN_MEMBERS']))
@@ -25,7 +25,7 @@ module.exports.run = async (bot, message, args) => {
   })).catch(err => console.log(err))
   message.channel.send(`**${banMember.user.tag}** has been banned`).then(m => m.delete(5000))
   const embed = new Discord.RichEmbed()
-    .setColor('#f0d31a')
+    .setColor(COLORS.YELLOW)
     .setAuthor(`${message.guild.name} Modlogs`, message.guild.iconURL)
     .addField('Moderation:', 'SoftBan')
     .addField('Moderator:', message.author.username)

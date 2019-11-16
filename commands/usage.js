@@ -1,7 +1,7 @@
 'use strict'
 const Discord = require('discord.js')
 const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND
-
+const COLORS = require('../config/colors')
 module.exports.run = async (bot, message, args) => {
   message.delete(2000)
   const highestRole = message.member.highestRole
@@ -9,7 +9,7 @@ module.exports.run = async (bot, message, args) => {
   configs = configs.filter(x => highestRole.hasPermission([x.minPermission]))
   const embed = new Discord.RichEmbed()
     .setTitle(`Usage for ${botTriggerCommand} `)
-    .setColor('#1a85f0')
+    .setColor(COLORS.VIVID_BLUE)
   for (const config of configs) {
     embed.addField(config.name, config.usage)
   }
