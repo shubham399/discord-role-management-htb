@@ -1,8 +1,9 @@
+const Discord = require('discord.js')
+const log = require('../log')
+const sendActionLog = require('../helper/actionLog').sendActionLog
+const sendHelp = require('../commands/help').sendHelp
 
-const log           = require('../log')
-const sendActionLog    = require('../helper/actionLog').sendActionLog
-
-module.exports = function (client){
+module.exports = client => {
   // Start and login the bot
   client.on('guildMemberAdd', member => {
     log.info(member.displayName + ' joined the server.')

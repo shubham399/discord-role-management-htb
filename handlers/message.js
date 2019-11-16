@@ -1,12 +1,12 @@
 const swearjar = require('swearjar')
-const R = require('ramda');
+const R = require('ramda')
 
 const alexID = process.env.ALEX_ID
 const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND
 
-const log = require('../log');
+const log = require('../log')
 
-const handleMessage = (client) => {
+const handleMessage = (client, constant) => {
   client.on('message', (message) => {
     log.verbose(message.content)
     const isAlex = R.path(['member', 'id'], message) === alexID
@@ -43,4 +43,4 @@ const handleMessage = (client) => {
   })
 }
 
-module.exports = handleMessage;
+module.exports = handleMessage
