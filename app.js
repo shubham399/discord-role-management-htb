@@ -1,21 +1,27 @@
 'use strict'
-const token = process.env.DISCORD_TOKEN
-const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND
-const Discord = require('discord.js')
-const client = new Discord.Client()
-const logger = require('./log.js').logger
-const constant = require('./config/constant.js')
-const sendHelp = require('./commands/help').sendHelp
-const sendActionLog = require('./helper/actionLog.js').sendActionLog
+
 const fs = require('fs')
-const swearjar = require('swearjar')
-const R = require('ramda')
-const alexID = process.env.ALEX_ID
-const Sentry = require('@sentry/node');
+
+const swearjar   = require('swearjar')
+const R          = require('ramda')
+const Discord    = require('discord.js')
+const Sentry     = require('@sentry/node')
+
+const token             = process.env.DISCORD_TOKEN
+const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND
+const SENTRY_DSN        = process.env.SENTRY_DSN
+const alexID            = process.env.ALEX_ID
+
+const logger           = require('./log.js').logger
+const constant         = require('./config/constant.js')
+const sendHelp         = require('./commands/help').sendHelp
+const sendActionLog    = require('./helper/actionLog.js').sendActionLog
+
+const client = new Discord.Client()
+
+
 require('./services/exitHandler.js')()
-Sentry.init({
-  dsn: process.env.SENTRY_DSN
-})
+Sentry.init({dsn: SENTRY_DSN})
 
 function init() {
   client.commands = new Discord.Collection()
