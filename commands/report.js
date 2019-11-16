@@ -1,5 +1,5 @@
 'use strict'
-const logger = require('../log.js').logger
+const logger = require('../log').logger
 const Discord = require('discord.js')
 const assignRole = process.env.ASSIGN_ROLE
 const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND

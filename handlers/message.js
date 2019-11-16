@@ -4,7 +4,7 @@ const R = require('ramda');
 const alexID = process.env.ALEX_ID
 const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND
 
-const logger = require('../log.js').logger;
+const logger = require('../log').logger;
 
 const handleMessage = (client) => {
   client.on('message', (message) => {

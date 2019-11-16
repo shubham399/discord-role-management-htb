@@ -1,11 +1,11 @@
 'use strict'
-const logger = require('../log.js').logger
+const logger = require('../log').logger
 const axios = require('axios')
 const R = require('ramda')
-const constant = require('../config/constant.js')
+const constant = require('../config/constant')
 
 const Discord = require('discord.js')
-const sendActionLog = require('../helper/actionLog.js').sendActionLog
+const sendActionLog = require('../helper/actionLog').sendActionLog
 const profilePostChannel = process.env.PROFILE_CHANNEL
 const assignRole = process.env.ASSIGN_ROLE
 const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND

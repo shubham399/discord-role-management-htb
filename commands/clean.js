@@ -1,5 +1,5 @@
 'use strict'
-const logger = require('../log.js').logger
+const logger = require('../log').logger
 const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND
 const ignoreList = process.env.REMIND_IGNORE_LIST
 const guildId = process.env.GUILD_ID

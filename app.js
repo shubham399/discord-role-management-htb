@@ -12,13 +12,13 @@ const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND
 const SENTRY_DSN        = process.env.SENTRY_DSN
 const alexID            = process.env.ALEX_ID
 
-const logger           = require('./log.js').logger
-const constant         = require('./config/constant.js')
+const logger           = require('./log').logger
+const constant         = require('./config/constant')
 const sendHelp         = require('./commands/help').sendHelp
-const sendActionLog    = require('./helper/actionLog.js').sendActionLog
-const handleMessage    = require('./handlers/message.js')
-const guildMemberHandler    = require('./handlers/guildMember.js')
-const exitHandler    = require('./handlers/exit.js')
+const sendActionLog    = require('./helper/actionLog').sendActionLog
+const handleMessage    = require('./handlers/message')
+const guildMemberHandler    = require('./handlers/guildMember')
+const exitHandler    = require('./handlers/exit')
 
 const client = new Discord.Client()
 Sentry.init({dsn: SENTRY_DSN})

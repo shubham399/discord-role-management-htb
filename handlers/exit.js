@@ -1,7 +1,7 @@
 'use strict'
 const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND
 
-const logger = require('../log.js').logger
+const logger = require('../log').logger
 
 function handle(client) {
   return function exitHandler(options) {

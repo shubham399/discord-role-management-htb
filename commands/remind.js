@@ -1,12 +1,12 @@
 'use strict'
-const logger = require('../log.js').logger
+const logger = require('../log').logger
 const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND
 const sendHelp = require('./help').sendHelp
 const ignoreList = process.env.REMIND_IGNORE_LIST
 const guildId = process.env.GUILD_ID
 const gracePeriod = process.env.GRACE_PERIOD || 30
 const remindPeriod = process.env.REMIND_INTERVAL || 24
-const redis = require('../services/redis.js')
+const redis = require('../services/redis')
 
 module.exports.run = async (bot, message, args) => {
   message.delete(2000)

@@ -1,6 +1,6 @@
 
-const logger           = require('../log.js').logger
-const sendActionLog    = require('../helper/actionLog.js').sendActionLog
+const logger           = require('../log').logger
+const sendActionLog    = require('../helper/actionLog').sendActionLog
 
 module.exports = function (client){
   // Start and login the bot

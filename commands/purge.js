@@ -1,7 +1,7 @@
 'use strict'
 const Discord = require('discord.js')
-const logger = require('../log.js').logger
-const sendActionLog = require('../helper/actionLog.js').sendActionLog
+const logger = require('../log').logger
+const sendActionLog = require('../helper/actionLog').sendActionLog
 const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND
 
 module.exports.run = async (bot, message, args) => {
