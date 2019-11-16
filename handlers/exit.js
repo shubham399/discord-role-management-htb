@@ -30,8 +30,7 @@ function handle(client) {
 module.exports = (client) => {
   process.stdin.resume();
   const exitHandle = handle(client);
-  // 'uncaughtException'
-  ['SIGTERM', 'SIGINT'].map(signal => {
+  ['SIGTERM', 'SIGINT','uncaughtException'].map(signal => {
     process.on(signal, exitHandle)
   })
 }
