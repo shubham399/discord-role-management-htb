@@ -11,3 +11,4 @@ exports.success = (author) => `Congratulation! ${author} you are verified now :t
 exports.unableToaddRole = (author) => `Unable to add role ${author}. Please try again later.`
 exports.alreadyVerified = (author) => `Roles Updated for ${author} :thumbsup:.`
 exports.notUpdatedNonHTB = (author) => `You are already Verified with HTB ${author} :thumbsup:.`
+exports.youtubeapi = (box,key) => `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UCa6eh7gCkpPo5XXUDfygQQA&maxResults=1&q=${box}&key=${key}`
