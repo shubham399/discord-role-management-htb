@@ -12,8 +12,9 @@ const getBoxVideoLink = async (boxname) => {
   let response = await axios.get(constant.youtubeapi(boxname, key))
   let body = response.data;
   let videoId = R.path(["items","0","id","videoId"],body); //body.items[0].id.videoId;
+  let title = R.path(["items","0","snippet","title"],body);
   logger.verbose("Video Id from Response " + videoId);
-  if (videoId) {
+  if (videoId && title.toLowerCase().includes(boxname)) {
     let videoLink = `https://www.youtube.com/watch?v=${videoId}`
     await (redis.setex('IPPSEC_' + boxname, videoLink, 24 * 3600)) //cache it
     logger.info("Sending URL from API call " + videoLink);
