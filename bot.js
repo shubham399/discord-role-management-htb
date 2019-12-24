@@ -1,6 +1,7 @@
 'use strict'
 const token = process.env.DISCORD_TOKEN
 const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND
+let botPrefixList = process.env.BOT_TRIGGER_PREFIX_LIST.split(",")
 const Discord = require('discord.js')
 const client = new Discord.Client()
 const logger = require('./log.js').logger
@@ -74,6 +75,15 @@ client.on('ready', () => {
   }
 })
 
+const isInPrefix = (trigger) => {
+  for (var prefix of botPrefixList) {
+    if (trigger.startsWith(prefix)) {
+      return true;
+    }
+  }
+  return false;
+}
+
 client.on('message', (message) => {
   logger.verbose(message.content)
   const isAlex = R.path(['member', 'id'], message) === alexID
@@ -85,12 +95,16 @@ client.on('message', (message) => {
   const messageArray = message.content.split(' ').filter(x => x !== '')
   if (messageArray.length === 0) return
   const trigger = messageArray[0].toLowerCase()
-  if (trigger !== botTriggerCommand) return
+  let inPrefix = isInPrefix(trigger);
+  console.log(trigger.startsWith('!'));
+  console.log(inPrefix);
+  if ((trigger !== botTriggerCommand) && !inPrefix) return
   logger.verbose(messageArray)
-  const cmd = messageArray.length > 1 ? messageArray[1].toLowerCase() : null
+  const cmd = inPrefix ? trigger.substring(1) : (messageArray.length > 1 ? messageArray[1].toLowerCase() : null)
+  console.log(cmd);
   logger.info(message.author.username + ' is executing ' + cmd)
   if ((message.author.bot || message.channel.type === 'dm') && !(cmd === 'verify' || cmd === 'non-htb')) return
-  const args = messageArray.slice(2)
+  const args = inPrefix ? messageArray.slice(1) : messageArray.slice(2)
   if (cmd === null) {
     message.channel.send(constant.default(botTriggerCommand)).then(m => m.delete(2000))
     return
