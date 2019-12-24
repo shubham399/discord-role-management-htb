@@ -8,7 +8,7 @@ const redis = require('../services/redis.js');
 const logger = require('../log.js').logger
 const R = require('ramda');
 
-const getBoxVideoLink = async (box) => {
+const getBoxVideoLink = async (boxname) => {
   let response = await axios.get(constant.youtubeapi(boxname, key))
   let body = response.data;
   let videoId = R.path(["items","0","id","videoId"],body); //body.items[0].id.videoId;
@@ -26,6 +26,7 @@ const getBoxVideoLink = async (box) => {
 
 module.exports.run = async (bot, message, args) => {
   message.delete(2000);
+  try{
   if (args.length != 1) {
     message.channel.send("Please Provide a box name to search")
   } else {
@@ -43,6 +44,10 @@ module.exports.run = async (bot, message, args) => {
 
     }
   }
+}catch(e)
+{
+  console.error(e);
+}
 }
 
 module.exports.config = {
