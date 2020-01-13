@@ -96,8 +96,6 @@ client.on('message', (message) => {
   if (messageArray.length === 0) return
   const trigger = messageArray[0].toLowerCase()
   let inPrefix = isInPrefix(trigger);
-  console.log(trigger.startsWith('!'));
-  console.log(inPrefix);
   if ((trigger !== botTriggerCommand) && !inPrefix) return
   logger.verbose(messageArray)
   const cmd = inPrefix ? trigger.substring(1) : (messageArray.length > 1 ? messageArray[1].toLowerCase() : null)
