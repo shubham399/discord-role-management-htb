@@ -99,7 +99,6 @@ client.on('message', (message) => {
   if ((trigger !== botTriggerCommand) && !inPrefix) return
   logger.verbose(messageArray)
   const cmd = inPrefix ? trigger.substring(1) : (messageArray.length > 1 ? messageArray[1].toLowerCase() : null)
-  console.log(cmd);
   logger.info(message.author.username + ' is executing ' + cmd)
   if ((message.author.bot || message.channel.type === 'dm') && !(cmd === 'verify' || cmd === 'non-htb')) return
   const args = inPrefix ? messageArray.slice(1) : messageArray.slice(2)
