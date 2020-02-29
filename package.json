@@ -19,7 +19,7 @@
     "redis": "^2.8.0",
     "swearjar": "^0.2.0",
     "winston": "^3.2.1",
-    "xkcd-api": "^1.0.1"
+    "xkcd-api": "^1.2.0"
   },
   "devDependencies": {
     "dotenv": "^8.1.0",
