@@ -11,7 +11,7 @@
     "@sentry/node": "^5.13.2",
     "axios": "^0.19.2",
     "bluebird": "^3.7.2",
-    "discord.js": "^11.6.0",
+    "discord.js": "^11.6.2",
     "format": "^0.2.2",
     "http": "0.0.0",
     "ramda": "^0.27.0",
