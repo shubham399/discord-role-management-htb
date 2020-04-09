@@ -48,6 +48,7 @@ Here is the list of Environment Variables
 
 * `YOUTUBE_KEY`: Youtube API key
 
+There are more you will update it later you can find it in the code
 
 ### How to Start ?
 
