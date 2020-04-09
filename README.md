@@ -40,7 +40,7 @@ Here is the list of Environment Variables
 
 * `REDIS_URL`: Redis URL for Caching (Optional) might make some functions not to work properly
 
-* `REMIND_IGNORE_LIST`: List of user whom you don't want to get reminder when running `remind` command
+* `REMIND_IGNORE_LIST`: List of user whom you don't want to send reminder when running `remind` command
 
 * `GRACE_PERIOD`: To only remind someone when if not remined for these many days
 
