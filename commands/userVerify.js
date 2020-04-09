@@ -37,6 +37,7 @@ const giveRole = async function (bot, member, author, channel, hasDefaultRole, d
     sendActionLog(bot, embed)
     await (member.addRoles([defaultRole, htbrole]))
     if (!hasDefaultRole) {
+      if(profilePostChannel) // Send only if the env is set
       htbprofile.send(constant.profile(author, result.user_id)).catch(err => console.error(err))
       channel.send(constant.success(author))
     } else {
