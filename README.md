@@ -17,7 +17,7 @@ Let's get started
 
 * Create an `.env` file to run locally or set ENV variables if running on any `VPS`
 
-  * If you want to host on `Heroku` you can set those value there make sure to keep the `Procfile` to run this always
+  * You need `Procfile` only if you want to run on `heroku`
 
 
 ## Environment variables
