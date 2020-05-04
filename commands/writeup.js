@@ -33,11 +33,7 @@ async function getFilteredRSS(link, boxname) {
             let title = item.title.toLowerCase();
             boxname = boxname.toLowerCase()
             return title.includes(boxname)
-        }).map(({
-            content,
-            contentSnippet,
-            ...rest
-        }) => rest)
+        })
         .map(item => {
             let got = url.parse(item.link);
             let gh = got.hostname;
