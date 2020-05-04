@@ -43,7 +43,7 @@ process.on('SIGTERM', exitHandler)
 process.on('SIGINT', exitHandler)
 
 // catches uncaught exceptions
-process.on('uncaughtException', exitHandler)
+// process.on('uncaughtException', exitHandler)
 
 const Sentry = require('@sentry/node')
 Sentry.init({
