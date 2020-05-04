@@ -10,15 +10,14 @@ const links = process.env.WRITEUP_LINKS.split(',');
 module.exports.run = async (bot, message, args) => {
     message.delete(2000)
     const boxname = args[0];
-    const response = []
+    let response = []
     for (const link of links) {
 
         try {
             let list = await getFilteredRSS(link, boxname);
-            resoponse = response.concat(list)
+            response = response.concat(list)
         } catch (e) {
             logger.error("Error" + e);
-            message.channel.send('I broke! Try again')
         }
     }
     if (response.length > 0)
