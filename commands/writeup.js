@@ -15,7 +15,7 @@ module.exports.run = async (bot, message, args) => {
 
         try {
             let list = await getFilteredRSS(link, boxname);
-            response.concat(list)
+            resoponse = response.concat(list)
         } catch (e) {
             logger.error("Error" + e);
             message.channel.send('I broke! Try again')
