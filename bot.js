@@ -43,7 +43,7 @@ process.on('SIGTERM', exitHandler)
 process.on('SIGINT', exitHandler)
 
 // catches uncaught exceptions
-process.on('uncaughtException', exitHandler)
+// process.on('uncaughtException', exitHandler)
 
 const Sentry = require('@sentry/node')
 Sentry.init({
@@ -100,7 +100,7 @@ client.on('message', (message) => {
   logger.verbose(messageArray)
   const cmd = inPrefix ? trigger.substring(1) : (messageArray.length > 1 ? messageArray[1].toLowerCase() : null)
   logger.info(message.author.username + ' is executing ' + cmd)
-  if ((message.author.bot || message.channel.type === 'dm') && !(cmd === 'verify' || cmd === 'non-htb')) return
+  if ((message.author.bot || message.channel.type === 'dm') && !(cmd === 'verify' || cmd === 'non-htb' || cmd === 'writeup')) return
   const args = inPrefix ? messageArray.slice(1) : messageArray.slice(2)
   if (cmd === null) {
     message.channel.send(constant.default(botTriggerCommand)).then(m => m.delete(2000))

@@ -8,7 +8,7 @@
     "npm": "6.x"
   },
   "dependencies": {
-    "@sentry/node": "^5.15.4",
+    "@sentry/node": "^5.15.5",
     "axios": "^0.19.2",
     "bluebird": "^3.7.2",
     "discord.js": "^11.6.4",
@@ -16,6 +16,7 @@
     "http": "0.0.0",
     "ramda": "^0.27.0",
     "redis": "^3.0.2",
+    "rss-parser": "^3.8.0",
     "swearjar": "^0.2.0",
     "winston": "^3.2.1",
     "xkcd-api": "^1.2.0"
