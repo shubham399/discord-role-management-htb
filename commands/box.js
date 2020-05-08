@@ -10,11 +10,11 @@ module.exports.run = async (bot, message, args) => {
   let boxname = args[0].toLowerCase();
   let category = guild.channels.find(c => c.name.toLowerCase().includes("boxes") && c.type == "category");
   let hints = await guild.createChannel(`${boxname}-hints`,"text");
-  hints.setParent(category.id)
-  hints.lockPermissions();
+  await hints.setParent(category.id)
+  await hints.lockPermissions();
   let discussion = await guild.createChannel(`${boxname}-discussion`,"text");
-  discussion.setParent(category.id)
-  discussion.lockPermissions();
+  await discussion.setParent(category.id)
+  await discussion.lockPermissions();
 }
 
 module.exports.config = {
