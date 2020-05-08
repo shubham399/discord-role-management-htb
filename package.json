@@ -27,7 +27,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node bot.js",
-    "dev": "node -r dotenv/config bot.js"
+    "dev": "nodemon -r dotenv/config bot.js"
   },
   "repository": {
     "type": "git",
