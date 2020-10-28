@@ -13,7 +13,7 @@ module.exports.run = async (bot, message, args) => {
     await channel.lockPermissions()
   } catch (e) {
     logger.error(e.message)
-    message.channel.send(`Unable to archive channel`).then(m => m.delete(5000))
+    message.channel.send('Unable to archive channel').then(m => m.delete(5000))
   }
 }
 
