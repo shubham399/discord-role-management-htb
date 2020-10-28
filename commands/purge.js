@@ -16,9 +16,7 @@ module.exports.run = async (bot, message, args) => {
         .setDescription(`${message.author} purged  ${messages.size} messages from ${message.channel.name}`)
       sendActionLog(bot, embed)
       logger.info(`Bulk deleted ${messages.size} messages`)
-    })
-
-    .catch(logger.error)
+    }).catch(logger.error)
 }
 
 module.exports.config = {

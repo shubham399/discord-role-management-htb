@@ -23,6 +23,7 @@ module.exports.run = async (bot, message, args) => {
     }
   } catch (e) {
     logger.error(e.message)
+    message.channel.send(`Unable to base64 encode/decode string`).then(m => m.delete(5000))
   }
 }
 

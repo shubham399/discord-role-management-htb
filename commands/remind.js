@@ -32,12 +32,14 @@ module.exports.run = async (bot, message, args) => {
       remindMembers(message, unVerifedMembers, false)
     } catch (error) {
       logger.error('unVerifed: ' + error)
+      message.channel.send(error.message).then(m => m.delete(5000))
     }
   } else {
     try {
       remindMembers(message, [remindMember], true)
     } catch (error) {
-      logger.error('remindMember: ' + error)
+      logger.error('remindMember: ' + error.message)
+      message.channel.send(error.message).then(m => m.delete(5000))
     }
   }
 }

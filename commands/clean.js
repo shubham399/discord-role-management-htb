@@ -27,7 +27,7 @@ module.exports.run = async (bot, message, args) => {
         })
       })
     } catch (e) {
-      console.log(e.stack)
+      logger.error(e.message)
     }
   }
   if (!message.member.hasPermission(['ADMINISTRATOR'])) return message.channel.send('You do not have permission to perform this command!').then(m => m.delete())
@@ -55,7 +55,8 @@ module.exports.run = async (bot, message, args) => {
     //
     // }))
   } catch (error) {
-    logger.error(error)
+    logger.error(error.message)
+    message.channel.send(error.message).then(m => m.delete(5000))
   }
 }
 

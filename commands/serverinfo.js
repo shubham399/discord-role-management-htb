@@ -52,7 +52,7 @@ module.exports.run = async (bot, message, args) => {
     }))
     await (uptime.run(bot, message, args))
   } catch (err) {
-    logger.error(err)
+    logger.error(err.message)
   }
 }
 

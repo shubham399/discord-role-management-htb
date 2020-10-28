@@ -65,7 +65,7 @@ const newVerifyUser = async function (msg, guild) {
       await (channel.send(constant.notUpdatedNonHTB(author)))
     }
   } catch (err) {
-    logger.error('New Verify Error:' + err)
+    logger.error('New Verify Error:' + err.message)
   }
 }
 
