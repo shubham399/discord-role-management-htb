@@ -30,9 +30,9 @@ async function getFilteredRSS (link, boxname) {
     return title.includes(boxname)
   })
     .map(item => {
-      const got = url.URL(item.link)
+      const got = url.parse(item.link)
       const gh = got.hostname
-      const original = url.URL(link)
+      const original = url.parse(link)
       const oh = original.hostname
       item.link = item.link.replace(gh, oh)
       return item
