@@ -13,7 +13,7 @@ module.exports.run = async (bot, message, args) => {
     await channel.setParent(category.id)
     await channel.lockPermissions()
   } catch (e) {
-    console.error(e.message)
+    logger.error(e.message)
   }
 }
 
