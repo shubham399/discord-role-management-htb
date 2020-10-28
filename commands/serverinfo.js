@@ -9,6 +9,7 @@ const listRole = process.env.LIST_ROLE || 'STAFF'
 
 module.exports.run = async (bot, message, args) => {
   message.delete(2000)
+  if (!message.member.hasPermission(['BAN_MEMBERS'])) return message.channel.send('You do not have permission to perform this command!').then(m => m.delete())
   try {
     const banNumbers = await message.guild.fetchBans()
     const embed = new Discord.RichEmbed()

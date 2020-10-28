@@ -7,6 +7,7 @@ module.exports.run = async (bot, message, args) => {
   try {
     logger.verbose('Reaching here')
     message.delete(2000)
+    if (!message.member.hasPermission(['SEND_MESSAGES'])) return message.channel.send('You do not have permission to perform this command!').then(m => m.delete())
     logger.info('Args:' + JSON.stringify(args))
     if (args[0].toLowerCase() === 'encode' || args[0].toLowerCase() === 'e') {
       message.channel.send(message.author.toString() + ' here is the base64 string: of `' + args[1] + '` : `' + (Buffer.from(args[1]).toString('base64')) + '`')
