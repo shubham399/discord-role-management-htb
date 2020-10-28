@@ -7,19 +7,19 @@ const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND
 module.exports.run = async (bot, message, args) => {
   message.delete(2000)
   let guild = message.guild;
-  let challenges = args[0].toLowerCase();
-  let category = guild.channels.find(c => c.name.toLowerCase().includes("challenges") && c.type == "category");
+  let endgame = args[0].toLowerCase();
+  let category = guild.channels.find(c => c.name.toLowerCase().includes("endgame") && c.type == "category");
   await hints.setParent(category.id)
   await hints.lockPermissions();
-  let discussion = await guild.createChannel(`${challenges}`,"text");
+  let discussion = await guild.createChannel(`${endgame}`,"text");
   await discussion.setParent(category.id)
   await discussion.lockPermissions();
 }
 
 module.exports.config = {
-  name: 'challenges',
-  description: 'Create a challenges discussion channel.',
-  usage: `${botTriggerCommand} challenges <challenges>`,
+  name: 'endgame',
+  description: 'Create a endgame discussion channel.',
+  usage: `${botTriggerCommand} endgame <endgame>`,
   minargs: 1,
   minPermission: 'BAN_MEMBERS'
 }
