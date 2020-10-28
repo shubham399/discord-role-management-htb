@@ -1,7 +1,7 @@
 'use strict'
 const token = process.env.DISCORD_TOKEN
 const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND
-let botPrefixList = process.env.BOT_TRIGGER_PREFIX_LIST.split(",")
+const botPrefixList = process.env.BOT_TRIGGER_PREFIX_LIST.split(',')
 const Discord = require('discord.js')
 const client = new Discord.Client()
 const logger = require('./log.js').logger
@@ -78,10 +78,10 @@ client.on('ready', () => {
 const isInPrefix = (trigger) => {
   for (var prefix of botPrefixList) {
     if (trigger.startsWith(prefix)) {
-      return true;
+      return true
     }
   }
-  return false;
+  return false
 }
 
 client.on('message', (message) => {
@@ -95,7 +95,7 @@ client.on('message', (message) => {
   const messageArray = message.content.split(' ').filter(x => x !== '')
   if (messageArray.length === 0) return
   const trigger = messageArray[0].toLowerCase()
-  let inPrefix = isInPrefix(trigger);
+  const inPrefix = isInPrefix(trigger)
   if ((trigger !== botTriggerCommand) && !inPrefix) return
   logger.verbose(messageArray)
   const cmd = inPrefix ? trigger.substring(1) : (messageArray.length > 1 ? messageArray[1].toLowerCase() : null)

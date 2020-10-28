@@ -37,8 +37,8 @@ const giveRole = async function (bot, member, author, channel, hasDefaultRole, d
     sendActionLog(bot, embed)
     await (member.addRoles([defaultRole, htbrole]))
     if (!hasDefaultRole) {
-      if(profilePostChannel) // Send only if the env is set
-      htbprofile.send(constant.profile(author, result.user_id)).catch(err => console.error(err))
+      if (profilePostChannel) // Send only if the env is set
+      { htbprofile.send(constant.profile(author, result.user_id)).catch(err => console.error(err)) }
       channel.send(constant.success(author))
     } else {
       logger.verbose(author.username + ' already have the role.')
@@ -52,9 +52,9 @@ const giveRole = async function (bot, member, author, channel, hasDefaultRole, d
 
 const getHTBRankDetails = async function (channel, author, token) {
   try {
-    let response = await (getUserData(token))
-    logger.verbose(response.data);
-    return response.data;
+    const response = await (getUserData(token))
+    logger.verbose(response.data)
+    return response.data
   } catch (error) {
     logger.error('Axios Error:' + error)
     if (R.path(['response', 'status'], error) === 404) {
@@ -70,7 +70,7 @@ const verifyUser = async function (bot, msg, token) {
     const author = msg.author
     const member = msg.member
     const channel = msg.channel
-    const result = await (getHTBRankDetails(channel, author, token));
+    const result = await (getHTBRankDetails(channel, author, token))
     if (result != null) {
       const rank = result.rank
       const htbprofile = msg.guild.channels.find(channel => channel.name === profilePostChannel)
@@ -110,9 +110,9 @@ const newVerifyUser = async function (bot, msg, guild, token) {
 }
 
 module.exports.run = async (bot, message, args) => {
-  logger.verbose("Reaching here");
+  logger.verbose('Reaching here')
   const token = args.filter(arg => arg.length > 20)
-  logger.verbose("Token: "+token);
+  logger.verbose('Token: ' + token)
   if (token.length === 0) {
     message.channel.send(constant.invalidToken(message.author))
   }
