@@ -1,5 +1,4 @@
 'use strict'
-const Discord = require('discord.js')
 const constant = require('../constant.js')
 const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND
 const key = process.env.YOUTUBE_KEY
@@ -27,7 +26,7 @@ const getBoxVideoLink = async (boxname) => {
 module.exports.run = async (bot, message, args) => {
   message.delete(2000)
   try {
-    if (args.length != 1) {
+    if (args.length !== 1) {
       message.channel.send('Please Provide a box name to search')
     } else {
       const boxname = args[0].toLowerCase()

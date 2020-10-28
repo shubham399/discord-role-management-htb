@@ -1,6 +1,5 @@
 'use strict'
 const logger = require('../log.js').logger
-const Discord = require('discord.js')
 const url = require('url')
 const botTriggerCommand = process.env.BOT_TRIGGER_COMMAND
 const Parser = require('rss-parser')
@@ -31,9 +30,9 @@ async function getFilteredRSS (link, boxname) {
     return title.includes(boxname)
   })
     .map(item => {
-      const got = url.parse(item.link)
+      const got = url.URL(item.link)
       const gh = got.hostname
-      const original = url.parse(link)
+      const original = url.URL(link)
       const oh = original.hostname
       item.link = item.link.replace(gh, oh)
       return item

@@ -26,9 +26,13 @@ const giveRole = async function (bot, member, author, channel, hasDefaultRole, d
   logger.info(author.username + ' htb rank is ' + rank + ' and giving it role ' + defaultRole.name)
   if (htbrole) {
     const hasHTBRole = member.roles.find(role => htbrole.name === role.name)
-    if (hasHTBRole) { await (member.removeRoles([htbrole])) }
+    if (hasHTBRole) {
+      await (member.removeRoles([htbrole]))
+    }
   }
-  if (hasDefaultRole) { await (member.removeRoles([defaultRole])) }
+  if (hasDefaultRole) {
+    await (member.removeRoles([defaultRole]))
+  }
   try {
     const embed = new Discord.RichEmbed()
       .setColor('#00E500')
@@ -37,8 +41,9 @@ const giveRole = async function (bot, member, author, channel, hasDefaultRole, d
     sendActionLog(bot, embed)
     await (member.addRoles([defaultRole, htbrole]))
     if (!hasDefaultRole) {
-      if (profilePostChannel) // Send only if the env is set
-      { htbprofile.send(constant.profile(author, result.user_id)).catch(err => console.error(err)) }
+      if (profilePostChannel) { // Send only if the env is set
+        htbprofile.send(constant.profile(author, result.user_id)).catch(err => console.error(err))
+      }
       channel.send(constant.success(author))
     } else {
       logger.verbose(author.username + ' already have the role.')
