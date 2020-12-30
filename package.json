@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@sentry/node": "^5.28.0",
-    "axios": "^0.21.0",
+    "axios": "^0.21.1",
     "bluebird": "^3.7.2",
     "discord.js": "^11.6.4",
     "format": "^0.2.2",
