@@ -95,8 +95,7 @@ const verifyUser = async function (bot, msg, token) {
 const newVerifyUser = async function (bot, msg, guild, token) {
   try {
     const author = msg.author
-    await (guild.fetchMembers())
-    const member = guild.members.find(x => x.user.id === author.id)
+    const member = await guild.fetchMember(msg.author)
     const channel = msg.channel
     const result = await (getHTBRankDetails(channel, author, token))
     if (result != null) {

@@ -31,8 +31,7 @@ const giveRole = async function (member, author, channel, hasRole, defaultRole) 
 const newVerifyUser = async function (msg, guild) {
   try {
     const author = msg.author
-    await (guild.fetchMembers())
-    const member = guild.members.find(x => x.user.id === author.id)
+    const member = await guild.fetchMember(msg.author)
     const channel = msg.channel
     let nonHTBRoleObj = guild.roles.find(r => r.name === nonHTBRole)
     if (!nonHTBRoleObj) {
@@ -70,6 +69,7 @@ const newVerifyUser = async function (msg, guild) {
 }
 
 module.exports.run = async (bot, message, args) => {
+  try{
   logger.verbose('Executing non-htb')
   if (message.channel.type === 'dm') {
     newVerifyUser(message, bot.guilds.array().find(x => x.id === guildId))
@@ -78,6 +78,10 @@ module.exports.run = async (bot, message, args) => {
     message.channel.send('Please verify from bot dm').then(m => m.delete(2000)).catch(e => logger.error(e))
     // verifyUser(message, token[0])
   }
+}
+catch(e){
+    logger.error("Error: ",e.message);
+}
 }
 
 module.exports.config = {
