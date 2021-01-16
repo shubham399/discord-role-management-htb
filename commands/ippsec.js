@@ -26,10 +26,11 @@ const getBoxVideoLink = async (boxname) => {
 module.exports.run = async (bot, message, args) => {
   message.delete(2000)
   try {
-    if (args.length !== 1) {
+    if (args.length > 1) {
       message.channel.send('Please Provide a box name to search')
     } else {
-      const boxname = args[0].toLowerCase().trim()
+      const channelName = message.channel.name.split("-")[0]
+      const boxname = args[0] ? args[0].toLowerCase().trim() : channelName
       const cachedResponse = await redis.get('IPPSEC_' + boxname)
       if (cachedResponse) {
         logger.info('Sending URL from cache' + cachedResponse)
@@ -53,6 +54,6 @@ module.exports.config = {
   name: 'ippsec',
   description: 'Get ippsec video url.!',
   usage: `${botTriggerCommand} ippsec <box>`,
-  minargs: 1,
+  minargs: 0,
   minPermission: 'SEND_MESSAGES'
 }

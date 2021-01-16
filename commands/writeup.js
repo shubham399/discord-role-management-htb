@@ -8,7 +8,8 @@ const links = process.env.WRITEUP_LINKS.split(',')
 
 module.exports.run = async (bot, message, args) => {
   message.delete(2000)
-  const boxname = args[0]
+  const channelName = message.channel.name.split("-")[0]
+  const boxname = args[0] ? args[0].toLowerCase().trim() : channelName
   let response = []
   for (const link of links) {
     try {
@@ -47,6 +48,6 @@ module.exports.config = {
   name: 'writeup',
   description: 'Send Writeup links from the RSS feeds.',
   usage: `${botTriggerCommand} writeup <boxname> `,
-  minargs: 1,
+  minargs: 0,
   minPermission: 'SEND_MESSAGES'
 }
