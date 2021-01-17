@@ -114,7 +114,7 @@ client.on('message', (message) => {
       message.channel.send('Usage: ```' + config.usage + '```').then(m => m.delete(2000))
     } else {
       commandFile.run(client, message, args).then((x)=>{
-          logger.info(x);
+          logger.info(message.author.username + ' Execution completed ' + cmd)
       }).catch(err=>{
           logger.error(err.message)
       })
