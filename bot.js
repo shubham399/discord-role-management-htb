@@ -113,7 +113,11 @@ client.on('message', (message) => {
       message.delete(2000)
       message.channel.send('Usage: ```' + config.usage + '```').then(m => m.delete(2000))
     } else {
-      commandFile.run(client, message, args)
+      commandFile.run(client, message, args).then((x)=>{
+          logger.info(x);
+      }).catch(err=>{
+          logger.error(err.message)
+      })
     }
   } else {
     message.channel.send('Invalid command.').then(m => m.delete(2000))
