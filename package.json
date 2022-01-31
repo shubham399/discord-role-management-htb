@@ -19,7 +19,7 @@
     "redis": "^3.1.2",
     "rss-parser": "^3.12.0",
     "swearjar": "^0.2.0",
-    "winston": "^3.3.3",
+    "winston": "^3.5.1",
     "xkcd-api": "^1.2.0"
   },
   "devDependencies": {
