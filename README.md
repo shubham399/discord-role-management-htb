@@ -110,6 +110,10 @@ Still having issue?
 contact me on discord at `f3v3r#1168`
 
 
+### Badges
+![](https://img.shields.io/github/issues/shubham399/discord-role-management-htb)
+![](https://img.shields.io/github/license/shubham399/discord-role-management-htb)
+
 
 ### Like
 
